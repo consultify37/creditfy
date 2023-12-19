@@ -33,13 +33,13 @@ export default function FonduriComponent({ program, index=0, carousel=false }: P
                 <Link className="py-3 mt-4 bg-[#BA63FF] text-[#fff] flex items-center rounded-[28.5px] font-semibold px-11 text-center sm:px-12 hover:scale-[1.05] transition-all" href={"/Programe/" + program.id}>Aplică acum!</Link>
             </div>
             <div className={'flex flex-col justify-center pt-12 z-[1] ' + (index % 2 === 0 ? 'items-end' : 'items-start')}>
-                <h5 className='text-white font-bold text-sm xl:text-xl mb-2 md:mb-3'>
+                <h5 className={'text-white font-bold text-sm xl:text-xl mb-2 md:mb-3 text-right' + (index % 2 === 0 ? 'text-right' : '') }>
                     {program.text1}
                 </h5>
-                <h4 className='text-white text-xl xl:text-4xl mb-2 md:mb-3 font-extrabold'>
+                <h4 className={'text-white text-xl xl:text-4xl mb-2 md:mb-3 font-extrabold' + (index % 2 === 0 ? 'text-right' : '')}>
                     { program.text2 }
                 </h4>
-                <h6 className='text-white text-xl xl:text-4xl md:mb-3 font-extrabold'>
+                <h6 className={'text-white text-xl xl:text-4xl md:mb-3 font-extrabold ' + (index % 2 === 0 ? 'text-right' : '')}>
                     { program.suma }
                 </h6>
             </div>
