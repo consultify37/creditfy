@@ -18,10 +18,10 @@ type Props = {
   programe: Program[]
   slides: Slide[]
 }
-
+// salut
 export default function Home({ slides, programe }: Props) {
   return (
-    <>
+    <> 
       {/* pageSettings */}
       <Head>
         <title>Consultify | Acasă</title>
