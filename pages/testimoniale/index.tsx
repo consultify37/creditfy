@@ -47,7 +47,7 @@ export default function Testimoniale() {
   }, [scrollAmount])
   
   const [email, setEmail] = useState('')
-  
+  // .
   const upload = async (e: any) => {
     e.preventDefault()
     
