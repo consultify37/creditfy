@@ -3,15 +3,18 @@ import AdminLayout from '../../../components/admin-nav/AdminLayout'
 import InputField from '../../../components/admin/InputField'
 import SlideHomePageImages from '../../../components/admin/SlideHomePageImages'
 import Image from 'next/image'
-import { uploadFile } from '../../../utils/b2_storage/upload_file'
-import { addDoc, collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore'
+import { deleteDoc, doc } from 'firebase/firestore'
 import { db } from '../../../firebase'
 import ReactLoading from 'react-loading'
 import { deleteFile } from '../../../utils/b2_storage/delete_file'
 import { Slide } from '../../../types'
 import toast from 'react-hot-toast'
+import axios from 'axios'
+import Cookies from 'js-cookie'
+import { useRouter } from 'next/navigation'
 
 const SlideHomepage = () => {
+  const router = useRouter()
   const [link, setLink] = useState("")
   const [slides, setSlides] = useState< Slide[] >([])
   const [newImage, setNewImage] = useState< File | null >(null)
@@ -21,14 +24,24 @@ const SlideHomepage = () => {
   const fetchSlides = async () => {
     setIsFetching(true)
 
-    const docsRef = query(collection(db, 'slides-homepage'), where('site', '==', process.env.SITE))
-    const docsSnap = await getDocs(docsRef)
+    try {
+      const response = await axios.get('https://api.inspiredconsulting.ro/admin/get_slide_homepages', {
+        params: {
+          website: 'consultify'
+        }
+      })
 
-    const data: any[] = docsSnap.docs.map(doc => (
-      { id: doc.id, ...doc.data() }
-    ))
-    
-    setSlides(data)
+      if ( typeof response.data == 'string' ) {
+        throw 'Eroare: încearcă din nou!'
+      }
+      console.log(response.data)
+      setSlides(response.data.map((slide: any) => (
+        { image: `https://api.inspiredconsulting.ro/routes${slide.poza}`, ...slide } as Slide
+      )))
+    } catch (e: any) {
+      toast.error('Ceva nu a mers bine. Reîmprospătează pagina.')
+    }
+
     setIsFetching(false)
   } 
 
@@ -67,14 +80,29 @@ const SlideHomepage = () => {
 
     setIsLoading(true)
 
-    try {
-      const result = await uploadFile(newImage!)
-      
-      const doc = await addDoc(collection(db, 'slides-homepage'), { link, file: result, image: `https://f005.backblazeb2.com/file/inspirely-consultify-socialy-creditfy/${result.fileName}`, site: process.env.SITE })
+    const vkey = Cookies.get('vkey')
+    console.log(vkey)
 
-      setSlides(slides => [{id: doc.id, link, image: newImage!, file: null}, ...slides])
-      setLink('')
-      setNewImage(null)
+    if ( !vkey ) {
+      router.replace('/admin/login')
+      return
+    }
+
+    try {
+      const response = await axios.post('https://api.inspiredconsulting.ro/admin/slide_homepage', {
+        poza: newImage
+      }, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        params: {
+          link: link,
+          vkey: vkey,
+          website: 'consultify'
+        }
+      })
+
+      setSlides(slides => [{ link, image: newImage!, file: null}, ...slides])
     } catch (e) {
       console.log(e)
       toast.error('Ceva nu a mers bine, încearcă din nou!')

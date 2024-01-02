@@ -6,8 +6,12 @@ import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, where } fro
 import { db } from '../../../firebase'
 import ReactLoading from 'react-loading'
 import toast from 'react-hot-toast'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
+import Cookies from 'js-cookie'
 
 const CategoriiPrograme = () => {
+  const router = useRouter()
   const [newCategory, setNewCategory] = useState('')
   const [categories, setCategories] = useState< Category[] >([])
   const [isLoading, setIsLoading] = useState(false)
@@ -15,14 +19,22 @@ const CategoriiPrograme = () => {
 
   const fetchCategories = async () => {
     setIsFetching(true)
-    const docsRef = query(collection(db, 'categories'), where('site', '==', process.env.SITE))
-    const docsSnap = await getDocs(docsRef)
-
-    const data = docsSnap.docs.map((doc) => (
-      { id: doc.id, ...doc.data()} as Category
-    ))
-
-    setCategories(data)
+    
+    try {
+      const response = await axios.get('https://api.inspiredconsulting.ro/admin/get_categorie_programe', {
+        params: {
+          website: 'consultify'
+        }
+      })
+      console.log(response.data)
+      if ( typeof response.data == 'string' ) {
+        throw 'Eroare: încearcă din nou!'
+      }
+      
+      setCategories(response.data)
+    } catch (e: any) {
+      toast.error('Ceva nu a mers bine. Reîmprospătează pagina.')
+    }
     setIsFetching(false)
   }
 
@@ -34,12 +46,26 @@ const CategoriiPrograme = () => {
     e.preventDefault()
     setIsLoading(true)
 
+    const vkey = Cookies.get('vkey')
+    console.log(vkey)
+
+    if ( !vkey ) {
+      router.replace('/admin/login')
+      return
+    }
+
     try {
-      const doc = await addDoc(collection(db, 'categories'), { category: newCategory, site: process.env.SITE })
-      setCategories((categories) => [{ id: doc.id, category: newCategory }, ...categories ])
-      setNewCategory('')
+      const response = await axios.post('https://api.inspiredconsulting.ro/admin/slide_homepage', {}, {
+        params: {
+          categorie: newCategory,
+          vkey: vkey,
+          website: 'consultify'
+        }
+      })
+
     } catch (e) {
-      toast.error('Ceva nu a mers bine. Încearcă din nou!')
+      console.log(e)
+      toast.error('Ceva nu a mers bine, încearcă din nou!')
     }
 
     setIsLoading(false)

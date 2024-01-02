@@ -14,6 +14,8 @@ export type Slide = {
   id?: string
   link: string 
   image: File | string 
+  admin?: string
+  data?: string
   file: null | { fileName: string, fileId: string } 
 }
 
