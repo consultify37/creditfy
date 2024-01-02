@@ -13,8 +13,10 @@ export type Faq = {
 export type Slide = { 
   id?: string
   link: string 
-  image: File | string 
+  poza: File | string 
   file: null | { fileName: string, fileId: string } 
+  admin: string
+  data: string
 }
 
 export type Category = {

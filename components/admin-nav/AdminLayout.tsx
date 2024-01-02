@@ -7,6 +7,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth"
 import { doc, getDoc } from 'firebase/firestore'
 import ReactLoading from 'react-loading'
 import Head from 'next/head'
+import Cookies from 'js-cookie'
 
 type Props = {
   children: React.ReactNode
@@ -17,29 +18,17 @@ const AdminLayout = ({ children }: Props) => {
   const [isLoadingSignout, setIsLoadingSignout] = useState(false)
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const userDoc = doc(db, 'users', user.uid)
-        const userDocSnap = await getDoc(userDoc)
-        const userDocData: any = userDocSnap.data()
-        
-        if ( !userDocData.roles ) {
-          router.push('/admin/login')
-        } else if ( !userDocData.roles.includes("admin")) {
-          router.push('/admin/login')
-        }
+    const vkey = Cookies.get('vkey')
 
-      } else {
-        router.push('/admin/login')
-      }
-    })
-
-    return () => unsubscribe()
+    if (!vkey) {
+      router.push('/admin/login')
+    }
   }, [router])
 
   const signout = async () => {
     setIsLoadingSignout(true)
-    await signOut(auth)
+    Cookies.remove('vkey')
+    router.refresh()
     setIsLoadingSignout(false)
   }
 

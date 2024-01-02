@@ -10,8 +10,12 @@ import ReactLoading from 'react-loading'
 import { deleteFile } from '../../../utils/b2_storage/delete_file'
 import { Slide } from '../../../types'
 import toast from 'react-hot-toast'
+import axios from 'axios'
+import Cookies from 'js-cookie'
+import { useRouter } from 'next/navigation'
 
 const SlideHomepage = () => {
+  const router = useRouter()
   const [link, setLink] = useState("")
   const [slides, setSlides] = useState< Slide[] >([])
   const [newImage, setNewImage] = useState< File | null >(null)
@@ -21,14 +25,28 @@ const SlideHomepage = () => {
   const fetchSlides = async () => {
     setIsFetching(true)
 
-    const docsRef = query(collection(db, 'slides-homepage'), where('site', '==', process.env.SITE))
-    const docsSnap = await getDocs(docsRef)
+    // const docsRef = query(collection(db, 'slides-homepage'), where('site', '==', process.env.SITE))
+    // const docsSnap = await getDocs(docsRef)
 
-    const data: any[] = docsSnap.docs.map(doc => (
-      { id: doc.id, ...doc.data() }
-    ))
+    // const data: any[] = docsSnap.docs.map(doc => (
+    //   { id: doc.id, ...doc.data() }
+    // ))
     
-    setSlides(data)
+    // setSlides(data)
+
+    try {
+      const response: { data: Slide[] } = await axios.get('https://api.inspiredconsulting.ro/admin/get_slide_homepages', {
+        params: {
+          website: process.env.SITE
+        }
+      })
+
+      setSlides(response.data.map((item => ({...item, poza: `https://api.inspiredconsulting.ro${item.poza}` }))))
+    } catch (e) {
+      toast.error('Slide-urile nu au putut fii încarcate. Refresh the page!')
+    }
+
+
     setIsFetching(false)
   } 
 
@@ -67,22 +85,48 @@ const SlideHomepage = () => {
 
     setIsLoading(true)
 
-    try {
-      const result = await uploadFile(newImage!)
-      
-      const doc = await addDoc(collection(db, 'slides-homepage'), { link, file: result, image: `https://f005.backblazeb2.com/file/inspirely-consultify-socialy-creditfy/${result.fileName}`, site: process.env.SITE })
-
-      setSlides(slides => [{id: doc.id, link, image: newImage!, file: null}, ...slides])
-      setLink('')
-      setNewImage(null)
-    } catch (e) {
-      console.log(e)
-      toast.error('Ceva nu a mers bine, încearcă din nou!')
+    const vkey = Cookies.get('vkey')
+    console.log(vkey)
+    if (!vkey) {
+      router.push('/admin/login')
+      return
     }
+
+    try {
+      var data = new FormData()
+      data.append('poza', newImage)
+
+      const response = await axios.post('https://api.inspiredconsulting.ro/admin/slide_homepage', {
+        params: {
+          link,
+          vkey
+        },
+        data
+      })
+
+      console.log(response.data)
+    } catch (e) {
+
+    }
+
+    // try {
+    //   const result = await uploadFile(newImage!)
+      
+    //   const doc = await addDoc(collection(db, 'slides-homepage'), { link, file: result, image: `https://f005.backblazeb2.com/file/inspirely-consultify-socialy-creditfy/${result.fileName}`, site: process.env.SITE })
+
+    //   setSlides(slides => [{id: doc.id, link, image: newImage!, file: null}, ...slides])
+    //   setLink('')
+    //   setNewImage(null)
+    // } catch (e) {
+    //   console.log(e)
+    //   toast.error('Ceva nu a mers bine, încearcă din nou!')
+    // }
+
+
 
     setIsLoading(false)
   }
-  
+  console.log(slides)
   return (
     <AdminLayout>
       <h1 className='text-[28px] text-secondary font-bold '>Adaugă o imagine în slide - 1066 x 411</h1>

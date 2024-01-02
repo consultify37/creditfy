@@ -24,7 +24,7 @@ export default function Home({ slides, programe }: Props) {
     <> 
       {/* pageSettings */}
       <Head>
-        <title>Consultify | Preview | Acasă</title>
+        <title>Consultify | Acasă</title>
       </Head>
       <HomeHeader slides={slides} />
       <TrustSRL />

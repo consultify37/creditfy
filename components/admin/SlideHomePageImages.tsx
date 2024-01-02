@@ -22,7 +22,7 @@ const SlideHomePageImages = ({ slides, handleDelete, isFetching }: Props) => {
             slides.map((image, index) => (
               <div className='relative' key={image.link+index}>
                 <Image 
-                  src={ typeof image.image == 'string' ? image.image : URL.createObjectURL(image.image)}
+                  src={ typeof image.poza == 'string' ? image.poza : URL.createObjectURL(image.poza)}
                   alt='mock-slide'
                   width={346}
                   height={133}
