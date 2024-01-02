@@ -25,23 +25,17 @@ const SlideHomepage = () => {
   const fetchSlides = async () => {
     setIsFetching(true)
 
-    // const docsRef = query(collection(db, 'slides-homepage'), where('site', '==', process.env.SITE))
-    // const docsSnap = await getDocs(docsRef)
-
-    // const data: any[] = docsSnap.docs.map(doc => (
-    //   { id: doc.id, ...doc.data() }
-    // ))
     
-    // setSlides(data)
 
     try {
-      const response: { data: Slide[] } = await axios.get('https://api.inspiredconsulting.ro/admin/get_slide_homepages', {
-        params: {
-          website: process.env.SITE
-        }
-      })
+      const docsRef = query(collection(db, 'slides-homepage'), where('site', '==', process.env.SITE))
+      const docsSnap = await getDocs(docsRef)
 
-      setSlides(response.data.map((item => ({...item, poza: `https://api.inspiredconsulting.ro${item.poza}` }))))
+      const data: any[] = docsSnap.docs.map(doc => (
+        { id: doc.id, ...doc.data() }
+      ))
+      
+      setSlides(data)
     } catch (e) {
       toast.error('Slide-urile nu au putut fii încarcate. Refresh the page!')
     }
@@ -109,20 +103,18 @@ const SlideHomepage = () => {
 
     }
 
-    // try {
-    //   const result = await uploadFile(newImage!)
+    try {
+      const result = await uploadFile(newImage!)
       
-    //   const doc = await addDoc(collection(db, 'slides-homepage'), { link, file: result, image: `https://f005.backblazeb2.com/file/inspirely-consultify-socialy-creditfy/${result.fileName}`, site: process.env.SITE })
+      const doc = await addDoc(collection(db, 'slides-homepage'), { link, file: result, image: `https://f005.backblazeb2.com/file/inspirely-consultify-socialy-creditfy/${result.fileName}`, site: process.env.SITE })
 
-    //   setSlides(slides => [{id: doc.id, link, image: newImage!, file: null}, ...slides])
-    //   setLink('')
-    //   setNewImage(null)
-    // } catch (e) {
-    //   console.log(e)
-    //   toast.error('Ceva nu a mers bine, încearcă din nou!')
-    // }
-
-
+      setSlides(slides => [{id: doc.id, link, image: newImage!, file: null}, ...slides])
+      setLink('')
+      setNewImage(null)
+    } catch (e) {
+      console.log(e)
+      toast.error('Ceva nu a mers bine, încearcă din nou!')
+    }
 
     setIsLoading(false)
   }
