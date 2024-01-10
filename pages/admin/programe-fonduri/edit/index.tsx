@@ -7,13 +7,15 @@ import ImageFormComponent from '../../../../components/admin/editProgram/ImageFo
 import FormTextArea from '../../../../components/admin/editProgram/FormTextArea'
 import Conditions from '../../../../components/admin/editProgram/Conditions'
 import AdminFaq from '../../../../components/admin/editProgram/AdminFaq'
-import { Condition, Faq } from '../../../../types'
+import { Category, Condition, Faq } from '../../../../types'
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
 import { db } from '../../../../firebase'
 import { uploadFile } from '../../../../utils/b2_storage/upload_file'
 import { useRouter } from 'next/navigation'
 import ReactLoading from 'react-loading'
 import toast from 'react-hot-toast'
+import axios from 'axios'
+import Cookies from 'js-cookie'
 
 const EditProgram = ({ categories }: { categories: string[] }) => {
   const router = useRouter()
@@ -46,47 +48,47 @@ const EditProgram = ({ categories }: { categories: string[] }) => {
       'Alege o imagine de fundal. Apoi încearcă din nou.'
     }
 
+    const vkey = Cookies.get('vkey')
+
+    if ( !vkey ) {
+      router.replace('/admin/login')
+      return
+    }
+
     try {
-      var result1
-      var result2
-
-      if ( typeof imaginePrincipala != 'string')  {
-        try {
-          result1 = await uploadFile(imaginePrincipala!)
-        } catch (e) {
-          throw e
+      const response = await axios.post('https://api.inspiredconsulting.ro/admin/adauga_program', {
+        fundal: backgroundImage,
+        principala: imaginePrincipala
+      },
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        params: {
+          vkey: vkey,
+          bulet_point: bulletPoints.join(';;'),
+          categorie: categorie,
+          conditii_aplicare: conditions.map(condition => condition.condition + ';;' + condition.description).join(';;;'),
+          descriere: descriere,
+          descriere2: descriere3,
+          intrebari: faqs.map(faq => faq.question + ';;' + faq.answear).join(';;;'),
+          suma_finantare: suma,
+          suma_finantare2: suma2,
+          text1: text1,
+          text2: text2,
+          titlu: title,
+          titlu2: title2,
+          adreseaza_titlu: title3,
+          website: process.env.SITE
         }
+      })
+
+      if (response.data == 'Trebuie sa te autentifici') {
+        router.replace('/admin/login')
+        return
       }
 
-      if ( typeof backgroundImage != 'string')  {
-        try {
-          result2 = await uploadFile(backgroundImage!)
-        } catch (e) {
-          throw e
-        }
-      }
-
-      const newData = {
-        site: process.env.SITE,
-        bulletPoints,
-        categorie,
-        title,
-        text1,
-        text2,
-        suma, 
-        descriere,
-        title2,
-        title3,
-        suma2,
-        descriere3,
-        conditions,
-        faqs,
-        imaginePrincipala: { file: result1, image: `https://f005.backblazeb2.com/file/inspirely-consultify-socialy-creditfy/${result1.fileName}` },
-        backgroundImage: { file: result2, image: `https://f005.backblazeb2.com/file/inspirely-consultify-socialy-creditfy/${result2.fileName}` }
-      }
-      
-      await addDoc(collection(db, 'programe-fonduri'), newData)
-
+      console.log(response.data)
       router.push('/admin/programe-fonduri')
     } catch (e) {
       toast.error('Ceva nu a mers bine, încearcă din nou!')
@@ -113,8 +115,8 @@ const EditProgram = ({ categories }: { categories: string[] }) => {
             fill="#8717F8" 
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+            <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
             <g id="SVGRepo_iconCarrier"> 
               <path fillRule="evenodd" clipRule="evenodd" d="M9.70725 2.4087C9 3.03569 9 4.18259 9 6.4764V17.5236C9 19.8174 9 20.9643 9.70725 21.5913C10.4145 22.2183 11.4955 22.0297 13.6576 21.6526L15.9864 21.2465C18.3809 20.8288 19.5781 20.62 20.2891 19.7417C21 18.8635 21 17.5933 21 15.0529V8.94711C21 6.40671 21 5.13652 20.2891 4.25826C19.5781 3.37999 18.3809 3.17118 15.9864 2.75354L13.6576 2.34736C11.4955 1.97026 10.4145 1.78171 9.70725 2.4087ZM12 10.1686C12.4142 10.1686 12.75 10.52 12.75 10.9535V13.0465C12.75 13.48 12.4142 13.8314 12 13.8314C11.5858 13.8314 11.25 13.48 11.25 13.0465V10.9535C11.25 10.52 11.5858 10.1686 12 10.1686Z" fill="#260056"></path> 
               <path d="M7.54717 4.5C5.48889 4.503 4.41599 4.54826 3.73223 5.23202C3 5.96425 3 7.14276 3 9.49979V14.4998C3 16.8568 3 18.0353 3.73223 18.7676C4.41599 19.4513 5.48889 19.4966 7.54717 19.4996C7.49985 18.8763 7.49992 18.1557 7.50001 17.3768V6.6227C7.49992 5.84388 7.49985 5.1233 7.54717 4.5Z" fill="#260056"></path> 
@@ -263,10 +265,13 @@ const EditProgram = ({ categories }: { categories: string[] }) => {
 export default EditProgram
 
 export const getServerSideProps = async () => {
-  const docsRef = query(collection(db, 'categories'), where('site', '==', process.env.SITE))
-  const docsSnap = await getDocs(docsRef)
+  const response = await axios.get('https://api.inspiredconsulting.ro/admin/get_categorie_programe', {
+    params: {
+      website: process.env.SITE
+    }
+  })
 
-  const categories = docsSnap.docs.map(doc => ( doc.data().category ))
+  const categories = response.data.map( (categorie: any) => categorie.categorie ) 
 
   return { props: { categories }}
 }

@@ -27,14 +27,14 @@ const SlideHomepage = () => {
     try {
       const response = await axios.get('https://api.inspiredconsulting.ro/admin/get_slide_homepages', {
         params: {
-          website: 'consultify'
+          website: process.env.SITE
         }
       })
 
       if ( typeof response.data == 'string' ) {
         throw 'Eroare: încearcă din nou!'
       }
-      console.log(response.data)
+      
       setSlides(response.data.map((slide: any) => (
         { image: `https://api.inspiredconsulting.ro/routes${slide.poza}`, ...slide } as Slide
       )))
@@ -98,7 +98,7 @@ const SlideHomepage = () => {
         params: {
           link: link,
           vkey: vkey,
-          website: 'consultify'
+          website: process.env.SITE
         }
       })
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import AdminLayout from '../../../components/admin-nav/AdminLayout'
 import Categories from '../../../components/admin/Categories'
 import { Category } from '../../../types'
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, where } from 'firebase/firestore'
+import { deleteDoc, doc } from 'firebase/firestore'
 import { db } from '../../../firebase'
 import ReactLoading from 'react-loading'
 import toast from 'react-hot-toast'
@@ -23,18 +23,19 @@ const CategoriiPrograme = () => {
     try {
       const response = await axios.get('https://api.inspiredconsulting.ro/admin/get_categorie_programe', {
         params: {
-          website: 'consultify'
+          website: process.env.SITE
         }
       })
-      console.log(response.data)
+      
       if ( typeof response.data == 'string' ) {
         throw 'Eroare: încearcă din nou!'
       }
-      
-      setCategories(response.data)
+      console.log(response.data)
+      setCategories(response.data.map( (categorie: any) => ({ ...categorie, category: categorie.categorie }) as Category ))
     } catch (e: any) {
       toast.error('Ceva nu a mers bine. Reîmprospătează pagina.')
     }
+
     setIsFetching(false)
   }
 
@@ -55,14 +56,16 @@ const CategoriiPrograme = () => {
     }
 
     try {
-      const response = await axios.post('https://api.inspiredconsulting.ro/admin/slide_homepage', {}, {
+      const response = await axios.get('https://api.inspiredconsulting.ro/admin/adauga_categorie_programe', {
         params: {
           categorie: newCategory,
           vkey: vkey,
-          website: 'consultify'
+          website: process.env.SITE
         }
       })
 
+      setCategories((categories) => [{ category: newCategory }, ...categories ])
+      setNewCategory('')
     } catch (e) {
       console.log(e)
       toast.error('Ceva nu a mers bine, încearcă din nou!')

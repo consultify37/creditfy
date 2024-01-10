@@ -22,6 +22,8 @@ export type Slide = {
 export type Category = {
   category: string
   id?: string
+  admin?: string
+  data?: string
 }
 
 export type Program = {
@@ -40,11 +42,11 @@ export type Program = {
   conditions: Condition[]
   faqs: Faq[]
   imaginePrincipala: { 
-    file: { fileName: string, fileId: string } 
+    file: { fileName: string, fileId: string } | null
     image: string 
   }
   backgroundImage: { 
-    file: { fileName: string, fileId: string } 
+    file: { fileName: string, fileId: string } | null
     image: string 
   }
 }
