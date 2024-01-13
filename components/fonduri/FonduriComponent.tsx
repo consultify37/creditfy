@@ -12,7 +12,7 @@ type Props = {
 export default function FonduriComponent({ program, index=0, carousel=false }: Props) {
     return(
         <div 
-            className={"rounded-4xl relative w-full xl:min-h-[400px] flex flex-col-reverse justify-between px-4 lg:px-20 py-2 bg-cover bg-no-repeat align-center " + (carousel ? " mb-9 lg:mb-24 xl:mb-24 mx-2 md:mx-8 lg:flex-row" : ( index == 0 ? 'mt-[2rem] md:mt-[4rem]' : 'mt-[8rem]') + ( index % 2 == 0 ? " lg:flex-row" : " lg:flex-row-reverse")) }
+            className={"rounded-4xl relative w-full xl:min-h-[400px] flex flex-col-reverse justify-between px-4 lg:px-20 py-2 bg-cover bg-no-repeat align-center " + (carousel ? " mx-2 md:mx-8 lg:flex-row" : ( index == 0 ? 'mt-[2rem] md:mt-[4rem]' : 'mt-[8rem]') + ( index % 2 == 0 ? " lg:flex-row" : " lg:flex-row-reverse")) }
             key={program.id}
         >   
             <Image 

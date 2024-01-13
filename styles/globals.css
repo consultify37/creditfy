@@ -108,6 +108,15 @@ html.normal-scroll {
 .carousel-programe .rec-arrow-left, .carousel-programe .rec-arrow-left:hover, .carousel-programe .rec-arrow-left:enabled {position: absolute; z-index: 20; left: 15px;}
 
 .rec-dot {box-shadow: 0 0 1px 2px rgb(216 166 255) !important; }
+
+@media screen and (max-width: 1024px) {
+  .carousel-fonduri .rec-dot { margin-top: 40px !important; }
+}
+
+@media screen and (min-width: 1024px) {
+  .carousel-fonduri .rec-dot { margin-top: 92px !important; }
+}
+
 .rec-dot_active {background-color: #8717F8 !important; box-shadow: 0 0 1px 2px #8717F8 !important;}
 .rec-item-wrapper {overflow: inherit !important; }
 .rec-pagination {align-items: center !important;}
