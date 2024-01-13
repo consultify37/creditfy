@@ -113,7 +113,7 @@ export default function Testimoniale() {
       </section>
       <section className="relative bg-[#260056] w-full pt-16 md:pt-32 mt-16 md:mt-32 pb-24 flex flex-col items-center justify-center overflow-visible px-0 md:px-[80px] xl:px-[140px] 2xl:px-[276px]">
         <span className="bg-[#260056] rounded-[200px_250px_0px_0px] w-[115vw] md:w-[103vw] -rotate-[2deg] absolute -left-5 -top-16 h-32" />
-        <h2 className="mb-8 md:mb-12 px-4 md:px-0 text-xl md:text-4xl font-bold text-white md:mxax-w-[80%] text-center md:pt-10 lg:pt-0">
+        <h2 className="mb-8 md:mb-12 px-4 md:px-0 text-xl md:text-4xl font-bold text-white md:mxax-w-[80%] text-center md:pt-10 lg:pt-0 mt-2">
           Gânduri și experiențe ale clienților noștri: testimoniale de succes
         </h2>
         <OurClients />
