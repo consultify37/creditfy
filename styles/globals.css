@@ -343,7 +343,16 @@ html.normal-scroll {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-100%);
+    transform: translateX(-650%);
+  }
+}
+
+@keyframes slide2 {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-400%);
   }
 }
 
@@ -379,10 +388,20 @@ html.normal-scroll {
   animation-play-state: paused;
 } */
 
-.logos-slide {
-  display: flex;
-  flex-direction: row;
-  animation: 45s slide infinite linear;
+@media screen and (max-width: 768px) {
+  .logos-slide {
+    display: flex;
+    flex-direction: row;
+    animation: 120s slide infinite linear;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .logos-slide {
+    display: flex;
+    flex-direction: row;
+    animation: 130s slide2 infinite linear;
+  }
 }
 
 /* .logos-slide img {
