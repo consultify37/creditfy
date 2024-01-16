@@ -343,16 +343,43 @@ html.normal-scroll {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-650%);
+    transform: translateX(calc(-108px*50));
   }
 }
 
-@keyframes slide2 {
+@keyframes slidemd {
   from {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-400%);
+    transform: translateX(calc(-116px*48));
+  }
+}
+
+@keyframes slidelg {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-126px*47));
+  }
+}
+
+@keyframes slidexl {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-134px*46));
+  }
+}
+
+@keyframes slide2xl {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-150px*45));
   }
 }
 
@@ -392,15 +419,39 @@ html.normal-scroll {
   .logos-slide {
     display: flex;
     flex-direction: row;
-    animation: 120s slide infinite linear;
+    animation: 160s slide infinite linear;
   }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 768px) and (max-width: 1024px) {
   .logos-slide {
     display: flex;
     flex-direction: row;
-    animation: 130s slide2 infinite linear;
+    animation: 160s slidemd infinite linear;
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1280px) {
+  .logos-slide {
+    display: flex;
+    flex-direction: row;
+    animation: 160s slidelg infinite linear;
+  }
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1536px) {
+  .logos-slide {
+    display: flex;
+    flex-direction: row;
+    animation: 160s slidexl infinite linear;
+  }
+}
+
+@media screen and (min-width: 1536px) {
+  .logos-slide {
+    display: flex;
+    flex-direction: row;
+    animation: 160s slide2xl infinite linear;
   }
 }
 
