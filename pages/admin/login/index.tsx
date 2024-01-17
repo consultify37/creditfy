@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
-import { auth, db } from '../../../firebase'
-import { signInWithEmailAndPassword } from 'firebase/auth'
 import ReactLoading from 'react-loading'
 import toast from 'react-hot-toast'
+import axios from 'axios'
+import Cookies from 'js-cookie'
 
 const Login = () => {
   const router = useRouter()
@@ -18,10 +18,25 @@ const Login = () => {
     setIsLoading(true)
 
     try{
-      await signInWithEmailAndPassword(auth, email, password)
-      router.push('/admin/slide-homepage')
+      const response = await axios.get('https://api.inspiredconsulting.ro/users/login', 
+        {
+          params: {
+            email,
+            parola: password
+          }
+        }
+      ) 
+
+      if ( response.data == 'Email-ul sau parola sunt gresite' ) {
+        throw { message: response.data }
+      }
+
+      const vkey = response.data.replace('success', '')
+      Cookies.set('vkey', vkey, { expires: 45 })
+      
+      router.replace('/admin/slide-homepage')
     } catch (e: any) {
-      toast.error(e.message.replace('Firebase: ', ''))
+      toast.error(e.message)
     }
 
     setIsLoading(false)

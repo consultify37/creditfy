@@ -3,7 +3,7 @@ import AdminLayout from '../../../components/admin-nav/AdminLayout'
 import InputField from '../../../components/admin/InputField'
 import SlideHomePageImages from '../../../components/admin/SlideHomePageImages'
 import Image from 'next/image'
-import { deleteDoc, doc } from 'firebase/firestore'
+import { collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore'
 import { db } from '../../../firebase'
 import ReactLoading from 'react-loading'
 import { deleteFile } from '../../../utils/b2_storage/delete_file'
@@ -24,24 +24,14 @@ const SlideHomepage = () => {
   const fetchSlides = async () => {
     setIsFetching(true)
 
-    try {
-      const response = await axios.get('https://api.inspiredconsulting.ro/admin/get_slide_homepages', {
-        params: {
-          website: process.env.SITE
-        }
-      })
+    const docsRef = query(collection(db, 'slides-homepage'), where('site', '==', process.env.SITE))
+    const docsSnap = await getDocs(docsRef)
 
-      if ( typeof response.data == 'string' ) {
-        throw 'Eroare: încearcă din nou!'
-      }
-      
-      setSlides(response.data.map((slide: any) => (
-        { image: `https://api.inspiredconsulting.ro/routes${slide.poza}`, ...slide } as Slide
-      )))
-    } catch (e: any) {
-      toast.error('Ceva nu a mers bine. Reîmprospătează pagina.')
-    }
-
+    const data: any[] = docsSnap.docs.map(doc => (
+      { id: doc.id, ...doc.data() }
+    ))
+    
+    setSlides(data)
     setIsFetching(false)
   } 
 
@@ -82,6 +72,30 @@ const SlideHomepage = () => {
 
     const vkey = Cookies.get('vkey')
     console.log(vkey)
+    if (!vkey) {
+      router.push('/admin/login')
+      return
+    }
+
+    try {
+      var data = new FormData()
+      data.append('poza', newImage)
+
+      const response = await axios.post('https://api.inspiredconsulting.ro/admin/slide_homepage', {
+        params: {
+          link,
+          vkey
+        },
+        data
+      })
+
+      console.log(response.data)
+    } catch (e) {
+
+    }
+
+    const vkey = Cookies.get('vkey')
+    console.log(vkey)
 
     if ( !vkey ) {
       router.replace('/admin/login')
@@ -110,7 +124,7 @@ const SlideHomepage = () => {
 
     setIsLoading(false)
   }
-  
+  console.log(slides)
   return (
     <AdminLayout>
       <h1 className='text-[28px] text-secondary font-bold '>Adaugă o imagine în slide - 1066 x 411</h1>

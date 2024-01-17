@@ -1,5 +1,3 @@
-import { type } from "os"
-
 export type Condition = {
   condition: string
   description: string
@@ -17,6 +15,8 @@ export type Slide = {
   admin?: string
   data?: string
   file: null | { fileName: string, fileId: string } 
+  admin?: string
+  data?: string
 }
 
 export type Category = {
