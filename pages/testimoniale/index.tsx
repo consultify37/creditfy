@@ -53,7 +53,7 @@ export default function Testimoniale() {
     e.preventDefault()
     
     try {
-      const collectionRef = collection(db, 'newsletter')
+      const collectionRef = collection(db, 'ideasForm')
       await addDoc(collectionRef, { website: process.env.SITE, email })
       
       toast.success('Verifică-ți email-ul, documentul tocmai ce a fost trimis! 🚀', { duration: 5000, style: { textAlign: 'center' } })
