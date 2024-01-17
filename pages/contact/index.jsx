@@ -11,7 +11,7 @@ import ReCAPTCHA from "react-google-recaptcha"
 import PageHeader from "../../components/Header/PageHeader"
 import WhyUsItem1 from "../../components/Home/Why-Us/Item1"
 import ReactLoading from 'react-loading'
-import { addDoc, collection } from "firebase/firestore"
+import { addDoc, collection, serverTimestamp } from "firebase/firestore"
 import { db } from "../../firebase"
  
 export default function Contact() {
@@ -47,7 +47,7 @@ export default function Contact() {
         try {
             const collectionRef = collection(db, 'contactForms')
 
-            await addDoc(collectionRef, { nume, prenume, firma, cui, telefon, email, nevoie, mesaj, website: process.env.SITE } )
+            await addDoc(collectionRef, { nume, prenume, firma, cui, telefon, email, nevoie, mesaj, website: process.env.SITE, createdAt: serverTimestamp() } )
 
             toast.success('Mulțumim! Un reprezentat Consultify te va contacta în curând. 🚀', { duration: 5000, style: { textAlign: 'center' } })
             setCui("")
