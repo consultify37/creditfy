@@ -5,6 +5,8 @@ import ReactLoading from 'react-loading'
 import toast from 'react-hot-toast'
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '../../../firebase'
 
 const Login = () => {
   const router = useRouter()
@@ -18,21 +20,7 @@ const Login = () => {
     setIsLoading(true)
 
     try{
-      const response = await axios.get('https://api.inspiredconsulting.ro/users/login', 
-        {
-          params: {
-            email,
-            parola: password
-          }
-        }
-      ) 
-
-      if ( response.data == 'Email-ul sau parola sunt gresite' ) {
-        throw { message: response.data }
-      }
-
-      const vkey = response.data.replace('success', '')
-      Cookies.set('vkey', vkey, { expires: 45 })
+      await signInWithEmailAndPassword(auth, email, password) 
       
       router.replace('/admin/slide-homepage')
     } catch (e: any) {

@@ -10,8 +10,6 @@ import ReactLoading from 'react-loading'
 import { deleteFile } from '../../../utils/b2_storage/delete_file'
 import { Slide } from '../../../types'
 import toast from 'react-hot-toast'
-import axios from 'axios'
-import Cookies from 'js-cookie'
 import { useRouter } from 'next/navigation'
 
 const SlideHomepage = () => {
@@ -79,30 +77,6 @@ const SlideHomepage = () => {
 
     setIsLoading(true)
 
-    const vkey = Cookies.get('vkey')
-    console.log(vkey)
-    if (!vkey) {
-      router.push('/admin/login')
-      return
-    }
-
-    try {
-      var data = new FormData()
-      data.append('poza', newImage)
-
-      const response = await axios.post('https://api.inspiredconsulting.ro/admin/slide_homepage', {
-        params: {
-          link,
-          vkey
-        },
-        data
-      })
-
-      console.log(response.data)
-    } catch (e) {
-
-    }
-
     try {
       const result = await uploadFile(newImage!)
       
@@ -118,7 +92,7 @@ const SlideHomepage = () => {
 
     setIsLoading(false)
   }
-  console.log(slides)
+
   return (
     <AdminLayout>
       <h1 className='text-[28px] text-secondary font-bold '>Adaugă o imagine în slide - 1066 x 411</h1>

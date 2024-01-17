@@ -18,17 +18,29 @@ const AdminLayout = ({ children }: Props) => {
   const [isLoadingSignout, setIsLoadingSignout] = useState(false)
 
   useEffect(() => {
-    const vkey = Cookies.get('vkey')
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const userDoc = doc(db, 'users', user.uid)
+        const userDocSnap = await getDoc(userDoc)
+        const userDocData: any = userDocSnap.data()
+        
+        if ( !userDocData.roles ) {
+          router.push('/admin/login')
+        } else if ( !userDocData.roles.includes("admin")) {
+          router.push('/admin/login')
+        }
 
-    if (!vkey) {
-      router.push('/admin/login')
-    }
+      } else {
+        router.push('/admin/login')
+      }
+    })
+
+    return () => unsubscribe()
   }, [router])
 
   const signout = async () => {
     setIsLoadingSignout(true)
-    Cookies.remove('vkey')
-    router.refresh()
+    await signOut(auth)
     setIsLoadingSignout(false)
   }
 
