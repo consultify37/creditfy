@@ -1,8 +1,8 @@
 import Image from "next/image"
-import Axios from "axios"
 import { useState } from "react"
 import toast from "react-hot-toast"
-import axios from "axios"
+import { addDoc, collection } from "firebase/firestore"
+import { db } from "../../../firebase"
 
 interface NewsLetterProps {
   headingText: string
@@ -15,19 +15,11 @@ export default function NewsLetter({ headingText }: NewsLetterProps) {
     e.preventDefault()
     
     try {
-      const response = await axios.get('https://api.inspiredconsulting.ro/newsletter', {
-                params: {
-                    email: newsletter,
-                    website: process.env.SITE
-                }
-            })
-            
-            if (response.status == 200) {
-                toast.success('Mulțumim pentru că te-ai abonat la newsletter-ul nostru! 🚀', { duration: 5000, style: { textAlign: 'center' } })
-                setNewsletter('')
-            } else {
-                throw 'error'
-            }
+      const collectionRef = collection(db, 'newsletter')
+      await addDoc(collectionRef, { website: process.env.SITE, email: newsletter })
+
+      toast.success('Mulțumim pentru că te-ai abonat la newsletter-ul nostru! 🚀', { duration: 5000, style: { textAlign: 'center' } })
+      setNewsletter('')
     } catch (e) {
       toast.error('Ceva nu a mers bine. Încearcă din nou!')
     }

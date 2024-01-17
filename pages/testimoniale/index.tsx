@@ -8,7 +8,8 @@ import toast from "react-hot-toast"
 import Logos from "../../components/Home/Logos"
 import PageHeader from "../../components/Header/PageHeader"
 import OurClients from "../../components/Home/OurClients/OurClients"
-import axios from "axios"
+import { addDoc, collection } from "firebase/firestore"
+import { db } from "../../firebase"
 
 const testimonials = [
   {
@@ -47,32 +48,20 @@ export default function Testimoniale() {
   }, [scrollAmount])
   
   const [email, setEmail] = useState('')
-  // .
+
   const upload = async (e: any) => {
     e.preventDefault()
     
     try {
-      const response = await axios.get('https://api.inspiredconsulting.ro/email/trimite_idei_afaceri', {
-                params: {
-                    to: email,
-                    website: process.env.SITE
-                }
-            })
-            console.log(response)
-            if (response.status == 200) {
-                toast.success('Verifică-ți email-ul, documentul tocmai ce a fost trimis! 🚀', { duration: 5000, style: { textAlign: 'center' } })
-                setEmail('')
-            } else {
-                throw 'error'
-            }
+      const collectionRef = collection(db, 'newsletter')
+      await addDoc(collectionRef, { website: process.env.SITE, email })
+      
+      toast.success('Verifică-ți email-ul, documentul tocmai ce a fost trimis! 🚀', { duration: 5000, style: { textAlign: 'center' } })
+      setEmail('')
     } catch (e) {
       toast.error('Ceva nu a mers bine. Încearcă din nou!')
     }
 
-    // const link = document.createElement('a')
-    // link.download = 'Idei de afaceri'
-    // link.href = '/files/10 Idei de afaceri.pdf'
-    // link.click()
   }
 
   return (

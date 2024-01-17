@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import React, { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import NewsLetter from "../../components/global/newsletter"
@@ -10,8 +10,9 @@ import 'react-international-phone/style.css'
 import ReCAPTCHA from "react-google-recaptcha"
 import PageHeader from "../../components/Header/PageHeader"
 import WhyUsItem1 from "../../components/Home/Why-Us/Item1"
-import axios from "axios"
 import ReactLoading from 'react-loading'
+import { addDoc, collection } from "firebase/firestore"
+import { db } from "../../firebase"
  
 export default function Contact() {
     const [nume, setNume] = useState('')
@@ -44,34 +45,21 @@ export default function Contact() {
         }
 
         try {
-            const response = await axios.get('https://api.inspiredconsulting.ro/contact', {
-                params: {
-                    nume: nume,
-                    prenume: prenume,
-                    email: email,
-                    mesaj: mesaj,
-                    firma: firma,
-                    cui: cui,
-                    nevoie: nevoie,
-                    telefon: telefon,
-                    website: process.env.SITE
-                }
-            })
-            
-            if (response.status == 200) {
-                toast.success('Mulțumim! Un reprezentat Consultify te va contacta în curând. 🚀', { duration: 5000, style: { textAlign: 'center' } })
-                setCui("")
-                setEmail("")
-                setIsChecked(false)
-                setFirma("")
-                setMesaj("")
-                setNevoie("")
-                setNume('')
-                setPrenume('')
-                setTelefon('')
-            } else {
-                throw 'error'
-            }
+            const collectionRef = collection(db, 'contactForms')
+
+            await addDoc(collectionRef, { nume, prenume, firma, cui, telefon, email, nevoie, mesaj, website: process.env.SITE } )
+
+            toast.success('Mulțumim! Un reprezentat Consultify te va contacta în curând. 🚀', { duration: 5000, style: { textAlign: 'center' } })
+            setCui("")
+            setEmail("")
+            setIsChecked(false)
+            setFirma("")
+            setMesaj("")
+            setNevoie("")
+            setNume('')
+            setPrenume('')
+            setTelefon('')
+
         } catch (e) {
             setIsLoading(false)
             toast.error('Ceva nu a mers bine. Încearcă din nou!')
