@@ -7,7 +7,6 @@ import { onAuthStateChanged, signOut } from "firebase/auth"
 import { doc, getDoc } from 'firebase/firestore'
 import ReactLoading from 'react-loading'
 import Head from 'next/head'
-import Cookies from 'js-cookie'
 
 type Props = {
   children: React.ReactNode
