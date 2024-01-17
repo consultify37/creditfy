@@ -32,7 +32,7 @@ const NavAdmin = () => {
                         </li>
                         <li className="rounded-sm">
                             <a
-                                className="flex flex flex-col items-start relative p-2 rounded-md"
+                                className="flex flex-col items-start relative p-2 rounded-md"
                                 onClick={toggleDropdown}
                             >
                             <div className="flex flex-row items-start space-x-3 ">
