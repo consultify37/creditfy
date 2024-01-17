@@ -285,7 +285,7 @@ export default function Contact() {
                     </div>
                     <div className="flex flex-col md:flex-row justify-center w-full items-center">
                         <ReCAPTCHA
-                            sitekey="6LdWV_AoAAAAAMMdYLnmy_NUtbetbPGYWHOOhery"
+                            sitekey="6Ld6S_AoAAAAAMxxH9HEfvCkmAXP8lAN0Va2TRdg"
                             onChange={(e) => setCaptchaVerified(!captchaVerified)}
                         />
                         { isLoading ? 
