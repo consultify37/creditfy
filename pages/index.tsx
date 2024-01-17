@@ -11,7 +11,8 @@ import CTA from "../components/CTA"
 import NewsLetter from "../components/global/newsletter"
 import Garantii from "../components/Garantii"
 import { Program, Slide } from "../types"
-import axios from "axios"
+import { collection, getDocs, query, where } from "firebase/firestore"
+import { db } from "../firebase"
 
 type Props = {
   programe: Program[]
@@ -59,46 +60,19 @@ export default function Home({ slides, programe }: Props) {
 }
 
 export const getStaticProps = async () => {
-  const response = await axios.get('https://api.inspiredconsulting.ro/admin/get_slide_homepages', {
-    params: {
-      website: process.env.SITE
-    }
-  })
-  
-  const slides = response.data.map((slide: any) => (
-    { image: `https://api.inspiredconsulting.ro/routes${slide.poza}`, ...slide } as Slide
+  const slidesRef = query(collection(db, 'slides-homepage'), where('site', '==', process.env.SITE))
+  const slidesSnap = await getDocs(slidesRef)
+
+  const slides = slidesSnap.docs.map((doc) => (
+    { id: doc.id, ...doc.data() }
   ))
 
-  const response2 = await axios.get('https://api.inspiredconsulting.ro/admin/get_programe', {
-    params: {
-      website: process.env.SITE
-    }
-  })
-      
-  const programe = response2.data.map( (program: any) => ({ 
-    backgroundImage: { file: null, image: `https://api.inspiredconsulting.ro/routes${program.fundal}` },
-    bulletPoints: program.bulet_point.split(';;'),
-    categorie: program.categorie,
-    conditions: program.conditii_aplicare.split(';;;').map((item: any) => {
-      const [condition, description] = item.split(';;')
-      return { condition, description: description ? description : '' }
-    }),
-    descriere: program.descriere,
-    descriere3: program.descriere,
-    faqs: program.intrebari.split(';;;').map((item: any) => {
-      const [question, answear] = item.split(';;')
-      return { question, answear: answear ? answear : '' }
-    }),
-    id: program.id,
-    imaginePrincipala: { file: null, image: `https://api.inspiredconsulting.ro/routes${program.principala}` },
-    suma: program.suma_finantare,
-    suma2: program.suma_finantare,
-    text1: program.text1,
-    text2: program.text2,
-    title: program.titlu,
-    title2: program.titlu,
-    title3: program.adreseaza_titlu
-  }) as Program )
+  const programeRef = query(collection(db, 'programe-fonduri'), where('site', '==', process.env.SITE))
+  const programeSnap = await getDocs(programeRef)
+
+  const programe = programeSnap.docs.map((doc) => (
+    { id: doc.id, ...doc.data() }
+  ))
 
   return {
     props: { programe, slides },
