@@ -3,18 +3,15 @@ import AdminLayout from '../../../components/admin-nav/AdminLayout'
 import InputField from '../../../components/admin/InputField'
 import SlideHomePageImages from '../../../components/admin/SlideHomePageImages'
 import Image from 'next/image'
-import { collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore'
 import { db } from '../../../firebase'
 import ReactLoading from 'react-loading'
 import { deleteFile } from '../../../utils/b2_storage/delete_file'
 import { Slide } from '../../../types'
 import toast from 'react-hot-toast'
-import axios from 'axios'
-import Cookies from 'js-cookie'
-import { useRouter } from 'next/navigation'
+import { uploadFile } from '../../../utils/b2_storage/upload_file'
 
 const SlideHomepage = () => {
-  const router = useRouter()
   const [link, setLink] = useState("")
   const [slides, setSlides] = useState< Slide[] >([])
   const [newImage, setNewImage] = useState< File | null >(null)
@@ -70,51 +67,11 @@ const SlideHomepage = () => {
 
     setIsLoading(true)
 
-    const vkey = Cookies.get('vkey')
-    console.log(vkey)
-    if (!vkey) {
-      router.push('/admin/login')
-      return
-    }
 
     try {
-      var data = new FormData()
-      data.append('poza', newImage)
-
-      const response = await axios.post('https://api.inspiredconsulting.ro/admin/slide_homepage', {
-        params: {
-          link,
-          vkey
-        },
-        data
-      })
-
-      console.log(response.data)
-    } catch (e) {
-
-    }
-
-    const vkey = Cookies.get('vkey')
-    console.log(vkey)
-
-    if ( !vkey ) {
-      router.replace('/admin/login')
-      return
-    }
-
-    try {
-      const response = await axios.post('https://api.inspiredconsulting.ro/admin/slide_homepage', {
-        poza: newImage
-      }, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        },
-        params: {
-          link: link,
-          vkey: vkey,
-          website: process.env.SITE
-        }
-      })
+      const result = await uploadFile(newImage!)
+      
+      await addDoc(collection(db, 'slides-homepage'), { link, file: result, image: `https://f005.backblazeb2.com/file/inspirely-consultify-socialy-creditfy/${result.fileName}`, site: process.env.SITE })  
 
       setSlides(slides => [{ link, image: newImage!, file: null}, ...slides])
     } catch (e) {
@@ -124,7 +81,7 @@ const SlideHomepage = () => {
 
     setIsLoading(false)
   }
-  console.log(slides)
+
   return (
     <AdminLayout>
       <h1 className='text-[28px] text-secondary font-bold '>Adaugă o imagine în slide - 1066 x 411</h1>

@@ -2,16 +2,12 @@ import React, { useEffect, useState } from 'react'
 import AdminLayout from '../../../components/admin-nav/AdminLayout'
 import Categories from '../../../components/admin/Categories'
 import { Category } from '../../../types'
-import { deleteDoc, doc } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore'
 import { db } from '../../../firebase'
 import ReactLoading from 'react-loading'
 import toast from 'react-hot-toast'
-import axios from 'axios'
-import { useRouter } from 'next/navigation'
-import Cookies from 'js-cookie'
 
 const CategoriiPrograme = () => {
-  const router = useRouter()
   const [newCategory, setNewCategory] = useState('')
   const [categories, setCategories] = useState< Category[] >([])
   const [isLoading, setIsLoading] = useState(false)
@@ -19,23 +15,14 @@ const CategoriiPrograme = () => {
 
   const fetchCategories = async () => {
     setIsFetching(true)
-    
-    try {
-      const response = await axios.get('https://api.inspiredconsulting.ro/admin/get_categorie_programe', {
-        params: {
-          website: process.env.SITE
-        }
-      })
-      
-      if ( typeof response.data == 'string' ) {
-        throw 'Eroare: încearcă din nou!'
-      }
-      console.log(response.data)
-      setCategories(response.data.map( (categorie: any) => ({ ...categorie, category: categorie.categorie }) as Category ))
-    } catch (e: any) {
-      toast.error('Ceva nu a mers bine. Reîmprospătează pagina.')
-    }
+    const docsRef = query(collection(db, 'categories'), where('site', '==', process.env.SITE))
+    const docsSnap = await getDocs(docsRef)
 
+    const data = docsSnap.docs.map((doc) => (
+      { id: doc.id, ...doc.data()} as Category
+    ))
+
+    setCategories(data)
     setIsFetching(false)
   }
 
@@ -47,28 +34,12 @@ const CategoriiPrograme = () => {
     e.preventDefault()
     setIsLoading(true)
 
-    const vkey = Cookies.get('vkey')
-    console.log(vkey)
-
-    if ( !vkey ) {
-      router.replace('/admin/login')
-      return
-    }
-
     try {
-      const response = await axios.get('https://api.inspiredconsulting.ro/admin/adauga_categorie_programe', {
-        params: {
-          categorie: newCategory,
-          vkey: vkey,
-          website: process.env.SITE
-        }
-      })
-
-      setCategories((categories) => [{ category: newCategory }, ...categories ])
+      const doc = await addDoc(collection(db, 'categories'), { category: newCategory, site: process.env.SITE })
+      setCategories((categories) => [{ id: doc.id, category: newCategory }, ...categories ])
       setNewCategory('')
     } catch (e) {
-      console.log(e)
-      toast.error('Ceva nu a mers bine, încearcă din nou!')
+      toast.error('Ceva nu a mers bine. Încearcă din nou!')
     }
 
     setIsLoading(false)
