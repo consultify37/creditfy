@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import AdminLayout from '../../../components/admin-nav/AdminLayout'
 import Link from 'next/link'
-import { deleteDoc, doc } from 'firebase/firestore'
+import { collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore'
 import { db } from '../../../firebase'
 import ReactLoading from 'react-loading'
 import { Program } from '../../../types'
 import { deleteFile } from '../../../utils/b2_storage/delete_file'
 import toast from 'react-hot-toast'
-import axios from 'axios'
 
 const ProgrameFonduri = () => {
   const [programe, setPrograme] = useState< Program[] >([])
@@ -16,49 +15,17 @@ const ProgrameFonduri = () => {
   const fetchPrograme = async () => {
     setIsFetching(true)
 
-    try {
-      const response = await axios.get('https://api.inspiredconsulting.ro/admin/get_programe', {
-        params: {
-          website: process.env.SITE
-        }
-      })
-      
-      if ( typeof response.data == 'string' ) {
-        throw 'Eroare: încearcă din nou!'
-      }
-      
-      setPrograme(response.data.map( (program: any) => ({ 
-        backgroundImage: { file: null, image: `https://api.inspiredconsulting.ro/routes${program.fundal}` },
-        bulletPoints: program.bulet_point.split(';;'),
-        categorie: program.categorie,
-        conditions: program.conditii_aplicare.split(';;;').map((item: any) => {
-          const [condition, description] = item.split(';;')
-          return { condition, description }
-        }),
-        descriere: program.descriere,
-        descriere3: program.descriere,
-        faqs: program.intrebari.split(';;;').map((item: any) => {
-          const [question, answear] = item.split(';;')
-          return { question, answear }
-        }),
-        id: program.id,
-        imaginePrincipala: { file: null, image: `https://api.inspiredconsulting.ro/routes${program.principala}` },
-        suma: program.suma_finantare,
-        suma2: program.suma_finantare,
-        text1: program.text1,
-        text2: program.text2,
-        title: program.titlu,
-        title2: program.titlu,
-        title3: program.adreseaza_titlu
-       }) as Program ))
+    const docsRef = query(collection(db, 'programe-fonduri'), where('site', '==', process.env.SITE))
+    const docsSnap = await getDocs(docsRef)
 
-    } catch (e: any) {
-      toast.error('Ceva nu a mers bine. Reîmprospătează pagina.')
-    }
+    const data: Program[] = docsSnap.docs.map(doc => (
+      { id: doc.id, ...doc.data() } as Program
+    ))
 
+    setPrograme(data)
     setIsFetching(false)
   }
-  console.log(programe)
+
   useEffect(() => {
     fetchPrograme()
   }, [])
