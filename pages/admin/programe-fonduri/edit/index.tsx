@@ -7,15 +7,14 @@ import ImageFormComponent from '../../../../components/admin/editProgram/ImageFo
 import FormTextArea from '../../../../components/admin/editProgram/FormTextArea'
 import Conditions from '../../../../components/admin/editProgram/Conditions'
 import AdminFaq from '../../../../components/admin/editProgram/AdminFaq'
-import { Category, Condition, Faq } from '../../../../types'
-import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
+import { Condition, Faq } from '../../../../types'
+import { addDoc, collection } from 'firebase/firestore'
 import { db } from '../../../../firebase'
 import { uploadFile } from '../../../../utils/b2_storage/upload_file'
 import { useRouter } from 'next/navigation'
 import ReactLoading from 'react-loading'
 import toast from 'react-hot-toast'
 import axios from 'axios'
-import Cookies from 'js-cookie'
 
 const EditProgram = ({ categories }: { categories: string[] }) => {
   const router = useRouter()
@@ -48,48 +47,48 @@ const EditProgram = ({ categories }: { categories: string[] }) => {
       'Alege o imagine de fundal. Apoi încearcă din nou.'
     }
 
-    const vkey = Cookies.get('vkey')
-
-    if ( !vkey ) {
-      router.replace('/admin/login')
-      return
-    }
-
     try {
-      const response = await axios.post('https://api.inspiredconsulting.ro/admin/adauga_program', {
-        fundal: backgroundImage,
-        principala: imaginePrincipala
-      },
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        },
-        params: {
-          vkey: vkey,
-          bulet_point: bulletPoints.join(';;'),
-          categorie: categorie,
-          conditii_aplicare: conditions.map(condition => condition.condition + ';;' + condition.description).join(';;;'),
-          descriere: descriere,
-          descriere2: descriere3,
-          intrebari: faqs.map(faq => faq.question + ';;' + faq.answear).join(';;;'),
-          suma_finantare: suma,
-          suma_finantare2: suma2,
-          text1: text1,
-          text2: text2,
-          titlu: title,
-          titlu2: title2,
-          adreseaza_titlu: title3,
-          website: process.env.SITE
-        }
-      })
+      var result1
+      var result2
 
-      if (response.data == 'Trebuie sa te autentifici') {
-        router.replace('/admin/login')
-        return
+      if ( typeof imaginePrincipala != 'string')  {
+        try {
+          result1 = await uploadFile(imaginePrincipala!)
+        } catch (e) {
+          throw e
+        }
       }
 
-      console.log(response.data)
-      router.push('/admin/programe-fonduri')
+      if ( typeof backgroundImage != 'string')  {
+        try {
+          result2 = await uploadFile(backgroundImage!)
+        } catch (e) {
+          throw e
+        }
+      }
+
+      const newData = {
+        site: process.env.SITE,
+        bulletPoints,
+        categorie,
+        title,
+        text1,
+        text2,
+        suma, 
+        descriere,
+        title2,
+        title3,
+        suma2,
+        descriere3,
+        conditions,
+        faqs,
+        imaginePrincipala: { file: result1, image: `https://f005.backblazeb2.com/file/inspirely-consultify-socialy-creditfy/${result1.fileName}` },
+        backgroundImage: { file: result2, image: `https://f005.backblazeb2.com/file/inspirely-consultify-socialy-creditfy/${result2.fileName}` }
+      }
+      
+      await addDoc(collection(db, 'programe-fonduri'), newData)
+
+      router.push('/admin/campanii')
     } catch (e) {
       toast.error('Ceva nu a mers bine, încearcă din nou!')
     }
@@ -99,7 +98,7 @@ const EditProgram = ({ categories }: { categories: string[] }) => {
 
   const leavePage = () => {
     if (confirm('Ești sigur că vrei să părăsești pagina? Toate modificările vor fi pierdute.')) {
-      router.push('/admin/programe-fonduri')
+      router.push('/admin/campanii')
     }
   }
 

@@ -8,7 +8,7 @@ import FormTextArea from '../../../../../components/admin/editProgram/FormTextAr
 import Conditions from '../../../../../components/admin/editProgram/Conditions'
 import AdminFaq from '../../../../../components/admin/editProgram/AdminFaq'
 import { Condition, Faq, Program } from '../../../../../types'
-import { addDoc, collection, doc, getDoc, getDocs, query, updateDoc, where } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs, query, updateDoc, where } from 'firebase/firestore'
 import { db } from '../../../../../firebase'
 import { uploadFile } from '../../../../../utils/b2_storage/upload_file'
 import { useRouter } from 'next/navigation'
