@@ -8,13 +8,12 @@ import FormTextArea from '../../../../components/admin/editProgram/FormTextArea'
 import Conditions from '../../../../components/admin/editProgram/Conditions'
 import AdminFaq from '../../../../components/admin/editProgram/AdminFaq'
 import { Condition, Faq } from '../../../../types'
-import { addDoc, collection } from 'firebase/firestore'
+import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
 import { db } from '../../../../firebase'
 import { uploadFile } from '../../../../utils/b2_storage/upload_file'
 import { useRouter } from 'next/navigation'
 import ReactLoading from 'react-loading'
 import toast from 'react-hot-toast'
-import axios from 'axios'
 
 const EditProgram = ({ categories }: { categories: string[] }) => {
   const router = useRouter()
@@ -88,7 +87,7 @@ const EditProgram = ({ categories }: { categories: string[] }) => {
       
       await addDoc(collection(db, 'programe-fonduri'), newData)
 
-      router.push('/admin/campanii')
+      router.push('/admin/programe-fonduri')
     } catch (e) {
       toast.error('Ceva nu a mers bine, încearcă din nou!')
     }
@@ -98,7 +97,7 @@ const EditProgram = ({ categories }: { categories: string[] }) => {
 
   const leavePage = () => {
     if (confirm('Ești sigur că vrei să părăsești pagina? Toate modificările vor fi pierdute.')) {
-      router.push('/admin/campanii')
+      router.push('/admin/programe-fonduri')
     }
   }
 
@@ -264,13 +263,10 @@ const EditProgram = ({ categories }: { categories: string[] }) => {
 export default EditProgram
 
 export const getServerSideProps = async () => {
-  const response = await axios.get('https://api.inspiredconsulting.ro/admin/get_categorie_programe', {
-    params: {
-      website: process.env.SITE
-    }
-  })
+  const docsRef = query(collection(db, 'categories'), where('site', '==', process.env.SITE))
+  const docsSnap = await getDocs(docsRef)
 
-  const categories = response.data.map( (categorie: any) => categorie.categorie ) 
+  const categories = docsSnap.docs.map(doc => ( doc.data().category ))
 
   return { props: { categories }}
 }
