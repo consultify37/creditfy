@@ -59,10 +59,12 @@ export default function Programe({categories, programe}: Props) {
                         <option value="marketing">Marketing</option>
                     </select>
                 </div> */}
-                <TabsComponent 
-                    values={['Toate', ...categories]}
-                    setSelectedValue={setCategory}
-                />
+                { categories.length >= 2 ?
+                    <TabsComponent 
+                        values={['Toate', ...categories]}
+                        setSelectedValue={setCategory}
+                    /> : <div className="-mt-8"></div>
+                }
                 <div className="md:px-8">
                     {
                         programe.filter((program) => program.categorie == category || category == 'Toate').filter((program, index) => (index >= page*4 && index < (page+1)*4) ).map((program, index) => (

@@ -7,6 +7,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth"
 import { doc, getDoc } from 'firebase/firestore'
 import ReactLoading from 'react-loading'
 import Head from 'next/head'
+import toast from 'react-hot-toast'
 
 type Props = {
   children: React.ReactNode
@@ -24,8 +25,10 @@ const AdminLayout = ({ children }: Props) => {
         const userDocData: any = userDocSnap.data()
         
         if ( !userDocData.roles ) {
+          toast.error('Nu aveți permisii suficiente să accesați această pagină.', { duration: 3000 })
           router.push('/admin/login')
-        } else if ( !userDocData.roles.includes("admin")) {
+        } else if ( !userDocData.roles.includes("admin") && !userDocData.roles.includes("consultify") ) {
+          toast.error('Nu aveți permisii suficiente să accesați această pagină.', { duration: 3000 })
           router.push('/admin/login')
         }
 

@@ -34,7 +34,6 @@ const testimonials = [
 
 export default function Testimoniale() {
   const [scrollAmount, setScrollAmount] = useState<number>(0)
-  const cardRef = useRef<HTMLAnchorElement>(null)
   const carouselRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
