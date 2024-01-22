@@ -260,7 +260,7 @@ export default function Contact() {
                             >
                                 <option value="Selectează aici" className="hidden">Selectează aici</option>
                                 <option value="Consultanță Fonduri Europene">Consultanță Fonduri Europene</option>
-                                <option value="Implementare proiect">Implementare proiect</option>
+                                <option value="Implementare proiect">Implementare proiect câștigat</option>
                                 <option value="Colaborări & Angajări">Colaborări & Angajări</option>
                             </select>
                         </div>
