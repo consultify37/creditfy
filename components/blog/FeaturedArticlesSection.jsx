@@ -1,14 +1,10 @@
 import React from 'react'
 import Carousel from 'react-elastic-carousel'
-import FeaturedArticleComponent from "../../components/blog/FeaturedArticleComponent"
+import FeaturedArticleComponent from "./FeaturedArticleComponent"
 import { Article } from '../../types'
 import Image from 'next/image'
 
-type Props = {
-  articles: Article[]
-}
-
-const FeaturedArticlesSection = ({ articles }: Props) => {
+const FeaturedArticlesSection = ({ articles }) => {
   return (
     <section className="relative pt-[132px] md:pt-24 sm:px-[80px] xl:px-[140px] 2xl:px-[276px] -mt-44">
         <div className='absolute w-full h-full bg-[#fbf8ff] inset-0 -z-10'></div>
@@ -24,7 +20,7 @@ const FeaturedArticlesSection = ({ articles }: Props) => {
                 <FeaturedArticleComponent 
                     key={article.id}
                     duration={article.duration}
-                    formattedCreatedAt={article.formattedCreatedAt!}
+                    formattedCreatedAt={article.formattedCreatedAt}
                     id={article.id}
                     title={article.title}
                     image={article.mainImage}
