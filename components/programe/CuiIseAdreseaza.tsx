@@ -19,9 +19,9 @@ const CuiIseAdreseaza = ({ title, description }: Props) => {
         unoptimized={true}
       />
       <div className='flex flex-col items-center'>
-        <p className='text-primary text-[18px] md:text-[32px] font-extrabold'>{ title }</p>
+        <p className='text-secondary text-[18px] md:text-[32px] font-extrabold'>{ title }</p>
         <div className='mt-4 md:mt-8'>
-          <FormatText text={description} className='text-[#00103C] text-[14px] md:text-[16px] text-justify'/>
+          <FormatText text={description} className='text-[#00103C] text-[14px] lg:text-[16px] text-justify'/>
         </div>
       </div>
     </div>

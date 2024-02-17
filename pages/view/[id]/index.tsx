@@ -6,8 +6,8 @@ import Rezultate from "../../../components/Rezultate";
 import FAQAbout from "../../../components/About/FAQ/FAQ";
 import NewsLetter from "../../../components/global/newsletter";
 import News from "../../../components/Home/News/News";
-import ShopItem from "../../../components/Shop/ShopItem";
-import WhyUsCart from "../../../components/Home/Why-Us/Cart";
+import ShopItem from "../../../components/Shop2/ShopItem";
+import WhyUsCart from "../../../components/Home/Why-Us/FeaturedProducts";
 
 export default function PaginaProgram() {
   return(
@@ -141,7 +141,9 @@ export default function PaginaProgram() {
             vezi toate produsele
           </Link>
       </div>
-      <News />
+      <News 
+        articles={[]}
+      />
       <NewsLetter headingText={'Alătură-te comunității noastre și fii la curent cu cele mai noi oportunități de finanțare!'} />
 
     </>

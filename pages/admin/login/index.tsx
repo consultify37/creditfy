@@ -3,8 +3,6 @@ import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import ReactLoading from 'react-loading'
 import toast from 'react-hot-toast'
-import axios from 'axios'
-import Cookies from 'js-cookie'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../../firebase'
 

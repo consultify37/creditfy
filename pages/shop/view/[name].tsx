@@ -1,10 +1,10 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import FAQAbout from "../../../components/About/FAQ/FAQ";
-import Guide from "../../../components/Shop/Item/Guide";
-import HowWorks from "../../../components/Shop/Item/HowWorks";
-import ItemViewContent from "../../../components/Shop/Item/Item";
-import WhyToChoose from "../../../components/Shop/Item/WhyToChoose";
+import Guide from "../../../components/Shop2/Item/Guide";
+import HowWorks from "../../../components/shop/HowWorks";
+import ItemViewContent from "../../../components/Shop2/Item/Item";
+import WhyToChoose from "../../../components/Shop2/Item/WhyToChoose";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import Axios from "axios";

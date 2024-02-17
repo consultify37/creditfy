@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { auth, db } from '../../firebase'
 import { onAuthStateChanged, signOut } from "firebase/auth"
@@ -8,37 +8,25 @@ import { doc, getDoc } from 'firebase/firestore'
 import ReactLoading from 'react-loading'
 import Head from 'next/head'
 import toast from 'react-hot-toast'
+import { useAuthContext } from '../../context/AuthContext'
 
 type Props = {
   children: React.ReactNode
 }
 
 const AdminLayout = ({ children }: Props) => {
+  const { currentUser } = useAuthContext()
   const router = useRouter()
   const [isLoadingSignout, setIsLoadingSignout] = useState(false)
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const userDoc = doc(db, 'users', user.uid)
-        const userDocSnap = await getDoc(userDoc)
-        const userDocData: any = userDocSnap.data()
-        
-        if ( !userDocData.roles ) {
-          toast.error('Nu aveți permisii suficiente să accesați această pagină.', { duration: 3000 })
-          router.push('/admin/login')
-        } else if ( !userDocData.roles.includes("admin") && !userDocData.roles.includes("consultify") ) {
-          toast.error('Nu aveți permisii suficiente să accesați această pagină.', { duration: 3000 })
-          router.push('/admin/login')
-        }
 
-      } else {
-        router.push('/admin/login')
-      }
-    })
+    if ( !currentUser || !currentUser.roles || (!currentUser!.roles.includes("consultify") && !currentUser!.roles.includes("admin") ) ) {
+      toast.error('Nu aveți permisii suficiente să accesați această pagină.', { duration: 3000 })
+      router.push('/admin/login')
+    }
 
-    return () => unsubscribe()
-  }, [router])
+  }, [router, currentUser])
 
   const signout = async () => {
     setIsLoadingSignout(true)

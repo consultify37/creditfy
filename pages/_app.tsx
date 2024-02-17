@@ -8,20 +8,22 @@ import { usePathname } from 'next/navigation'
 import CookiePolicy from '../components/CookiePolicy'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { AuthContext } from '../context/AuthContext'
+import { CartContext } from '../context/CartContext'
 
 function useNormalScrollRoutes() {
-  const router = useRouter();
+  const router = useRouter()
 
   useEffect(() => {
     router.events.on('routeChangeStart', (url) => {
       if ( url != "/contact#") {
-        document.documentElement.classList.add('normal-scroll');
+        document.documentElement.classList.add('normal-scroll')
       }
-    });
+    })
     router.events.on('routeChangeComplete', () => {
-      document.documentElement.classList.remove('normal-scroll');
-    });
-  }, [router.events]);
+      document.documentElement.classList.remove('normal-scroll')
+    })
+  }, [router.events])
 }
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -43,21 +45,25 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [router.events])
 
   return (
-    <div className="flex flex-col">
-      { !pathname?.includes('/admin') ?
-        <>
-          <TopBar />
-          <Header />
-        </> : null
-      }
-      <main className="flex-1 relative">
-        <Component {...pageProps} />
-        <Toaster />
-        <CookiePolicy />
-      </main>
-      { !pathname?.includes('/admin') ?
-        <Footer /> : null
-      }
-    </div>
-  );
+    <AuthContext>
+      <CartContext>
+        <div className="flex flex-col">
+          { !pathname?.includes('/admin') ?
+            <>
+              <TopBar />
+              <Header />
+            </> : null
+          }
+          <main className="flex-1 relative">
+            <Component {...pageProps} />
+            <Toaster />
+            <CookiePolicy />
+          </main>
+          { !pathname?.includes('/admin') ?
+            <Footer /> : null
+          }
+        </div>
+      </CartContext>
+    </AuthContext>
+  )
 }

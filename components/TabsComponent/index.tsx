@@ -28,13 +28,13 @@ const TabsComponent = ({ values, setSelectedValue }: Props) => {
 
   return (
     <div className='-mx-1'>
-      <div className='relative hidden md:flex flex-row bg-[#F6EFFF] justify-between items-center rounded-full px-16'>
+      <div className='relative hidden lg:flex flex-row bg-[#F6EFFF] justify-between items-center rounded-full px-16'>
         {
           values.map((value, index) => (
             <p 
               key={value+index}
               ref={(el) => (tabsRef.current[index] = el)}
-              className='py-[28px] px-2 md:px-6 z-10 cursor-pointer text-center font-semibold'
+              className='py-[28px] px-2 lg:px-6 z-10 cursor-pointer text-center font-semibold'
               style={{color: index == activeTabIndex ? 'white' : 'black'}}
               onClick={() => {
                 setActiveTabIndex(index)
@@ -54,7 +54,7 @@ const TabsComponent = ({ values, setSelectedValue }: Props) => {
       <input aria-hidden="true" type="checkbox" name="toggle_dropdown" id="toggle_dropdown" className="hidden peer z-[11]" checked={toggle} onChange={() => setToggle(toggle => !toggle)}></input>
       <div className='relative'>
         <label role="button" htmlFor="toggle_dropdown" aria-label="dropdown" id="dropdown">
-          <div className='md:hidden flex flex-row w-full items-center justify-between bg-[#F6EFFF] rounded-full p-5 px-6 mb-4 shadow-md z-[11]'> 
+          <div className='lg:hidden flex flex-row w-full items-center justify-between bg-[#F6EFFF] rounded-full p-5 px-6 mb-4 shadow-lg z-[11]'> 
             <p className='font-semibold'>{values[activeTabIndex]}</p>
             <svg width="14" height="6" viewBox="0 0 11 5" fill="none" xmlns="http://www.w3.org/2000/svg" 
               aria-hidden='true' id='chevron-down'
@@ -66,7 +66,7 @@ const TabsComponent = ({ values, setSelectedValue }: Props) => {
         </label>
 
         <div 
-          className='absolute top-11 pt-2 flex-col z-10 w-full bg-[#F6EFFF] rounded-b-3xl shadow-md pb-1'
+          className='absolute top-11 pt-2 flex-col z-10 w-full bg-[#F6EFFF] rounded-b-3xl shadow-lg pb-1'
           id='dropdown-container'
           style={{visibility: toggle ? 'visible' : 'hidden'}}
         >

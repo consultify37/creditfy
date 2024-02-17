@@ -10,10 +10,10 @@ const FormatText = ({ text, className }: Props) => {
     <>
       {
         text.split('\n').map((item, index) => (
-          <>
+          <div key={index}>
             <p className={className} key={index}>{item}</p>
             { index != text.split('\n').length && item != "" && <br />}
-          </>
+          </div>
         )) 
       }
     </>

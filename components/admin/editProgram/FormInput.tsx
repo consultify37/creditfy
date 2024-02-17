@@ -6,16 +6,18 @@ type Props = {
   placeholder: string
   styleProps?: string
   required?: boolean
+  type?: string
 }
 
-const FormInput = ({ setValue, value, placeholder, styleProps, required=false }: Props) => {
+const FormInput = ({ setValue, value, placeholder, styleProps, required=false, type='text' }: Props) => {
   return (
     <input 
-      className={'text-base p-4 rounded-full border-2 border-primary outline-none w-full ' + (styleProps ? styleProps : '')}
+      className={'text-base p-4 rounded-2xl border-2 border-primary outline-none w-full ' + (styleProps ? styleProps : '')}
       placeholder={placeholder}
       value={value}
       onChange={(e) => setValue(e.target.value) }
       required={required}
+      type={type}
     />
   )
 }

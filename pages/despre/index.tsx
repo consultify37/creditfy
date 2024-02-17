@@ -7,7 +7,7 @@ import FAQAbout from "../../components/About/FAQ/FAQ"
 import OurStory from "../../components/About/OurStory/OurStory"
 import WhyUsAbout from "../../components/About/Why-Us/WhyUs-About"
 import News from "../../components/Home/News/News"
-import WhyUsCart from "../../components/Home/Why-Us/Cart"
+import WhyUsCart from "../../components/Home/Why-Us/FeaturedProducts"
 import CTA from "../../components/CTA"
 import NewsLetter from "../../components/global/newsletter"
 

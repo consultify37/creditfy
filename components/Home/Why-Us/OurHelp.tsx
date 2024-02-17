@@ -1,5 +1,5 @@
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai"
-import WhyUsCart from "./Cart.js"
+import WhyUsCart from "./FeaturedProducts.jsx"
 import {useEffect, useRef, useState} from 'react'
 import { backCarousel, nextCarousel } from "../../../utils/functions"
 

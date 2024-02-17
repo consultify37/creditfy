@@ -1,17 +1,12 @@
-import React, { useEffect } from 'react'
 import AdminLayout from '../../components/admin-nav/AdminLayout'
-import { useRouter } from 'next/navigation'
+import { useAuthContext } from '../../context/AuthContext'
 
 const Admin = () => {
-  const router = useRouter()
-
-  useEffect(() => {
-    router.push('/admin/slide-homepage')
-  }, [router])
+  const { currentUser } = useAuthContext()
 
   return (
     <AdminLayout>
-      <div></div>
+      <h1 className='text-[28px] text-secondary font-bold '>Bun venit, { currentUser?.name.split(' ')[0] }!</h1>
     </AdminLayout>
   )
 }
