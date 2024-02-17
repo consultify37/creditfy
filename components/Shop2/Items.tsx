@@ -46,7 +46,7 @@ const ShopItems = () => {
         {categorie.map((categorii: any, i: any) => (
           <ShopItem
             key={i}
-            categorie={categorii}
+            category={categorii}
             products={products.filter(
               (product: any) =>
                 product.categorie.toLowerCase() === categorii.nume.toLowerCase()
