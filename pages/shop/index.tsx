@@ -1,5 +1,5 @@
 import Head from "next/head"
-import ShopHeader from "../../components/Shop2/ShopHeader"
+import ShopHeader from "../../components/shop/ShopHeader"
 import ShopItems from "../../components/shop/ShopItems"
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore"
 import { db } from "../../firebase"

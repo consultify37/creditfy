@@ -4,7 +4,7 @@ import { useRef, useState, useEffect, createRef } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Product, ProductCategory } from "../../types"
-import ProductCard from "../shop/ProductCard"
+import ProductCard from "./ProductCard"
 
 const ShopItem = ({
   category,

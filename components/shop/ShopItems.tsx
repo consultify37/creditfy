@@ -1,6 +1,6 @@
 import React from 'react'
 import { Product, ProductCategory } from '../../types'
-import ShopItem from '../Shop2/ShopItem'
+import ShopItem from './ShopItem'
 
 type Props = {
   products: Product[]

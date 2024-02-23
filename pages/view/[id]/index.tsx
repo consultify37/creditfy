@@ -6,7 +6,7 @@ import Rezultate from "../../../components/Rezultate";
 import FAQAbout from "../../../components/About/FAQ/FAQ";
 import NewsLetter from "../../../components/global/newsletter";
 import News from "../../../components/Home/News/News";
-import ShopItem from "../../../components/Shop2/ShopItem";
+import ShopItem from "../../../components/shop/ShopItem";
 import WhyUsCart from "../../../components/Home/Why-Us/FeaturedProducts";
 
 export default function PaginaProgram() {
