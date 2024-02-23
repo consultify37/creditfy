@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import { ProductData } from "../components/Shop2/Category/CategoryItems";
-import { Article } from "../types";
+import { Article, Product } from "../types";
 
 export const backCarousel = (
   setScrollAmount: React.Dispatch<React.SetStateAction<number>>,
@@ -30,7 +29,7 @@ export const nextCarousel = (
   );
 };
 
-export function Pagination(data: ProductData[], current: number, max: number) {
+export function Pagination(data: Product[], current: number, max: number) {
   const last = (current + 1) * max;
   const first = last - max;
   const newdata = data.slice(first, last);
