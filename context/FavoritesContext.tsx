@@ -10,6 +10,7 @@ type FavoritesContextType = {
   favorites: Product[]
   handleAddProductToFavorites: (product: Product) => void
   handleRemoveProductFromFavorites: (product: Product) => void
+  isLoading: boolean
 }
 
 const Context = createContext<FavoritesContextType | null>(null)
@@ -27,21 +28,23 @@ export const FavoritesContext = ({ children }: Props) => {
 
     try {
       if ( stringifiedFavoritesIds ) {
+        setIsLoading(true)
         const FavoritesIds = JSON.parse( stringifiedFavoritesIds ).slice(0, 30)
   
-        const docsRef = query(collection(db, 'favorites'), where(documentId(), 'in', FavoritesIds))
+        const docsRef = query(collection(db, 'products'), where(documentId(), 'in', FavoritesIds))
         const docsSnap = await getDocs(docsRef)
 
         const products: Product[] = docsSnap.docs.map((doc) => (
           { id: doc.id, ...doc.data() } as Product
         ))
-
+    
         setFavorites(products)
       } 
     } catch (e) {
       console.log(e)
     }
- 
+    
+    setIsLoading(false)
   }
 
   useEffect(() => {
@@ -67,12 +70,12 @@ export const FavoritesContext = ({ children }: Props) => {
     const FavoritesIds = favorites.filter(favorites => favorites.id != product.id ).map((product) => product.id )
 
     Cookies.set('favorites', JSON.stringify(FavoritesIds))
-    toast.success('Produs a fost eliminat de la favorite.')
+    toast.success('Produsul a fost eliminat de la favorite.')
   }
 
   return(
     <Context.Provider 
-      value={{ favorites, handleAddProductToFavorites, handleRemoveProductFromFavorites }}
+      value={{ favorites, isLoading, handleAddProductToFavorites, handleRemoveProductFromFavorites }}
     >
       {children}
     </Context.Provider>

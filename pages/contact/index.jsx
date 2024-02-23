@@ -49,7 +49,7 @@ export default function Contact() {
 
             await addDoc(collectionRef, { nume, prenume, firma, cui, telefon, email, nevoie, mesaj, website: process.env.SITE, createdAt: serverTimestamp() } )
 
-            toast.success('Mulțumim! Un reprezentat Consultify te va contacta în curând. 🚀', { duration: 5000, style: { textAlign: 'center' } })
+            toast.success(`Mulțumim! Un reprezentat ${process.env.SITE} te va contacta în curând. 🚀`, { duration: 5000, style: { textAlign: 'center' } })
             setCui("")
             setEmail("")
             setIsChecked(false)

@@ -1,20 +1,32 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
+import { useFavoritesContext } from '../../context/FavoritesContext'
+import { Product } from '../../types'
 
 type Props = {
-  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined
-  isFavorite?: boolean
+  product: Product
   size?: 'small' | 'big'
 }
 
-const HeartButton = ({ isFavorite=false, onClick, size='big' }: Props) => {
-  const [isLiked, setisLiked] = useState(isFavorite)
+const HeartButton = ({ product, size='big' }: Props) => {
+  const { favorites, handleRemoveProductFromFavorites, handleAddProductToFavorites } = useFavoritesContext()
+  const [isLiked, setIsLiked] = useState( favorites.findIndex((item) => item.id == product.id ) != -1 ? true : false )
+
+  const handleButtonClicked = () => {
+    if ( !isLiked ) {
+      handleAddProductToFavorites(product)
+      setIsLiked(!isLiked)
+    } else {
+      handleRemoveProductFromFavorites(product)
+      setIsLiked(!isLiked)
+    }
+  }
 
   return (
     <>
       { size == 'big' ?
         <button 
-          onClick={() => setisLiked(!isLiked)}
+          onClick={handleButtonClicked}
           className='bg-[#EAEDFF] h-[45px] w-[45px] min-w-[45px] lg:h-[58px] lg:w-[58px] lg:min-w-[58px] rounded-full flex justify-center items-center hover:scale-105 transition-all'
         >
           <Image 
@@ -26,15 +38,15 @@ const HeartButton = ({ isFavorite=false, onClick, size='big' }: Props) => {
           />
         </button> :
         <button 
-          onClick={() => setisLiked(!isLiked)}
-          className='bg-[#EAEDFF] h-[34px] w-[34px] min-w-[34px] lg:h-[58px] lg:w-[58px] lg:min-w-[58px] rounded-full flex justify-center items-center hover:scale-105 transition-all'
+          onClick={handleButtonClicked}
+          className='bg-[#EAEDFF] h-[34px] w-[34px] min-w-[34px] rounded-full flex justify-center items-center hover:scale-105 transition-all'
         >
           <Image 
             src={isLiked ? '/images/Shop/filled-heart.svg' : '/images/Shop/heart.svg'}
             width={32}
             height={32}
             alt='.'
-            className='w-3 h-3 lg:w-4 lg:h-4'
+            className='w-3 h-3'
           />
         </button>
       }

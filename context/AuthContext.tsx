@@ -1,4 +1,4 @@
-import { useContext, useState, createContext, useEffect } from "react"
+import { useContext, useState, createContext, useEffect, Dispatch, SetStateAction } from "react"
 import { User } from "../types"
 import { onAuthStateChanged } from "firebase/auth"
 import { auth, db } from "../firebase"
@@ -10,6 +10,7 @@ import { usePathname } from "next/navigation"
 type AuthContextType = {
   currentUser: User | null
   isLoadingAuth: boolean
+  setCurrentUser: Dispatch<SetStateAction<User | null>>
 }
 
 const Context = createContext<AuthContextType | null>(null)
@@ -20,7 +21,7 @@ type Props = {
 
 export const AuthContext = ({ children }: Props) => {
   const pathname = usePathname()
-  const [currentUser, setcurrentUser] = useState< User | null>(null)
+  const [currentUser, setCurrentUser] = useState< User | null>(null)
   const [isLoadingAuth, setIsLoadingAuth] = useState(true)
   
   useEffect(() => {
@@ -32,9 +33,9 @@ export const AuthContext = ({ children }: Props) => {
         const userDocSnap = await getDoc(userDoc)
         const userDocData: any = { id: userDocSnap.id, ...userDocSnap.data()}
 
-        setcurrentUser(userDocData)
+        setCurrentUser(userDocData)
       } else {
-        setcurrentUser(null)
+        setCurrentUser(null)
       }
 
       setIsLoadingAuth(false)
@@ -53,7 +54,7 @@ export const AuthContext = ({ children }: Props) => {
 
   return(
     <Context.Provider 
-      value={{ currentUser, isLoadingAuth }}>
+      value={{ currentUser, isLoadingAuth, setCurrentUser }}>
       {children}
     </Context.Provider>
   )

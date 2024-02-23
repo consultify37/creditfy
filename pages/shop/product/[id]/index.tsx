@@ -70,7 +70,9 @@ const Product = ({ product, featuredProducts }: Props) => {
               onClick={() => handleAddProduct(product) }
             />
 
-            <HeartButton />
+            <HeartButton 
+              product={product}
+            />
           </div>
         </div>
       </div>

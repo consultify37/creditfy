@@ -1,7 +1,6 @@
 import React from 'react'
 import Carousel from 'react-elastic-carousel'
 import FeaturedArticleComponent from "./FeaturedArticleComponent"
-import { Article } from '../../types'
 import Image from 'next/image'
 
 const FeaturedArticlesSection = ({ articles }) => {

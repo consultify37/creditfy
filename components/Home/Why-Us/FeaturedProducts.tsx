@@ -3,7 +3,7 @@ import React, { createRef, useEffect, useRef, useState } from 'react'
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
 import { Product } from '../../../types'
 import { backCarousel, nextCarousel } from '../../../utils/functions'
-import ProductCard from '../../Shop2/ProductCard'
+import ProductCard from '../../shop/ProductCard'
 
 type Props = {
   products: Product[]

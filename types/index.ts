@@ -83,6 +83,7 @@ export type ArticleCategory = {
 export type User = {
   id: string,
   name: string,
+  phone?: string,
   email: string,
   role: string,
   roles: string[],
@@ -94,6 +95,7 @@ export type User = {
 }
 
 export type Product = {
+  stripe_price_id: string
   active: boolean
   id?: string
   name: string
@@ -126,4 +128,14 @@ export type ProductCategory = {
     image: string 
   } | null
   id?: string
+}
+
+export type Order = {
+  id: string
+  channel: string
+  checkout_session_id: string
+  createdAt: string
+  customer_email: string
+  line_items: { data: any[] }
+  number_of_items: number
 }

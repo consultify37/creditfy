@@ -54,7 +54,13 @@ const Login = () => {
       
       router.replace('/cont')
     } catch (e: any) {
-      toast.error(e.message.replace('Firebase: '))
+      if ( e.code == 'auth/invalid-login-credentials' ) {
+        toast.error('Email sau parolă invalide.')
+      } else {
+        toast.error(e.message.replace('Firebase: '))
+      }
+
+      setPassword('')
     }
 
     setIsLoading(false)

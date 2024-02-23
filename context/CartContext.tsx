@@ -22,13 +22,30 @@ export const CartContext = ({ children }: Props) => {
   const [cart, setCart] = useState< Product[] >([])
 
   const fetchCartProducts = async () => {
+    const session_id = Cookies.get('cart_session_id')
+
+    if ( session_id ) {
+      // if an order document was created, the payment was completed and we need to remove the items in the cart
+      try {
+        const q = query(collection(db, 'orders'), where('checkout_session_id', '==', session_id))
+        const snap = await getDocs(q)
+
+        if ( !snap.empty ) {
+          Cookies.remove('cart_session_id')
+          Cookies.remove('cart')
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    }
+
     const stringifiedCartIds = Cookies.get('cart')
 
     try {
       if ( stringifiedCartIds ) {
         const cartIds = JSON.parse( stringifiedCartIds ).slice(0, 30)
   
-        const docsRef = query(collection(db, 'products'), where(documentId(), 'in', cartIds))
+        const docsRef = query(collection(db, 'products'), where('active', '==', true), where(documentId(), 'in', cartIds))
         const docsSnap = await getDocs(docsRef)
 
         const products: Product[] = docsSnap.docs.map((doc) => (
@@ -66,7 +83,7 @@ export const CartContext = ({ children }: Props) => {
     const cartIds = cart.filter(cart => cart.id != product.id ).map((product) => product.id )
 
     Cookies.set('cart', JSON.stringify(cartIds))
-    toast.success('Produs a fost eliminat din coșul de cumpărături.')
+    toast.success('Produsul a fost eliminat din coșul de cumpărături.')
   }
 
   return(
