@@ -55,6 +55,12 @@ const OrdersTable = () => {
         </div>
       }
 
+      { !isLoading && orders.length == 0 &&
+        <div className='h-[33vh] w-full flex items-center justify-center'>
+          <p className='text-secondary font-bold sm:text-[20px]'>Nu ai făcut nicio comandă până acum.</p>
+        </div>
+      }
+
       { !isLoading &&
         <table className='mt-6 w-full'>
           <thead className='w-full'>

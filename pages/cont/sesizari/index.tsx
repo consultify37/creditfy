@@ -95,7 +95,7 @@ const Sesizari = () => {
                 </div>
             </div>
             <div className="flex w-full flex-col items-center justify-between mb-6">
-                <div className="flex flex-col w-full md:mr-2">
+                {/* <div className="flex flex-col w-full md:mr-2">
                     <span className="text-[14px] text-secondary mb-2 font-semibold">
                         Telefon*
                     </span>
@@ -107,7 +107,7 @@ const Sesizari = () => {
                         onChange={(phone) => setTelefon(phone)}
                         className="rounded-xl w-full border-[#8717F8] text-ms leading-6 border-2 p-2 mb-6 outline-none"
                     />
-                </div>
+                </div> */}
                 <div className="flex flex-col w-full">
                     <span className="text-[14px] text-secondary mb-2 font-semibold">
                         Email*
@@ -123,7 +123,7 @@ const Sesizari = () => {
                     />
                 </div>
             </div>
-            <div className="flex flex-col w-full my-6">
+            <div className="flex flex-col w-full mt-4 my-6">
                 <span className="text-[14px] text-secondary mb-2 font-semibold">
                     Oferă-ne câteva detalii*
                 </span>

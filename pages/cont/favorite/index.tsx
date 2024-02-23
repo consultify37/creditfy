@@ -25,6 +25,12 @@ const Favorite = () => {
           </div>
         }
 
+        { !isLoading && favorites.length == 0 &&
+          <div className='h-[33vh] w-full flex items-center justify-center'>
+            <p className='text-secondary font-bold sm:text-[20px]'>Nu ai adăugat niciun produs la favorite.</p>
+          </div>
+        }
+
         { isLoading &&
           <div className='h-[40vh] w-full flex items-center justify-center'>
             <ReactLoading type="spin" color="#8717F8" width={32} height={32} /> 
