@@ -8,7 +8,7 @@ const ShopHeader = () => {
 					src="/images/Shop/shop-hexagon.svg"
 					width={130}
 					height={130}
-					className="absolute top-12 lg:top-36 -left-2 md:bottom-5 md:left-0 w-[90px] md:w-[100px] lg:w-[110px] xl:w-[130px]"
+					className="absolute top-12 lg:top-32 -left-2 md:bottom-5 md:left-0 w-[90px] md:w-[100px] lg:w-[110px] xl:w-[130px]"
 					alt="."
 				/>
 				<Image
