@@ -1,12 +1,11 @@
 import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/router"
 import { CartModal, LoginModal } from "../modals"
 import Cookies from "js-cookie"
 import { usePathname } from "next/navigation"
-import { AiOutlineShoppingCart } from "react-icons/ai"
 import { useAuthContext } from "../../context/AuthContext"
 import { useCartContext } from "../../context/CartContext"
 
