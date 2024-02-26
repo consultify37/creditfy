@@ -89,10 +89,9 @@ const RegisterForm = () => {
           required
         />
         <FormInput 
-          placeholder='telefon'
+          placeholder='telefon (opțional)'
           value={telefon}
           setValue={setTelefon}
-          required
           styleProps='mt-5 lg:mt-0'
         />
       </div>

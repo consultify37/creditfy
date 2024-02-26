@@ -1,8 +1,8 @@
-import { useContext, useState, createContext, useEffect, Dispatch, SetStateAction } from "react"
+import { useContext, useState, createContext, useEffect } from "react"
 import { User } from "../types"
 import { onAuthStateChanged } from "firebase/auth"
 import { auth, db } from "../firebase"
-import { doc, getDoc } from "firebase/firestore"
+import { doc, getDoc, onSnapshot } from "firebase/firestore"
 import ReactLoading from 'react-loading'
 import { usePathname } from "next/navigation"
 
@@ -10,7 +10,6 @@ import { usePathname } from "next/navigation"
 type AuthContextType = {
   currentUser: User | null
   isLoadingAuth: boolean
-  setCurrentUser: Dispatch<SetStateAction<User | null>>
 }
 
 const Context = createContext<AuthContextType | null>(null)
@@ -21,7 +20,8 @@ type Props = {
 
 export const AuthContext = ({ children }: Props) => {
   const pathname = usePathname()
-  const [currentUser, setCurrentUser] = useState< User | null>(null)
+  const [currentUserAuth, setCurrentUserAuth] = useState< any >(null)
+  const [currentUser, setcurrentUser] = useState< User | null>(null)
   const [isLoadingAuth, setIsLoadingAuth] = useState(true)
   
   useEffect(() => {
@@ -29,13 +29,14 @@ export const AuthContext = ({ children }: Props) => {
       setIsLoadingAuth(true)
 
       if (user) {
+        setCurrentUserAuth(user)
         const userDoc = doc(db, 'users', user.uid)
         const userDocSnap = await getDoc(userDoc)
-        const userDocData: any = { id: userDocSnap.id, ...userDocSnap.data()}
 
-        setCurrentUser(userDocData)
+        setcurrentUser({ id: userDocSnap.id, ...userDocSnap.data() } as User)
       } else {
-        setCurrentUser(null)
+        setcurrentUser(null)
+        setCurrentUserAuth(null)
       }
 
       setIsLoadingAuth(false)
@@ -43,18 +44,30 @@ export const AuthContext = ({ children }: Props) => {
 
     return () => unsubscribe()
   }, [])
-  
+
+  useEffect(() => {
+    if ( currentUserAuth ) {
+      const userDoc = doc(db, 'users', currentUserAuth.uid)
+      
+      const unsubscribe = onSnapshot(userDoc, (doc) => {
+        setcurrentUser({ id: doc.id, ...doc.data()} as User)
+      })
+
+      return () => unsubscribe()
+    }
+  }, [currentUserAuth])
+
   if ( isLoadingAuth && pathname?.includes('/admin') ) {
     return (
       <div className='relative w-full h-screen flex items-center justify-center' style={{height: '100vh'}}>
-        <ReactLoading type="spin" color="#8717F8" width={32} height={32} />
+        <ReactLoading type="spin" color="#0F52FF" width={32} height={32} />
       </div>
     )
   }
 
   return(
     <Context.Provider 
-      value={{ currentUser, isLoadingAuth, setCurrentUser }}>
+      value={{ currentUser, isLoadingAuth }}>
       {children}
     </Context.Provider>
   )

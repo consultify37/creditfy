@@ -81,8 +81,9 @@ export type ArticleCategory = {
 }
 
 export type User = {
-  id: string,
-  name: string,
+  id: string
+  name: string
+  isCreating?: boolean
   phone?: string,
   email: string,
   role: string,

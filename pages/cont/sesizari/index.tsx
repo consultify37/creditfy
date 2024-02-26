@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import AccountLayout from '../../../components/AccountLayout'
 import ReCAPTCHA from 'react-google-recaptcha'
-import { PhoneInput } from 'react-international-phone'
 import ReactLoading from 'react-loading'
 import Link from 'next/link'
 import toast from 'react-hot-toast'

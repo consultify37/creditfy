@@ -7,7 +7,6 @@ import { formatDate } from '../../utils/formatDate'
 import OrderCard from './OrderCard'
 import { Order } from '../../types'
 import ReactLoading from 'react-loading'
-import Link from 'next/link'
 import OrderRow from './OrderRow'
 
 const OrdersTable = () => {
@@ -61,7 +60,7 @@ const OrdersTable = () => {
         </div>
       }
 
-      { !isLoading &&
+      { !isLoading && orders.length != 0 &&
         <table className='mt-6 w-full'>
           <thead className='w-full'>
             <tr className='bg-[#EDF0FF] border-2 border-[#EDF0FF] w-full'>

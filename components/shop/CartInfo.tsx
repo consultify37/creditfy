@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
 import { getColorForWhyChoose } from '../../utils/getColorForWhyChoose'
-import { getRotationDeg } from '../../utils/getRotationDeg'
 
 const data = [
   { 
