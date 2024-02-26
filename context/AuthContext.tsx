@@ -1,4 +1,4 @@
-import { useContext, useState, createContext, useEffect } from "react"
+import { useContext, useState, createContext, useEffect, Dispatch, SetStateAction } from "react"
 import { User } from "../types"
 import { onAuthStateChanged } from "firebase/auth"
 import { auth, db } from "../firebase"
@@ -10,6 +10,7 @@ import { usePathname } from "next/navigation"
 type AuthContextType = {
   currentUser: User | null
   isLoadingAuth: boolean
+  setCurrentUser: Dispatch<SetStateAction<User | null>>
 }
 
 const Context = createContext<AuthContextType | null>(null)
@@ -21,7 +22,7 @@ type Props = {
 export const AuthContext = ({ children }: Props) => {
   const pathname = usePathname()
   const [currentUserAuth, setCurrentUserAuth] = useState< any >(null)
-  const [currentUser, setcurrentUser] = useState< User | null>(null)
+  const [currentUser, setCurrentUser] = useState< User | null>(null)
   const [isLoadingAuth, setIsLoadingAuth] = useState(true)
   
   useEffect(() => {
@@ -33,9 +34,9 @@ export const AuthContext = ({ children }: Props) => {
         const userDoc = doc(db, 'users', user.uid)
         const userDocSnap = await getDoc(userDoc)
 
-        setcurrentUser({ id: userDocSnap.id, ...userDocSnap.data() } as User)
+        setCurrentUser({ id: userDocSnap.id, ...userDocSnap.data() } as User)
       } else {
-        setcurrentUser(null)
+        setCurrentUser(null)
         setCurrentUserAuth(null)
       }
 
@@ -50,7 +51,7 @@ export const AuthContext = ({ children }: Props) => {
       const userDoc = doc(db, 'users', currentUserAuth.uid)
       
       const unsubscribe = onSnapshot(userDoc, (doc) => {
-        setcurrentUser({ id: doc.id, ...doc.data()} as User)
+        setCurrentUser({ id: doc.id, ...doc.data()} as User)
       })
 
       return () => unsubscribe()
@@ -67,7 +68,7 @@ export const AuthContext = ({ children }: Props) => {
 
   return(
     <Context.Provider 
-      value={{ currentUser, isLoadingAuth }}>
+      value={{ currentUser, isLoadingAuth, setCurrentUser }}>
       {children}
     </Context.Provider>
   )
