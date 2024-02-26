@@ -42,7 +42,7 @@ export const CartContext = ({ children }: Props) => {
     const stringifiedCartIds = Cookies.get('cart')
 
     try {
-      if ( stringifiedCartIds ) {
+      if ( stringifiedCartIds && JSON.parse( stringifiedCartIds ).length != 0 ) {
         const cartIds = JSON.parse( stringifiedCartIds ).slice(0, 30)
   
         const docsRef = query(collection(db, 'products'), where('active', '==', true), where(documentId(), 'in', cartIds))
