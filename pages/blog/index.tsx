@@ -8,18 +8,20 @@ import { PaginationBlog } from "../../utils/functions"
 import {RiArrowLeftSLine, RiArrowRightSLine} from 'react-icons/ri'
 import TabsComponent from "../../components/TabsComponent"
 import PageHeader from "../../components/Header/PageHeader"
-import { collection, getDocs, orderBy, query, where } from "firebase/firestore"
+import { collection, getDocs, limit, orderBy, query, where } from "firebase/firestore"
 import { db } from "../../firebase"
 import { formatDate } from "../../utils/formatDate"
-import { Article, ArticleCategory } from "../../types"
+import { Article, ArticleCategory, Product } from "../../types"
 import FeaturedArticlesSection from "../../components/blog/FeaturedArticlesSection"
+import FeaturedProducts from "../../components/Home/Why-Us/FeaturedProducts"
 
 type Props = {
   articles: Article[]
   categories: ArticleCategory[]
+  products: Product[]
 }
 
-export default function Testimoniale({ articles, categories }: Props) {
+export default function Testimoniale({ articles, categories, products }: Props) {
     const [page, setPage] = useState(0)
     let maxPages = Math.ceil(articles.length/9)
   
@@ -40,7 +42,7 @@ export default function Testimoniale({ articles, categories }: Props) {
   return (
     <>
         <Head>
-            <title>Consultify | Blog</title>
+            <title>{`${process.env.SITE} | Blog`}</title>
         </Head>
         <PageHeader 
             title="Află noutățile din business și nu numai"
@@ -117,6 +119,9 @@ export default function Testimoniale({ articles, categories }: Props) {
                 <RiArrowRightSLine size={24} onClick={() => setPage(maxPages-1)} className={`${page === maxPages - 1 ? 'text-[#CDCDCD]' : 'text-[#260056]'} cursor-pointer`} />
             </div>
         </section>
+        <FeaturedProducts 
+            products={products}
+        />
       <NewsLetter headingText={'Alătură-te comunității noastre și fii la curent cu cele mai noi oportunități de finanțare!'} />
     </>
   )
@@ -133,7 +138,16 @@ export const getServerSideProps = async () => {
     const docsSnap = await getDocs(docsRef)
   
     const categories = docsSnap.docs.map(doc => ( { id: doc.id, ...doc.data()} ))
+
+    const collectionRef = query(collection(db, 'products'), where('active', '==', true), where('featured', '==', true), orderBy('lastUpdated', 'desc'), limit(8))
+    const collectionSnap = await getDocs(collectionRef)
+    
+    const products: Product[] = collectionSnap.docs.map((doc) => {
+      const { lastUpdated, ...data } = doc.data()
   
-    return { props: { articles, categories }}
+      return ({ id: doc.id, ...data } as Product)
+    })
+  
+    return { props: { articles, categories, products }}
   }
 

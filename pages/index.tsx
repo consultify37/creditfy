@@ -10,16 +10,21 @@ import Proces from "../components/Proces"
 import CTA from "../components/CTA"
 import NewsLetter from "../components/global/newsletter"
 import Garantii from "../components/Garantii"
-import { Program, Slide } from "../types"
-import { collection, getDocs, query, where } from "firebase/firestore"
+import { Article, Product, Program, Slide } from "../types"
+import { collection, getDocs, limit, orderBy, query, where } from "firebase/firestore"
 import { db } from "../firebase"
+import { formatDate } from "../utils/formatDate"
+import News from "../components/Home/News/News"
+import FeaturedProducts from "../components/Home/Why-Us/FeaturedProducts"
 
 type Props = {
   programe: Program[]
   slides: Slide[]
+  products: Product[]
+  articles: Article[]
 }
 
-export default function Home({ slides, programe }: Props) {
+export default function Home({ slides, programe, articles, products }: Props) {
   return (
     <> 
       {/* pageSettings */}
@@ -42,18 +47,12 @@ export default function Home({ slides, programe }: Props) {
         linkText="Completează formularul!"
         linkHref="/contact"
       />
-      {/* <div className="w-full mt-32 px-7 md:px-[80px] xl:px-[140px] 2xl:px-[276px]">
-          <div className="flex justify-start items-start">
-            <h3 className="md:text-xl lg:text-2xl xl:text-[32px] text-[#8717F8] font-bold">
-              Crește eficiența și productivitatea cu serviciile <br /> și produsele digitale oferite de Consultify și Inspirely!
-            </h3>
-          </div>
-          <WhyUsCart />
-          <Link href='/shop' className="bg-[#8717F8] transition-all hover:scale-[1.05] flex font-semibold items-center justify-center w-[max-content] mx-auto justify-self-center px-12 py-3 text-white rounded-[28.5px]">
-            Vezi toate produsele
-          </Link>
-      </div> */}
-      {/* <News /> */}
+      <FeaturedProducts 
+        products={products}
+      />
+      <News 
+        articles={articles}
+      />
       <NewsLetter headingText={'Alătură-te comunității noastre și fii la curent cu cele mai noi oportunități de finanțare!'} />
     </>
   )
@@ -74,8 +73,23 @@ export const getStaticProps = async () => {
     { id: doc.id, ...doc.data() }
   ))
 
+  const articlesSnap = await  getDocs(query(collection(db, 'articles'), where('active', '==', true), where('featured', '==', true), orderBy('createdAt', 'desc'), limit(8)))
+  var articles = articlesSnap.docs.map((doc) => {
+      const { lastUpdated, createdAt, ...data } = doc.data()
+      return ({ id: doc.id, formattedCreatedAt: formatDate(new Date(createdAt.seconds*1000)), ...data }) 
+  })
+  
+  const collectionRef = query(collection(db, 'products'), where('active', '==', true), where('featured', '==', true), orderBy('lastUpdated', 'desc'), limit(8))
+  const collectionSnap = await getDocs(collectionRef)
+  
+  const products: Product[] = collectionSnap.docs.map((doc) => {
+    const { lastUpdated, ...data } = doc.data()
+
+    return ({ id: doc.id, ...data } as Product)
+  })
+
   return {
-    props: { programe, slides },
+    props: { programe, slides, products, articles },
     revalidate: Number(process.env.REVALIDATE)
   }
 }

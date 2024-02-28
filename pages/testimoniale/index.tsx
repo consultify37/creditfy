@@ -8,8 +8,17 @@ import toast from "react-hot-toast"
 import Logos from "../../components/Home/Logos"
 import PageHeader from "../../components/Header/PageHeader"
 import OurClients from "../../components/Home/OurClients/OurClients"
-import { addDoc, collection } from "firebase/firestore"
+import { addDoc, collection, getDocs, limit, orderBy, query, where } from "firebase/firestore"
 import { db } from "../../firebase"
+import { Article, Product } from "../../types"
+import { formatDate } from "../../utils/formatDate"
+import News from "../../components/Home/News/News"
+import FeaturedProducts from "../../components/Home/Why-Us/FeaturedProducts"
+
+type Props = {
+  products: Product[]
+  articles: Article[]
+}
 
 const testimonials = [
   {
@@ -32,7 +41,7 @@ const testimonials = [
   }
 ]
 
-export default function Testimoniale() {
+export default function Testimoniale({ articles, products }: Props) {
   const [scrollAmount, setScrollAmount] = useState<number>(0)
   const carouselRef = useRef<HTMLDivElement | null>(null)
 
@@ -66,7 +75,7 @@ export default function Testimoniale() {
   return (
     <>
       <Head>
-        <title>Consultify | Testimoniale</title>
+        <title>{`${process.env.SITE} | Testimoniale`}</title>
       </Head>
       <PageHeader
         title="Experiențe de succes prin fonduri europene"
@@ -179,18 +188,6 @@ export default function Testimoniale() {
               ></iframe>
             </div>
         </section>
-        {/* <div className="w-full mt-32">
-          <div className="flex justify-start items-start">
-            <h3 className="text-lg text-white font-bold">
-              Consultify vine în ajutorul tău cu produse digitale pentru scalarea
-              afacerii tale
-            </h3>
-          </div>
-          <WhyUsCart />
-        </div> */}
-        {/* <Link href='/shop' className="bg-[#8717F8] mt-5 px-12 py-3 md:py-4 font-semibold text-white transition-all hover:scale-[1.05] rounded-[28.5px]">
-          Vezi toate produsele
-        </Link> */}
         <div className="flex px-7 md:px-0 w-full flex-col lg:flex-row mt-16 md:mt-48 justify-between items-center">
           <div className='relative flex lg:hidden justify-end my-16 lg:mb-0 lg:ml-12'>
               <Image src='/images/testimoniale/Pag - testimoniale - structura idei afacere.png' alt='Why-Us' className='relative w-[450px] rounded-[35px] z-[2]' width={350} height={400} placeholder='blur' blurDataURL='/images/home-about-1.png' />
@@ -234,8 +231,35 @@ export default function Testimoniale() {
         linkText="Completează formularul!"
         linkHref="/contact"
       />
-      {/* <News /> */}
+      <FeaturedProducts 
+        products={products}
+      />
+      <News
+        articles={articles}
+      />
       <NewsLetter headingText='Abonează-te și află secretele succesului în obținerea finanțăriilor europene!' />
     </>
   )
+}
+
+export const getStaticProps = async () => {
+  const articlesSnap = await  getDocs(query(collection(db, 'articles'), where('active', '==', true), where('featured', '==', true), orderBy('createdAt', 'desc'), limit(8)))
+  var articles = articlesSnap.docs.map((doc) => {
+      const { lastUpdated, createdAt, ...data } = doc.data()
+      return ({ id: doc.id, formattedCreatedAt: formatDate(new Date(createdAt.seconds*1000)), ...data }) 
+  })
+  
+  const collectionRef = query(collection(db, 'products'), where('active', '==', true), where('featured', '==', true), orderBy('lastUpdated', 'desc'), limit(8))
+  const collectionSnap = await getDocs(collectionRef)
+  
+  const products: Product[] = collectionSnap.docs.map((doc) => {
+    const { lastUpdated, ...data } = doc.data()
+
+    return ({ id: doc.id, ...data } as Product)
+  })
+
+  return {
+    props: { products, articles },
+    revalidate: Number(process.env.REVALIDATE)
+  }
 }

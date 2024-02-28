@@ -25,7 +25,10 @@ const BlogPost = ({ article, articles }: Props) => {
     return(
         <>
             <Head>
-                <title>{`Consultify | ${ article.title }`}</title>
+                <title>{`${process.env.SITE} | ${ article.title }`}</title>
+                <meta name="keywords" content={article.keywords.join(', ')}></meta>
+                <meta name="description" content={article.description}></meta>
+                <meta name="author" content={article.author}></meta>
             </Head>
             <div className="relative">
                 <Image

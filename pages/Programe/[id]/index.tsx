@@ -8,20 +8,25 @@ import WhyUs from '../../../components/programe/WhyUs'
 import Faq from '../../../components/programe/Faq'
 import CTA from '../../../components/programe/CTA'
 import NewsLetter from '../../../components/global/newsletter'
-import { collection, doc, getDoc, getDocs } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs, limit, orderBy, query, where } from 'firebase/firestore'
 import { db } from '../../../firebase'
-import { Program } from '../../../types'
+import { Article, Product, Program } from '../../../types'
 import FormatText from '../../../utils/FormatText'
+import News from '../../../components/Home/News/News'
+import FeaturedProducts from '../../../components/Home/Why-Us/FeaturedProducts'
+import { formatDate } from '../../../utils/formatDate'
 
 type Props = {
   program: Program
+  products: Product[]
+  articles: Article[]
 }
 
-const Program = ({ program }: Props) => {
+const Program = ({ program, products, articles }: Props) => {
   return (
     <>
       <Head>
-          <title>Consultify | {program.title2}</title>
+          <title>{`${process.env.SITE} | ${program.title2}`}</title>
       </Head>
       <section className="flex flex-col w-full pt-[140px] md:pt-40 pb-20 items-center px-7 md:px-[110px] xl:px-[160px] 2xl:px-[276px]">
         <Image 
@@ -49,14 +54,13 @@ const Program = ({ program }: Props) => {
           linkText="Completează formularul!"
           linkHref="/contact"
         />
-        {/* <div className='h-12 md:h-24'></div> */}
-
-        {/* <WhyUsCart /> */}
-        {/* <Link href='/shop' className="bg-[#8717F8] flex items-center justify-center w-[max-content] mx-auto justify-self-center px-12 py-3 text-white rounded-[28.5px] hover:scale-[1.05] transition-all">
-            Vezi toate produsele
-        </Link> */}
       </section>
-      {/* <News /> */}
+      <FeaturedProducts 
+        products={products}
+      />
+      <News
+        articles={articles}
+      />
       <NewsLetter headingText={'Fii la curent cu cele mai recente informații despre fonduri europene!'} />
     </>
   )
@@ -65,7 +69,7 @@ const Program = ({ program }: Props) => {
 export default Program
 
 export const getStaticPaths = async () => {
-  const programeRef = collection(db, 'programe-fonduri')
+  const programeRef = query(collection(db, 'programe-fonduri'), where('site', '==', process.env.SITE))
   const programeSnap = await getDocs(programeRef)
 
   const paths = programeSnap.docs.map((doc) => ({ params: { id: doc.id }}))
@@ -80,8 +84,23 @@ export const getStaticProps = async (context: any) => {
   const programSnap = await  getDoc(doc(db, 'programe-fonduri', id))
   const program = { id: programSnap.id, ...programSnap.data() }
 
+  const articlesSnap = await  getDocs(query(collection(db, 'articles'), where('active', '==', true), where('featured', '==', true), orderBy('createdAt', 'desc'), limit(8)))
+    var articles = articlesSnap.docs.map((doc) => {
+        const { lastUpdated, createdAt, ...data } = doc.data()
+        return ({ id: doc.id, formattedCreatedAt: formatDate(new Date(createdAt.seconds*1000)), ...data }) 
+    })
+    
+    const collectionRef = query(collection(db, 'products'), where('active', '==', true), where('featured', '==', true), orderBy('lastUpdated', 'desc'), limit(8))
+    const collectionSnap = await getDocs(collectionRef)
+    
+    const products: Product[] = collectionSnap.docs.map((doc) => {
+      const { lastUpdated, ...data } = doc.data()
+  
+      return ({ id: doc.id, ...data } as Product)
+    })
+
   return { 
-    props: { program }, 
+    props: { program, articles, products }, 
     revalidate: Number(process.env.REVALIDATE )
   }
 }

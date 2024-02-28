@@ -5,19 +5,24 @@ import NewsLetter from "../../components/global/newsletter"
 import Head from "next/head"
 import CTA from "../../components/CTA"
 import TabsComponent from "../../components/TabsComponent"
-import { Program } from "../../types"
+import { Article, Product, Program } from "../../types"
 import PageHeader from "../../components/Header/PageHeader"
 import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri"
 import FonduriComponent from "../../components/fonduri/FonduriComponent"
-import { collection, getDocs, query, where } from "firebase/firestore"
+import { collection, getDocs, limit, orderBy, query, where } from "firebase/firestore"
 import { db } from "../../firebase"
+import { formatDate } from "../../utils/formatDate"
+import FeaturedProducts from "../../components/Home/Why-Us/FeaturedProducts"
+import News from "../../components/Home/News/News"
 
 type Props = {
+    articles: Article[]
+    products: Product[]
     categories: string[]
     programe: Program[]
 }
 
-export default function Programe({categories, programe}: Props) {
+export default function Programe({categories, programe, articles, products }: Props) {
     const [category, setCategory] = useState('Toate')
     const [page, setPage] = useState(0)
     let maxPages = Math.ceil(programe.filter((program) => program.categorie == category || category == 'Toate').length/4)
@@ -90,19 +95,12 @@ export default function Programe({categories, programe}: Props) {
                     linkHref="/contact"
                 />
             </div>
-            {/* <div className="w-full mt-32 px-7 lg:px-[80px] xl:px-[140px] 2xl:px-[276px]">
-                <div className="flex justify-start items-start">
-                    <h3 className="text-2xl lg:text-3xl text-[#8717F8] font-bold">
-                    Consultify vine în ajutorul tău cu produse digitale pentru scalarea
-                    afacerii tale
-                    </h3>
-                </div>
-                <WhyUsCart />
-                <Link href='/shop' className="bg-[#8717F8] flex items-center justify-center w-[max-content] mx-auto justify-self-center px-12 py-3 text-white rounded-[28.5px] hover:scale-[1.05] transition-all">
-                    Vezi toate produsele
-                </Link>
-            </div>
-            <News /> */}
+            <FeaturedProducts 
+                products={products}
+            />
+            <News
+                articles={articles}
+            />
             <NewsLetter headingText={'Abonează-te și află secretele succesului în obținerea finanțăriilor europene!'} />
         </>
     );
@@ -119,9 +117,24 @@ export const getStaticProps = async () => {
 
     const categories = categoriesSnap.docs.map((doc) => ( doc.data().category )) 
 
+    const articlesSnap = await  getDocs(query(collection(db, 'articles'), where('active', '==', true), where('featured', '==', true), orderBy('createdAt', 'desc'), limit(8)))
+    var articles = articlesSnap.docs.map((doc) => {
+        const { lastUpdated, createdAt, ...data } = doc.data()
+        return ({ id: doc.id, formattedCreatedAt: formatDate(new Date(createdAt.seconds*1000)), ...data }) 
+    })
+    
+    const collectionRef = query(collection(db, 'products'), where('active', '==', true), where('featured', '==', true), orderBy('lastUpdated', 'desc'), limit(8))
+    const collectionSnap = await getDocs(collectionRef)
+    
+    const products: Product[] = collectionSnap.docs.map((doc) => {
+      const { lastUpdated, ...data } = doc.data()
+  
+      return ({ id: doc.id, ...data } as Product)
+    })
+
     return {
         props: {
-            categories, programe
+            categories, programe, articles, products
         },
         revalidate: Number(process.env.REVALIDATE)
     }

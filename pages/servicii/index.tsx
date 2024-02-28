@@ -9,8 +9,19 @@ import Proces from "../../components/Proces";
 import OurServices from "../../components/OurServices";
 import Garantii from "../../components/Garantii";
 import PageHeader from "../../components/Header/PageHeader";
+import { collection, getDocs, limit, orderBy, query, where } from "firebase/firestore";
+import { db } from "../../firebase";
+import { formatDate } from "../../utils/formatDate";
+import { Article, Product } from "../../types";
+import FeaturedProducts from "../../components/Home/Why-Us/FeaturedProducts";
+import News from "../../components/Home/News/News";
 
-export default function Servicii() {
+type Props = {
+  articles: Article[]
+  products: Product[]
+}
+
+export default function Servicii({ articles, products }: Props) {
   const [scrollAmount, setScrollAmount] = useState<number>(0);
   const cardRef = useRef<HTMLAnchorElement>(null);
   const carouselRef = useRef<HTMLDivElement | null>(null);
@@ -82,19 +93,35 @@ export default function Servicii() {
           linkText="Completează formularul!"
           linkHref="/contact"
         />
-        {/* <div className="w-full mt-32 px-7 md:px-[80px] xl:px-[140px] 2xl:px-[276px]">
-            <div className="flex justify-start items-start">
-                <h3 className="md:text-xl lg:text-2xl xl:text-[32px] text-[#8717F8] font-bold">
-                  Crește eficiența și productivitatea cu serviciile  <br /> și produsele digitale oferite de Consultify și Inspirely!
-                </h3>
-            </div>
-            <WhyUsCart />
-            <Link href='/shop' className="bg-[#8717F8] flex items-center justify-center w-[max-content] mx-auto justify-self-center px-12 py-3 text-white rounded-[28.5px] hover:scale-[1.05] transition-all">
-                Vezi toate produsele
-            </Link>
-        </div> */}
-        {/* <News /> */}
+        <FeaturedProducts 
+          products={products}
+        />
+        <News
+          articles={articles}
+        />
         <NewsLetter headingText='Alătură-te comunității noastre și fii la curent cu cele mai noi oportunități de finanțare!' />
     </>
   );
+}
+
+export const getStaticProps = async () => {
+  const articlesSnap = await  getDocs(query(collection(db, 'articles'), where('active', '==', true), where('featured', '==', true), orderBy('createdAt', 'desc'), limit(8)))
+  var articles = articlesSnap.docs.map((doc) => {
+      const { lastUpdated, createdAt, ...data } = doc.data()
+      return ({ id: doc.id, formattedCreatedAt: formatDate(new Date(createdAt.seconds*1000)), ...data }) 
+  })
+  
+  const collectionRef = query(collection(db, 'products'), where('active', '==', true), where('featured', '==', true), orderBy('lastUpdated', 'desc'), limit(8))
+  const collectionSnap = await getDocs(collectionRef)
+  
+  const products: Product[] = collectionSnap.docs.map((doc) => {
+    const { lastUpdated, ...data } = doc.data()
+
+    return ({ id: doc.id, ...data } as Product)
+  })
+
+  return {
+    props: { products, articles },
+    revalidate: Number(process.env.REVALIDATE)
+  }
 }
