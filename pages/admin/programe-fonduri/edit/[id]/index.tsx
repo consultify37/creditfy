@@ -31,6 +31,7 @@ const EditProgram = ({ categories, program }: Props) => {
   const [text2, setText2] = useState(program.text2 ? program.text2 : '')
   const [suma, setSuma] = useState(program.suma ? program.suma : '')
   const [descriere, setDescriere] = useState(program.descriere ? program.descriere :'')
+  const [descriere2, setDescriere2] = useState(program.descriere2 ? program.descriere2 : '')
   const [title2, setTitle2] = useState(program.title2 ? program.title2 : '')
   const [suma2, setSuma2] = useState(program.suma2 ? program.suma2 :'')
   const [title3, setTitle3] = useState(program.title3 ? program.title3 :'')
@@ -126,14 +127,14 @@ const EditProgram = ({ categories, program }: Props) => {
           <svg 
             className='w-[36px] h-[36px] hover:scale-105 transition-all cursor-pointer' 
             viewBox="0 0 24 24" 
-            fill="#8717F8" 
+            fill="#FF7A00" 
             xmlns="http://www.w3.org/2000/svg"
           >
             <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
             <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
             <g id="SVGRepo_iconCarrier"> 
-              <path fillRule="evenodd" clipRule="evenodd" d="M9.70725 2.4087C9 3.03569 9 4.18259 9 6.4764V17.5236C9 19.8174 9 20.9643 9.70725 21.5913C10.4145 22.2183 11.4955 22.0297 13.6576 21.6526L15.9864 21.2465C18.3809 20.8288 19.5781 20.62 20.2891 19.7417C21 18.8635 21 17.5933 21 15.0529V8.94711C21 6.40671 21 5.13652 20.2891 4.25826C19.5781 3.37999 18.3809 3.17118 15.9864 2.75354L13.6576 2.34736C11.4955 1.97026 10.4145 1.78171 9.70725 2.4087ZM12 10.1686C12.4142 10.1686 12.75 10.52 12.75 10.9535V13.0465C12.75 13.48 12.4142 13.8314 12 13.8314C11.5858 13.8314 11.25 13.48 11.25 13.0465V10.9535C11.25 10.52 11.5858 10.1686 12 10.1686Z" fill="#260056"></path> 
-              <path d="M7.54717 4.5C5.48889 4.503 4.41599 4.54826 3.73223 5.23202C3 5.96425 3 7.14276 3 9.49979V14.4998C3 16.8568 3 18.0353 3.73223 18.7676C4.41599 19.4513 5.48889 19.4966 7.54717 19.4996C7.49985 18.8763 7.49992 18.1557 7.50001 17.3768V6.6227C7.49992 5.84388 7.49985 5.1233 7.54717 4.5Z" fill="#260056"></path> 
+              <path fillRule="evenodd" clipRule="evenodd" d="M9.70725 2.4087C9 3.03569 9 4.18259 9 6.4764V17.5236C9 19.8174 9 20.9643 9.70725 21.5913C10.4145 22.2183 11.4955 22.0297 13.6576 21.6526L15.9864 21.2465C18.3809 20.8288 19.5781 20.62 20.2891 19.7417C21 18.8635 21 17.5933 21 15.0529V8.94711C21 6.40671 21 5.13652 20.2891 4.25826C19.5781 3.37999 18.3809 3.17118 15.9864 2.75354L13.6576 2.34736C11.4955 1.97026 10.4145 1.78171 9.70725 2.4087ZM12 10.1686C12.4142 10.1686 12.75 10.52 12.75 10.9535V13.0465C12.75 13.48 12.4142 13.8314 12 13.8314C11.5858 13.8314 11.25 13.48 11.25 13.0465V10.9535C11.25 10.52 11.5858 10.1686 12 10.1686Z" fill="#00071E"></path> 
+              <path d="M7.54717 4.5C5.48889 4.503 4.41599 4.54826 3.73223 5.23202C3 5.96425 3 7.14276 3 9.49979V14.4998C3 16.8568 3 18.0353 3.73223 18.7676C4.41599 19.4513 5.48889 19.4966 7.54717 19.4996C7.49985 18.8763 7.49992 18.1557 7.50001 17.3768V6.6227C7.49992 5.84388 7.49985 5.1233 7.54717 4.5Z" fill="#00071E"></path> 
             </g>
           </svg>
         </button>
@@ -162,26 +163,18 @@ const EditProgram = ({ categories, program }: Props) => {
             />
 
             <FormInput
-              value={text1}
-              setValue={setText1}
-              placeholder='Text 1'
-              styleProps='mt-8'
-              required={true}
-            />
-
-            <FormInput
-              value={text2}
-              setValue={setText2}
-              placeholder='Text 2'
-              styleProps='mt-8'
-              required={true}
-            />
-
-            <FormInput
               value={suma}
               setValue={setSuma}
-              placeholder='Suma de finanțare'
+              placeholder='Suma'
               styleProps='mt-8'
+              required={true}
+            />
+
+            <FormTextArea
+              value={descriere}
+              setValue={setDescriere}
+              placeholder='Descriere'
+              styleProps='w-[calc(50%-32px)] min-w-[220px] max-w-[480px] h-48 resize-none mt-8'
               required={true}
             />
           </div>
@@ -214,8 +207,8 @@ const EditProgram = ({ categories, program }: Props) => {
           </div>
 
           <FormTextArea
-            value={descriere}
-            setValue={setDescriere}
+            value={descriere2}
+            setValue={setDescriere2}
             placeholder='Descriere'
             styleProps='w-[calc(50%-32px)] min-w-[220px] max-w-[480px] h-48 resize-none'
             required={true}
@@ -262,7 +255,7 @@ const EditProgram = ({ categories, program }: Props) => {
 
         <div className='w-full flex justify-center items-center'>
           { isLoading ?
-            <ReactLoading type="spin" color="#8717F8" width={32} height={32} /> :
+            <ReactLoading type="spin" color="#FF7A00" width={32} height={32} /> :
             <button 
               type='submit'
               className="bg-primary cursor-pointer font-semibold flex items-center justify-center w-[80%] py-3 text-white rounded-lg hover:scale-[1.05] transition-all mt-8"

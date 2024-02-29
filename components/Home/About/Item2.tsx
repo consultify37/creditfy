@@ -16,21 +16,21 @@ const Item2About = () => {
                 </p>
                 <ul className='list-none mt-4'>
                     <li className='flex gap-5 items-center'>
-                        <span className='text-[#260056] px-[15px] w-8 h-8 rounded-[50%] bg-[#BA63FF] flex items-center justify-center font-semibold'>1</span>
+                        <span className='text-secondary px-[15px] w-8 h-8 rounded-[50%] bg-primary flex items-center justify-center font-semibold'>1</span>
                         <p className='text-white text-[16.5px] font-normal'>Să fim lideri de piață în domeniul consultanței în accesarea fondurilor europene.</p>
                     </li>
                     <li className='flex gap-5 items-center mt-4'>
-                        <span className='text-white px-[15px] w-8 h-8 rounded-[50%] bg-[#8717F8] flex items-center justify-center font-semibold'>2</span>
+                        <span className='text-onLightBrown px-[15px] w-8 h-8 rounded-[50%] bg-lightBrown flex items-center justify-center font-semibold'>2</span>
                         <p className='text-white text-[16.5px] font-normal'>Să creștem gradul de satisfacție al clienților noștri la peste 90%.</p>
                     </li>
                     <li className='flex gap-5 items-center mt-4'>
-                        <span className='text-[#00103C] px-[15px] w-8 h-8 rounded-[50%] bg-[#CF9FFF] flex items-center justify-center font-semibold'>3</span>
+                        <span className='text-onDarkBrown px-[15px] w-8 h-8 rounded-[50%] bg-darkBrown flex items-center justify-center font-semibold'>3</span>
                         <p className='text-white text-[16.5px] font-normal'>Să dezvoltăm parteneriate solide cu companii din diverse domenii.</p>
                     </li>
                 </ul>
                 <div className='flex gap-6 mt-6'>
-                    <Link href='/shop' className='py-3 bg-[#BA63FF] font-semibold text-[#fff] flex items-center rounded-[28.5px] px-12 transition-all hover:scale-[1.05]'>Shop</Link>
-                    <Link href='/servicii' className='py-3 bg-transparent font-semibold text-white flex items-center rounded-[28.5px] border-2 border-[#8717F8] px-12 transition-all hover:scale-[1.05]'>Servicii</Link>
+                    <Link href='/shop' className='py-3 bg-primary font-semibold text-secondary flex items-center rounded-[28.5px] px-12 transition-all hover:scale-[1.05]'>Shop</Link>
+                    <Link href='/servicii' className='py-3 bg-transparent font-semibold text-onSecondary flex items-center rounded-[28.5px] border-2 border-primary px-12 transition-all hover:scale-[1.05]'>Servicii</Link>
                 </div>
             </div>
         </div>

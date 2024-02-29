@@ -33,26 +33,26 @@ const HomeHeader = ({ slides }: Props) => {
         id="HeroContainer"
         className={`relative flex flex-col w-full items-center justify-start pt-24 md:pt-40 px-6 sm:px-7 md:px-[80px] xl:px-[140px] 2xl:px-[276px]`}
         >
-        <div className="z-10 w-full flex flex-col items-center gap-6 md:gap-9 relative pt-14 md:pt-12">
-          <div className="relative flex items-center justify-center mb-8">
-            <h1 className="text-white text-[27px] md:text-4xl xl:text-[44px] font-extrabold text-center">
-              Finanțarea potrivită <br className="block md:hidden"/> pentru firma potrivită!
+        <div className="z-10 w-full flex flex-col items-center gap-8 md:gap-10 relative pt-14 md:pt-12">
+          <div className="relative flex items-center justify-center">
+            <h1 className="text-onSecondary text-[28px] md:text-[48px] xl:text-[64px] font-extrabold text-center">
+              Credite rapide <span className="text-primary">pentru tine</span>
             </h1>
-            <Image
+            {/* <Image
               id="hero-video"
               src="/images/home-header/home-line.svg"
               alt="Hero like"
               width={500}
               height={500}
               className="absolute w-[625px] right-0 -bottom-6 lg:w-[380px] xl:w-[460px] 2xl:w-[460px] lg:-bottom-8 2xl:-bottom-10"
-              />
+              /> */}
           </div>
           <p className="text-white font-light text-center text-[14px] md:text-[18px] lg:max-w-[60%]">
-            Consultify este partenerul tău de încredere în obținerea finanțărilor nerambursabile, oferind soluții personalizate pentru dezvoltarea afacerii tale.
+            Ne ocupăm de tot ce înseamnă marketing și generare de leaduri noi, pentru a putea susține evoluția continuă a afacerii tale.
           </p>
           <Link
             href='#proces'
-            className="relative px-10 py-4 bg-[#BA63FF] text-[#fff] rounded-[28.5px] mb-8 text-base font-semibold transition-all hover:scale-[1.05] z-[12]"
+            className="relative px-10 py-4 bg-primary text-onPrimary rounded-[28.5px] mb-8 text-base font-semibold transition-all hover:scale-[1.05] z-[12]"
             >
             Cum pot accesa fonduri?
           </Link>
@@ -68,8 +68,8 @@ const HomeHeader = ({ slides }: Props) => {
               />
           </div>
           </div>
-        <span className="absolute block md:hidden -left-[4rem] -top-12 bg-[#260056] w-[127vw] h-[118%] -rotate-[5deg] z-[4] rounded-[0_0_165px_100px] overflow-hidden"/>
-        <span className="absolute block md:hidden -left-[4rem] -top-12 bg-[#260056] w-[127vw] h-[40%] z-[4] rounded-[0_0_165px_100px] overflow-hidden"/>
+        <span className="absolute block md:hidden -left-[4rem] -top-12 bg-secondary w-[127vw] h-[118%] -rotate-[5deg] z-[4] rounded-[0_0_165px_100px] overflow-hidden"/>
+        <span className="absolute block md:hidden -left-[4rem] -top-12 bg-secondary w-[127vw] h-[40%] z-[4] rounded-[0_0_165px_100px] overflow-hidden"/>
         <Image
           src="/images/circle-hero-right.svg"
           alt="Hero blue circle"
@@ -92,8 +92,8 @@ const HomeHeader = ({ slides }: Props) => {
           className="block md:hidden absolute w-[176px] -left-20 -top-32 z-[100]"
         />
       </section>
-      <span className="absolute hidden md:block top-0 bg-[#260056] w-[102vw] md:h-[400px] z-[4] overflow-hidden" />
-      <span className="absolute hidden md:block -left-4 top-0 bg-[#260056] w-[102vw] md:h-[600px] z-[4] -rotate-[5deg] rounded-[0_0_164px_144px] xl:rounded-[0_0_200px_250px] overflow-hidden">
+      <span className="absolute hidden md:block top-0 bg-secondary w-[102vw] md:h-[400px] z-[4] overflow-hidden" />
+      <span className="absolute hidden md:block -left-4 top-0 bg-secondary w-[102vw] md:h-[600px] z-[4] -rotate-[5deg] rounded-[0_0_164px_144px] xl:rounded-[0_0_200px_250px] overflow-hidden">
         <Image
           src="/images/circle-hero-right.svg"
           alt="Hero blue circle"

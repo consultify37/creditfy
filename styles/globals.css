@@ -99,8 +99,8 @@ html.normal-scroll {
   @apply hover:scale-105 transition-all
 }
 
-.rec-arrow-right, .rec-arrow-right:hover, .rec-arrow-right:enabled{background-color: #8717F8 !important; color: #fff !important; font-family: Averta-All, sans-serif !important;}
-.rec-arrow-left, .rec-arrow-left:hover, .rec-arrow-left:enabled {background-color: #8717F8 !important; color: #fff !important; font-family: Averta-All, sans-serif !important;}
+.rec-arrow-right, .rec-arrow-right:hover, .rec-arrow-right:enabled{background-color: #FF7A00 !important; color: #fff !important; font-family: Averta-All, sans-serif !important;}
+.rec-arrow-left, .rec-arrow-left:hover, .rec-arrow-left:enabled {background-color: #FF7A00 !important; color: #fff !important; font-family: Averta-All, sans-serif !important;}
 .home-carousel .rec-arrow-right, .home-carousel .rec-arrow-right:hover, .home-carousel .rec-arrow-right:enabled {position: absolute; right: 36px; z-index: 20;}
 .home-carousel .rec-arrow-left, .home-carousel .rec-arrow-left:hover, .home-carousel .rec-arrow-left:enabled {position: absolute; left: 36px; z-index: 20;}
 
@@ -117,7 +117,7 @@ html.normal-scroll {
   .carousel-fonduri .rec-dot { margin-top: 92px !important; }
 }
 
-.rec-dot_active {background-color: #8717F8 !important; box-shadow: 0 0 1px 2px #8717F8 !important;}
+.rec-dot_active {background-color: #FF7A00 !important; box-shadow: 0 0 1px 2px #FF7A00 !important;}
 .rec-item-wrapper {overflow: inherit !important; }
 .rec-pagination {align-items: center !important;}
 .rec-slider-container {overflow-y: visible !important; overflow-x: clip !important;}

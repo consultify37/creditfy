@@ -29,7 +29,7 @@ export default function Home({ slides, programe, articles, products }: Props) {
     <> 
       {/* pageSettings */}
       <Head>
-        <title>Consultify | Acasă</title>
+        <title>{`${process.env.SITE} | Acasă`}</title>
       </Head>
       <HomeHeader slides={slides} />
       <TrustSRL />

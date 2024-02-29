@@ -5,7 +5,7 @@ const Item1About = () => {
   return (
     <div className="w-full mx-auto px-7 md:px-[40px] xl:px-[140px] 2xl:px-[276px] gap-[6rem] flex gap-y-20 justify-between flex-wrap z-[2]">
       <div className="w-full flex-1 z-[2] gap-5 font-light">
-        <h2 className="text-xl font-bold text-white z-[2] md:text-xl lg:text-2xl xl:text-4xl">
+        <h2 className="text-xl font-bold text-primary z-[2] md:text-xl lg:text-2xl xl:text-4xl">
           Despre Consultify
         </h2>
         <p className="text-white font-base max-w-[600px] text-[16px] mt-5 z-[2] mb-8">
@@ -17,13 +17,13 @@ const Item1About = () => {
         <div className="flex gap-4 mt-6 z-[2]">
           <Link
             href="/Programe"
-            className="py-3 bg-[#BA63FF] text-[#fff] flex items-center font-semibold rounded-[28.5px] px-10 sm:px-12 transition-all hover:scale-[1.05]"
+            className="py-3 bg-primary text-secondary flex items-center font-semibold rounded-[28.5px] px-10 sm:px-12 transition-all hover:scale-[1.05]"
           >
             Programe
           </Link>
           <Link
             href="/contact"
-            className="py-3 bg-transparent text-white flex items-center rounded-[28.5px] border-2 font-semibold border-[#8717F8] px-10 sm:px-12 transition-all hover:scale-[1.05]"
+            className="py-3 bg-transparent text-onSecondary flex items-center rounded-[28.5px] border-2 font-semibold border-primary px-10 sm:px-12 transition-all hover:scale-[1.05]"
           >
             Contact
           </Link>

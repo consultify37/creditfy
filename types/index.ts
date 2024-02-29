@@ -33,6 +33,7 @@ export type Program = {
   text2: string
   suma: string
   descriere: string
+  descriere2: string
   title2: string
   title3: string
   suma2: string

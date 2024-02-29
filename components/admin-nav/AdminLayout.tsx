@@ -37,10 +37,10 @@ const AdminLayout = ({ children }: Props) => {
   return (
     <>
       <Head>
-        <title>Consultify | Admin</title>
+        <title>{`${process.env.SITE} | Admin`}</title>
       </Head>
       <div className='flex flex-row w-screen min-h-screen p-4'>
-        <div className='bg-[#260056] fixed rounded-3xl w-1/5 min-w-[256px] max-w-80 mr-8 h-[calc(100vh-32px)] flex flex-col justify-between p-4'>
+        <div className='bg-secondary fixed rounded-3xl w-1/5 min-w-[256px] max-w-80 mr-8 h-[calc(100vh-32px)] flex flex-col justify-between p-4'>
           <div className='flex flex-col'>
             <Image
               src="/images/logo.svg"
@@ -57,12 +57,12 @@ const AdminLayout = ({ children }: Props) => {
               </Link>
               <Link href='/admin/categorii-programe'>
                 <p className='text-lg font-bold text-white'>
-                  categorii programe
+                  categorii credite
                 </p>
               </Link>
               <Link href='/admin/programe-fonduri'>
                 <p className='text-lg font-bold text-white'>
-                  programe fonduri
+                  credite
                 </p>
               </Link>
             </div>
@@ -73,7 +73,7 @@ const AdminLayout = ({ children }: Props) => {
               <ReactLoading type="spin" color="#8717F8" width={32} height={32} />
             </div> :
             <button 
-              className="bg-[#8717F8] font-bold flex items-center justify-center w-full mx-auto px-12 py-3 text-white rounded-[28.5px] hover:scale-[1.05] transition-all"
+              className="bg-primary font-bold flex items-center justify-center w-full mx-auto px-12 py-3 text-white rounded-[28.5px] hover:scale-[1.05] transition-all"
               onClick={signout}
             >
                 logout
@@ -82,7 +82,7 @@ const AdminLayout = ({ children }: Props) => {
         </div>
         <div className='w-1/5 min-w-[256px] max-w-80 mr-8 h-[calc(100vh-32px)]'></div>
 
-        <div className='bg-[#F6EFFF6B] rounded-3xl w-[calc(80%-32px)] min-h-[calc(100vh-32px)] p-12'>
+        <div className='bg-admin-background rounded-3xl w-[calc(80%-32px)] min-h-[calc(100vh-32px)] p-12'>
           { children } 
         </div>
       </div>

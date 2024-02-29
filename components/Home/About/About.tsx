@@ -1,5 +1,4 @@
 import Image from "next/image"
-import Link from "next/link"
 import Item1About from "./Item1"
 import Item2About from "./Item2"
 
