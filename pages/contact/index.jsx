@@ -13,6 +13,7 @@ import WhyUsItem1 from "../../components/Home/Why-Us/Item1"
 import ReactLoading from 'react-loading'
 import { addDoc, collection, serverTimestamp } from "firebase/firestore"
 import { db } from "../../firebase"
+import { phone } from "../../utils/constants"
  
 export default function Contact() {
     const [nume, setNume] = useState('')
@@ -71,13 +72,13 @@ export default function Contact() {
     return (
         <>
             <Head>
-                <title>Consultify | Contact</title>
+                <title>{`${process.env.SITE} | Contact`}</title>
             </Head>
             <PageHeader
                 title="Suntem aici pentru tine!"
             >
                 <Image
-                    src="/images/Polygon 3.png"
+                    src="/images/Polygon 3 (3).svg"
                     alt="Hero blue circle"
                     width={100}
                     height={200}
@@ -91,9 +92,9 @@ export default function Contact() {
                     alt="Yellow triangle"
                 />
             </PageHeader>
-            <div className="bg-[#F6EFFF] w-[100vw] h-[130vh] lg:h-[83vh] absolute top-0 left-0 z-[-1]"></div>
+            <div className="bg-admin-card w-[100vw] h-[130vh] lg:h-[83vh] absolute top-0 left-0 z-[-1]"></div>
             <section className="w-full flex flex-col lg:flex-row items-start my-32 justify-between px-4 md:px-[80px] xl:px-[140px] 2xl:px-[276px]">
-                <div className="flex flex-col w-full mr-12 bg-[#260056] rounded-3xl p-8">
+                <div className="flex flex-col w-full mr-12 bg-secondary rounded-3xl p-8">
                     <div className="flex flex-row mb-6">
                         <div className="w-[-webkit-fill-available] max-w-[fit-content] flex items-center rounded-xl bg-primary p-3 lg:p-4 h-[max-content] jutify-center mr-4">
                             <Image
@@ -106,7 +107,7 @@ export default function Contact() {
                         </div>
                         <div className="flex flex-col justify-center">
                             <h5 className="text-xl text-white font-bold">Email:</h5>
-                            <Link href='mailto:contact@consultify.ro' className="text-lg md:text:xl text-white font-bold hover:text-primary transition-all">contact@consultify.ro</Link>
+                            <Link href={`mailto:contact@creditfy.ro`}className="text-lg md:text:xl text-white font-bold hover:text-primary transition-all">contact@creditfy.ro</Link>
                         </div>
                     </div>
                     <div className="flex flex-row mb-6">
@@ -121,7 +122,7 @@ export default function Contact() {
                         </div>
                         <div className="flex flex-col justify-center">
                             <h5 className="text-xl text-white font-bold">Telefon:</h5>
-                            <span className="text-lg md:text-xl text-white font-bold hover:text-primary transition-all"><Link href='tel:0727 153 317'>0727 153 317</Link></span>
+                            <span className="text-lg md:text-xl text-white font-bold hover:text-primary transition-all"><Link href={`tel:${phone}`}>{phone}</Link></span>
                         </div>
                     </div>
                     <h6 className="text-xl text-white mb-4 font-bold text-center">Sau ne poți găsi și aici:</h6>
@@ -169,7 +170,7 @@ export default function Contact() {
                                 required 
                                 type="text"
                                 name="Nume"
-                                className="rounded-xl w-full border-[#8717F8] text-ms leading-6 border-2 p-[14px] outline-none" 
+                                className="rounded-xl w-full border-primary text-ms leading-6 border-2 p-[14px] outline-none" 
                                 placeholder="ex: Popescu"
                                 onChange={(e) => setNume(e.target.value)}
                                 value={nume}
@@ -183,7 +184,7 @@ export default function Contact() {
                                 required 
                                 type="text"
                                 name="Prenume"
-                                className="rounded-xl w-full border-[#8717F8] text-ms leading-6 border-2 p-[14px] outline-none" 
+                                className="rounded-xl w-full border-primary text-ms leading-6 border-2 p-[14px] outline-none" 
                                 placeholder="ex: Andrei"
                                 onChange={(e) => setPrenume(e.target.value)}
                                 value={prenume}
@@ -201,7 +202,7 @@ export default function Contact() {
                                 name="Telefon"
                                 required
                                 onChange={(phone) => setTelefon(phone)}
-                                className="rounded-xl w-full border-[#8717F8] text-ms leading-6 border-2 p-2 mb-6 outline-none"
+                                className="rounded-xl w-full border-primary text-ms leading-6 border-2 p-2 mb-6 outline-none"
                             />
                         </div>
                         <div className="flex flex-col w-full">
@@ -212,7 +213,7 @@ export default function Contact() {
                                 required 
                                 type="email"
                                 name="Email"
-                                className="rounded-xl w-full border-[#8717F8] text-ms leading-6 border-2 p-[14px] outline-none" 
+                                className="rounded-xl w-full border-primary text-ms leading-6 border-2 p-[14px] outline-none" 
                                 placeholder="ex: exemplu@email.com"
                                 onChange={(e) => setEmail(e.target.value)}
                                 value={email}
@@ -227,7 +228,7 @@ export default function Contact() {
                             <input
                                 type="text"
                                 name="Nume Firma"
-                                className="rounded-xl w-full border-[#8717F8] text-ms leading-6 border-2 p-[14px] outline-none" 
+                                className="rounded-xl w-full border-primary text-ms leading-6 border-2 p-[14px] outline-none" 
                                 placeholder="Nume firmă"
                                 onChange={(e) => setFirma(e.target.value)}
                                 value={firma}
@@ -240,7 +241,7 @@ export default function Contact() {
                             <input
                                 type="text"
                                 name="CUI"
-                                className="rounded-xl w-full border-[#8717F8] text-ms leading-6 border-2 p-[14px] outline-none" 
+                                className="rounded-xl w-full border-primary text-ms leading-6 border-2 p-[14px] outline-none" 
                                 placeholder="CUI"
                                 onChange={(e) => setCui(e.target.value)}
                                 value={cui}
@@ -253,7 +254,7 @@ export default function Contact() {
                                 De ce anume ai nevoie?
                             </span>
                             <select 
-                                className="rounded-xl w-full border-[#8717F8] text-ms leading-6 border-2 h-[60px] px-[14px] p-2 outline-none" 
+                                className="rounded-xl w-full border-primary text-ms leading-6 border-2 h-[60px] px-[14px] p-2 outline-none" 
                                 name="categorie"
                                 onChange={(e) => setNevoie(e.target.value)}
                                 value={nevoie}
@@ -269,7 +270,7 @@ export default function Contact() {
                             Oferă-ne câteva detalii*
                         </span>
                         <textarea
-                            className="rounded-xl w-full bg-[#fff] h-48 border-[#8717F8] text-ms border-2 p-[14px] outline-none" 
+                            className="rounded-xl w-full bg-[#fff] h-48 border-primary text-ms border-2 p-[14px] outline-none" 
                             placeholder="Scrie aici mesajul tău"
                             required
                             name="Detalii"
@@ -280,8 +281,8 @@ export default function Contact() {
                     <div className="flex items-center justify-center mb-6 self-center ml-1">
                         <input 
                             checked={isChecked} onChange={(e) => setIsChecked(!isChecked) }
-                            id="link-checkbox" type="checkbox" className="w-4 cursor-pointer h-4 text-[#260056] rounded border-[2px] bg-[#F2F4FF] border-[#8717F8] outline-none" />
-                        <label htmlFor="link-checkbox" className="ml-2 text-md font-bold text-[#260056]">Accept <Link href="/termeni" target="_blank" className="text-[#260056] underline">Termenii și Condițiile.</Link></label>
+                            id="link-checkbox" type="checkbox" className="w-4 cursor-pointer h-4 text-secondary rounded border-[2px] bg-[#F2F4FF] border-primary outline-none" />
+                        <label htmlFor="link-checkbox" className="ml-2 text-md font-bold text-secondary">Accept <Link href="/termeni" target="_blank" className="text-[#260056] underline">Termenii și Condițiile.</Link></label>
                     </div>
                     <div className="flex flex-col md:flex-row justify-center w-full items-center">
                         <ReCAPTCHA
@@ -293,7 +294,7 @@ export default function Contact() {
                                 <ReactLoading type="spin" color="#8717F8" width={32} height={32} />
                             </div> :
                             <button                      
-                                className='py-3 md:py-4 mt-4 md:mt-0 md:ml-4 bg-[#8717F8] h-fit text-white rounded-[28px] font-semibold px-14 text-center text-md md:text-[16px] hover:scale-[1.05] transition-all'
+                                className='py-3 md:py-4 mt-4 md:mt-0 md:ml-4 bg-primary h-fit text-white rounded-[28px] font-semibold px-14 text-center text-md md:text-[16px] hover:scale-[1.05] transition-all'
                                 type="submit"
                             >
                                 Trimite!
@@ -304,7 +305,7 @@ export default function Contact() {
             </section>
             <Rezultate contact={false} />
             <section id='why-us' className='mt-24 md:mt-48 w-full relative px-7 md:px-[80px] xl:px-[140px] 2xl:px-[276px]'>
-                <h2 className='text-[#260056] text-center font-bold md:text-base text-xl lg:text-2xl xl:text-4xl mb-12 lg:mb-32'>De ce să alegi Consultify?</h2>
+                <h2 className='text-[#260056] text-center font-bold md:text-base text-xl lg:text-2xl xl:text-4xl mb-12 lg:mb-32'>De ce să alegi Creditfy?</h2>
                 <div className='relative flex flex-wrap w-full lg:mt-10 justify-center items-center md:justify-between md:items-start gap-y-20'>
                     {/* Left-Side */}
                     <div className='mx-auto lg:mx-0 w-full z-[2] lg:w-[49%] grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-y-8'>
@@ -339,7 +340,7 @@ export default function Contact() {
                         <Image src='/images/About/triangle.svg' alt='triangle' width={164} height={164} className='z-[1] absolute -top-12 -left-16' /> 
                     </div>
                 </div>
-                <Link href='#' className="bg-[#8717F8] mt-12 flex font-semibold items-center justify-center w-[max-content] mx-auto justify-self-center px-16 py-3 md:py-4 text-white rounded-[28.5px] hover:scale-[1.05] transition-all">
+                <Link href='#' className="bg-primary mt-12 flex font-semibold items-center justify-center w-[max-content] mx-auto justify-self-center px-16 py-3 md:py-4 text-white rounded-[28.5px] hover:scale-[1.05] transition-all">
                     Vreau să completez!
                 </Link>
             </section>

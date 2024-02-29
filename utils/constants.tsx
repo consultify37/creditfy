@@ -1,5 +1,5 @@
-export const instagram = 'https://www.instagram.com/consultify.ro?igshid=MzMyNGUyNmU2YQ%3D%3D'
-export const facebook = 'https://www.facebook.com/consultify.ro'
-export const tiktok = 'https://www.tiktok.com/@consultifyro?_t=8hf9YsK4ZsX&_r=1'
+export const instagram = 'https://www.instagram.com/creditfy.ro?igshid=MzMyNGUyNmU2YQ%3D%3D'
+export const facebook = 'https://www.facebook.com/creditfy.ro'
+export const tiktok = 'https://www.tiktok.com/@creditfyro?_t=8hf9YsK4ZsX&_r=1'
 export const email = 'contact@creditfy.ro'
 export const phone = '(0727) 153 317'

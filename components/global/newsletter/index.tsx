@@ -27,7 +27,7 @@ export default function NewsLetter({ headingText }: NewsLetterProps) {
   
   return (
     <section className="my-16 mt-40 md:my-32 md:mt-48 px-7 md:px-[80px] xl:px-[140px] 2xl:px-[276px]">
-      <div className="relative px-6 pb-0 md:px-20 md:py-0 py-2 flex items-center mt-32 justify-between flex-col lg:flex-row bg-[#260056] rounded-[16px] w-auto lg:h-[350px]">
+      <div className="relative px-6 pb-0 md:px-20 md:py-0 py-2 flex items-center mt-32 justify-between flex-col lg:flex-row bg-secondary rounded-[16px] w-auto lg:h-[350px]">
         <Image src='/images/triangle-news.svg' className="absolute right-[-2rem] bottom-[-2rem] md:bottom-[ihnerit] md:top-[-2rem] w-[110px] h-[110px]" alt='triangle' width={146} height={146}/>
         <div className="relative flex">
           <Image
@@ -61,7 +61,7 @@ export default function NewsLetter({ headingText }: NewsLetterProps) {
             className="relative flex mt-10 flex-col lg:flex-row items-center"
           >
             <input
-              className="py-3 text-[#fff] xl:px-6 px-4 lg:px-5 w-full bg-[#260056] placeholder:text-white border-2 border-[#7000FF] rounded-full"
+              className="py-3 text-onSecondary xl:px-6 px-4 lg:px-5 w-full placeholder:text-onSecondary bg-secondary border-2 border-primary rounded-full"
               type="email"
               name="Email"
               placeholder='Adresa ta de email'
@@ -69,7 +69,7 @@ export default function NewsLetter({ headingText }: NewsLetterProps) {
               onChange={(e) => setNewsletter(e.target.value)}
               value={newsletter}
             />
-            <button type="submit" className="text-[#fff] font-bold lg:absolute w-full mt-3 lg:mt-0 lg:right-0 z-30 transition-all hover:scale-[1.05] lg:w-44 border-4 cursor-pointer border-secondary bg-[#7000FF] py-4 px-10 text-sm rounded-full">
+            <button type="submit" className="text-onPrimary font-bold lg:absolute w-full mt-3 lg:mt-0 lg:right-0 z-30 transition-all hover:scale-[1.05] lg:w-44 border-4 cursor-pointer border-secondary bg-primary py-4 px-10 text-sm rounded-full">
               Mă abonez
             </button>
           </form>

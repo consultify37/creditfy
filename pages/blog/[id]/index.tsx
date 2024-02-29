@@ -10,6 +10,7 @@ import { db } from "../../../firebase"
 import { Article } from "../../../types"
 import { formatDate } from "../../../utils/formatDate"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 type Props = {
     article: Article
@@ -18,6 +19,7 @@ type Props = {
 
 
 const BlogPost = ({ article, articles }: Props) => {
+    const pathName = usePathname()
     const [shareButton, setShareButton] = useState('/images/link.svg')
     const [shareButtonText, setShareButtonText] = useState('')
 
@@ -38,13 +40,13 @@ const BlogPost = ({ article, articles }: Props) => {
                     height={2048}
                     alt="blog-post-1"
                 />
-                <div className="absolute w-full h-full flex justify-center items-center top-0 bg-[#260056] opacity-70"></div>
+                <div className="absolute w-full h-full flex justify-center items-center top-0 bg-secondary opacity-70"></div>
                 <div className="absolute w-full h-full flex flex-col justify-center items-center top-0 pt-12">
-                    <h2 className="font-bold text-[#F7EDFF] text-base lg:text-lg 2xl:text-xl mb-2 lg:mb-5">{ article.category }</h2>
+                    <h2 className="font-bold text-[#ffdfc1] text-base lg:text-lg 2xl:text-xl mb-2 lg:mb-5">{ article.category }</h2>
                     <h1 className="font-extrabold text-2xl lg:text-3xl  2xl:text-5xl leading-relaxed text-white z-10 text-center w-[80vw] lg:w-[50vw]">{ article.title }</h1>
-                    <div className="p-8 rounded-3xl mt-12 border-[1px] border-[hsla(0,0%,100%,.03)] bg-[linear-gradient(132deg,#4e2869,#260056)] flex flex-col items-center">
+                    <div className="p-8 rounded-3xl mt-12 border-[1px] border-[hsla(0,0%,100%,.03)] bg-[linear-gradient(132deg,#f8ae69,#FF7A00)] flex flex-col items-center">
                         <p className="text-white text-base lg:text-lg 2xl:text-xl font-light">Articol de <span className="font-semibold">{ article.author }</span></p>
-                        <p className="text-[#F7EDFF] text-base lg:text-lg 2xl:text-xl font-semibold mt-2">{ article.authorDescription }</p>
+                        <p className="text-[#ffdfc1] text-base lg:text-lg 2xl:text-xl font-semibold mt-2">{ article.authorDescription }</p>
                     </div>
                 </div>
                 <div className="absolute w-full bottom-4 hidden lg:flex items-center justify-center animate-bounce">
@@ -70,15 +72,15 @@ const BlogPost = ({ article, articles }: Props) => {
                             Distribuie pe social media
                         </span>
                         <div className="flex flex-row items-center">
-                            <Link href='#' className="flex items-center bg-[#8717F8] rounded-full mr-2 p-2 hover:scale-105 transition-all">
+                            {/* <Link href='#' className="flex items-center bg-primaryrounded-full mr-2 p-2 hover:scale-105 transition-all">
                                 <Image src="/images/instagram.svg" width={12} height={12} alt="instagram" />
-                            </Link>
-                            <Link href='#' className="flex items-center bg-[#8717F8] rounded-full mr-2 p-2 hover:scale-105 transition-all">
+                            </Link> */}
+                            <Link target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=${(`https://${process.env.SITE?.toLowerCase()}.ro${pathName}`).replaceAll(':', '%3A').replaceAll('/', '%2F')}`} className="flex items-center bg-primary rounded-full mr-2 p-2 hover:scale-105 transition-all">
                                 <Image src="/images/facebook.svg" width={12} height={12} alt="facebook" />
                             </Link>
                             { shareButtonText == 'Copied' ?
                                 <div
-                                    className="flex items-center bg-[#8717F8] rounded-full mr-2 p-2"
+                                    className="flex items-center bg-primary rounded-full mr-2 p-2"
                                 >
                                     <Image src={shareButton} width={12} height={12} alt="link" className="w-3 h-3" />
                                 </div> :
@@ -88,7 +90,7 @@ const BlogPost = ({ article, articles }: Props) => {
                                         setShareButtonText('Copied')
                                         navigator.clipboard.writeText(window.location.href)
                                     }}
-                                    className="flex items-center bg-[#8717F8] rounded-full mr-2 p-2 cursor-pointer hover:scale-105 transition-all"
+                                    className="flex items-center bg-primary rounded-full mr-2 p-2 cursor-pointer hover:scale-105 transition-all"
                                 >
                                     <Image src={shareButton} width={12} height={12} alt="link" />
                                 </div>

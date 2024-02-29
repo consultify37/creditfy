@@ -13,7 +13,7 @@ const FavoriteProductCard = ({ product }: Props) => {
   const { handleAddProduct } = useCartContext()
 
   return (
-    <div className='bg-[#F7F8FF] rounded-[12px] flex flex-col lg:flex-row lg:justify-between mt-6 p-4 w-full'>
+    <div className='bg-admin-background rounded-[12px] flex flex-col lg:flex-row lg:justify-between mt-6 p-4 w-full'>
       <div className='flex flex-row sm:items-center '>
         <Image
           src={product.image.image}

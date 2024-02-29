@@ -36,7 +36,7 @@ export default function Garantii(){
                                     <h4 className="text-onSecondary text-lg lg:text-2xl font-bold">{card.titleBack}</h4>
                                     <p className="text-lg text-primary">Apasă pentru a afla detalii</p>
                                 </div>
-                                <div className="back flex flex-col items-center h-full bg-[#F7EEFF]">
+                                <div className="back flex flex-col items-center h-full bg-admin-card">
                                     <div className="w-full bg-secondary rounded-t-[2rem] px-1 py-4">
                                         <p className="text-[22px] font-bold text-onSecondary text-center">{card.titleFront}</p>
                                     </div>
@@ -44,8 +44,8 @@ export default function Garantii(){
                                         <p className="text-[14px] text-o">{card.description}</p>
                                         <Link
                                             href='/contact'
-                                            className="px-12 py-4 bg-primary text-[#fff] rounded-[28.5px] text-base font-semibold transition-all hover:scale-[1.05]"
-                                            >
+                                            className="px-12 py-4 bg-primary text-onPrimary rounded-[28.5px] text-base font-semibold transition-all hover:scale-[1.05]"
+                                        >
                                             Aplică acum!
                                         </Link>
                                     </div>
@@ -57,7 +57,7 @@ export default function Garantii(){
                 
                 <Link
                     href="/testimoniale"
-                    className="py-3 md:py-4 bg-[#7000FF] text-[#fff] flex items-center rounded-[28.5px] font-semibold px-12 z-50 hover:scale-105 transition-all"
+                    className="py-3 md:py-4 bg-primary text-onPrimary flex items-center rounded-[28.5px] font-semibold px-12 z-50 hover:scale-105 transition-all"
                 >
                     Ce spun clienții noștri?
                 </Link>

@@ -72,7 +72,7 @@ const Sesizari = () => {
                         required 
                         type="text"
                         name="Nume"
-                        className="rounded-xl w-full border-[#8717F8] text-ms leading-6 border-2 p-[14px] outline-none" 
+                        className="rounded-xl w-full border-primary text-ms leading-6 border-2 p-[14px] outline-none" 
                         placeholder="ex: Popescu"
                         onChange={(e) => setNume(e.target.value)}
                         value={nume}
@@ -86,7 +86,7 @@ const Sesizari = () => {
                         required 
                         type="text"
                         name="Prenume"
-                        className="rounded-xl w-full border-[#8717F8] text-ms leading-6 border-2 p-[14px] outline-none" 
+                        className="rounded-xl w-full border-primary text-ms leading-6 border-2 p-[14px] outline-none" 
                         placeholder="ex: Andrei"
                         onChange={(e) => setPrenume(e.target.value)}
                         value={prenume}
@@ -104,7 +104,7 @@ const Sesizari = () => {
                         name="Telefon"
                         required
                         onChange={(phone) => setTelefon(phone)}
-                        className="rounded-xl w-full border-[#8717F8] text-ms leading-6 border-2 p-2 mb-6 outline-none"
+                        className="rounded-xl w-full border-primary text-ms leading-6 border-2 p-2 mb-6 outline-none"
                     />
                 </div> */}
                 <div className="flex flex-col w-full">
@@ -115,7 +115,7 @@ const Sesizari = () => {
                         required 
                         type="email"
                         name="Email"
-                        className="rounded-xl w-full border-[#8717F8] text-ms leading-6 border-2 p-[14px] outline-none" 
+                        className="rounded-xl w-full border-primary text-ms leading-6 border-2 p-[14px] outline-none" 
                         placeholder="ex: exemplu@email.com"
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
@@ -127,7 +127,7 @@ const Sesizari = () => {
                     Oferă-ne câteva detalii*
                 </span>
                 <textarea
-                    className="rounded-xl w-full bg-[#fff] h-48 border-[#8717F8] text-ms border-2 p-[14px] outline-none" 
+                    className="rounded-xl w-full bg-[#fff] h-48 border-primary text-ms border-2 p-[14px] outline-none" 
                     placeholder="Scrie aici mesajul tău"
                     required
                     name="Detalii"
@@ -138,8 +138,8 @@ const Sesizari = () => {
             <div className="flex items-center justify-center mb-6 self-center ml-1">
                 <input 
                     checked={isChecked} onChange={(e) => setIsChecked(!isChecked) }
-                    id="link-checkbox" type="checkbox" className="w-4 cursor-pointer h-4 text-[#260056] rounded border-[2px] bg-[#F2F4FF] border-[#8717F8] outline-none" />
-                <label htmlFor="link-checkbox" className="ml-2 text-[14px] text-secondary font-bold">Accept <Link href="/termeni" target="_blank" className="text-[#260056] underline">Termenii și Condițiile.</Link></label>
+                    id="link-checkbox" type="checkbox" className="w-4 cursor-pointer h-4 text-[#260056] rounded border-[2px] bg-[#F2F4FF] border-primary outline-none" />
+                <label htmlFor="link-checkbox" className="ml-2 text-[14px] text-secondary font-bold">Accept <Link href="/termeni" target="_blank" className="text-secondary underline">Termenii și Condițiile.</Link></label>
             </div>
             <div className="flex flex-col md:flex-row justify-center w-full items-center">
                 <ReCAPTCHA
@@ -148,10 +148,10 @@ const Sesizari = () => {
                 />
                 { isLoading ? 
                     <div className='w-full flex items-center justify-center px-16 mt-4 md:mt-0'>
-                        <ReactLoading type="spin" color="#8717F8" width={32} height={32} />
+                        <ReactLoading type="spin" color="#FF7A00" width={32} height={32} />
                     </div> :
                     <button                      
-                        className='py-3 md:py-4 mt-4 md:mt-0 md:ml-4 bg-[#8717F8] h-fit text-white rounded-[28px] font-semibold px-14 text-center text-[14px] w-full md:w-fit md:text-[16px] hover:scale-[1.05] transition-all'
+                        className='py-3 md:py-4 mt-4 md:mt-0 md:ml-4 bg-[#FF7A00] h-fit text-white rounded-[28px] font-semibold px-14 text-center text-[14px] w-full md:w-fit md:text-[16px] hover:scale-[1.05] transition-all'
                         type="submit"
                     >
                         Trimite!

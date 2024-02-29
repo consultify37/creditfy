@@ -10,7 +10,7 @@ type Props = {
 const WhyUsItem1 = ({textColor='white', title, src, text }: Props) => {
     return(
         <div className={`flex flex-row md:flex-col mb-4 md:mb-0 text-${textColor}`}>
-            <span className='h-[51px] w-[51px] min-w-[51px] flex items-center bg-[#A634FF] rounded-[10px] mr-4 md:mr-0'>
+            <span className='h-[51px] w-[51px] min-w-[51px] flex items-center bg-primary rounded-[10px] mr-4 md:mr-0'>
                 <Image src={src} className='mx-auto' alt='Questions comment' width={21} height={21} />
             </span>
             <div className="flex flex-col gap-2">

@@ -14,7 +14,7 @@ const PageHeader = ({ title, children }: Props) => {
                 { title }
             </h1>
             { children }
-            <span className='bg-[#260056] rounded-[0_0_200px_250px] w-[103vw] -rotate-2 absolute -left-5 -bottom-20 h-32 hidden md:block' />
+            <span className='bg-secondary rounded-[0_0_200px_250px] w-[103vw] -rotate-2 absolute -left-5 -bottom-20 h-32 hidden md:block' />
         </section>
         <span className="md:hidden bg-secondary rounded-[0_0_164px_144px] -left-[24vw] md:left-0 w-[136vw] -rotate-[5.09deg] absolute -bottom-12 h-[700px]" />
     </div>

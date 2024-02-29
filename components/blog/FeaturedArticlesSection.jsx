@@ -6,7 +6,7 @@ import Image from 'next/image'
 const FeaturedArticlesSection = ({ articles }) => {
   return (
     <section className="relative pt-[132px] md:pt-24 sm:px-[80px] xl:px-[140px] 2xl:px-[276px] -mt-44">
-        <div className='absolute w-full h-full bg-[#fbf8ff] inset-0 -z-10'></div>
+        <div className='absolute w-full h-full bg-admin-background inset-0 -z-10'></div>
         <Carousel
             isRTL={false}
             pagination={false}

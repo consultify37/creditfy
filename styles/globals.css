@@ -107,7 +107,7 @@ html.normal-scroll {
 .carousel-programe .rec-arrow-right, .carousel-programe .rec-arrow-right:hover, .carousel-programe .rec-arrow-right:enabled {position: absolute; z-index: 20;right: 15px;}
 .carousel-programe .rec-arrow-left, .carousel-programe .rec-arrow-left:hover, .carousel-programe .rec-arrow-left:enabled {position: absolute; z-index: 20; left: 15px;}
 
-.rec-dot {box-shadow: 0 0 1px 2px rgb(216 166 255) !important; }
+.rec-dot {box-shadow: 0 0 1px 2px #FF7A00 !important; }
 
 @media screen and (max-width: 1024px) {
   .carousel-fonduri .rec-dot { margin-top: 40px !important; }

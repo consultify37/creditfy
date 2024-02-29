@@ -89,7 +89,7 @@ const HomeHeader = ({ slides }: Props) => {
           alt="Hero green circle"
           width={200}
           height={200}
-          className="block md:hidden absolute w-[176px] -left-20 -top-32 z-[100]"
+          className="block md:hidden absolute w-[176px] -left-20 -top-[140px] z-[100]"
         />
       </section>
       <span className="absolute hidden md:block top-0 bg-secondary w-[102vw] md:h-[400px] z-[4] overflow-hidden" />

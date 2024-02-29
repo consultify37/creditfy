@@ -3,8 +3,6 @@ import Image from "next/image";
 import NewsLetter from "../../components/global/newsletter";
 import Head from "next/head";
 import CTA from "../../components/CTA";
-import Axios from "axios";
-import toast from "react-hot-toast";
 import Proces from "../../components/Proces";
 import OurServices from "../../components/OurServices";
 import Garantii from "../../components/Garantii";
@@ -36,36 +34,12 @@ export default function Servicii({ articles, products }: Props) {
       });
     }
   }, [scrollAmount]);
-  
-  const [newsletter, setNewsletter] = useState('Adresa ta de email');
   // const [buttonNews, setButtonNews] = useState('Mă abonez')
   
-  const upload = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    Axios.get('https://api.inspiredconsulting.ro/newsletter', {
-      params: {
-        email: newsletter
-      },
-    })
-    .then(function (response) {
-      console.log(response.data)
-      if (response.data == 'Esti deja abonat la newsletter') {
-        toast.error('Esti deja abonat la newsletter')
-      } else {
-        toast.success("Te-ai abonat la newsletter cu succes")
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
-    .finally(function () {
-      // always executed
-    });
-  };
   return (
     <>
         <Head>
-            <title>Consultify | Servicii</title>
+            <title>{`${process.env.SITE} | Servicii`}</title>
         </Head>
         <PageHeader
           title="Împreună pentru succesul tău: servicii și produse de calitate"

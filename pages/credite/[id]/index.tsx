@@ -4,7 +4,7 @@ import React from 'react'
 import PriceCTA from '../../../components/programe/PriceCTA'
 import CuiIseAdreseaza from '../../../components/programe/CuiIseAdreseaza'
 import Conditions from '../../../components/programe/Conditions'
-import WhyUs from '../../../components/programe/WhyUs'
+import Rezultate from "../../../components/Rezultate"
 import Faq from '../../../components/programe/Faq'
 import CTA from '../../../components/programe/CTA'
 import NewsLetter from '../../../components/global/newsletter'
@@ -37,17 +37,19 @@ const Program = ({ program, products, articles }: Props) => {
           className='w-full h-auto rounded-3xl md:rounded-[38px]'
         />
 
-        <h1 className='text-primary text-[28px] md:text-[35px] font-extrabold pt-10 text-center'>
+        <h1 className='text-secondary text-[28px] md:text-[35px] font-extrabold pt-10 text-center'>
           { program.title2 }
         </h1>
 
         <div className='flex flex-col w-full items-center mt-10 px-2 md:px-12'>
-          <FormatText text={program.descriere} className='text-[13px] md:text-[16px] text-[#393939] text-justify' />
+          <FormatText text={program.descriere2} className='text-[13px] md:text-[16px] text-[#393939] text-justify' />
           <PriceCTA suma={program.suma2} />
           <CuiIseAdreseaza title={program.title3} description={program.descriere3}  />
           <Conditions conditions={program.conditions} />
         </div>
-        <WhyUs />
+        <div className='-mx-7 md:-mx-[110px] xl:-mx-[160px] 2xl:-mx-[276px]'>
+          <Rezultate />
+        </div>
         <Faq faqs={program.faqs} />
         <CTA
           title="Transformă-ți ideile în realitate prin <purple>fonduri europene!<purple>"

@@ -69,7 +69,7 @@ const Login = () => {
   return (
     <div className='min-h-screen min-w-screen flex flex-col items-center justify-end'>
       <Head>
-        <title>Consultify | Login</title>
+        <title>{`${process.env.SITE} | Login`}</title>
       </Head>
       <div className='rounded-full p-4 bg-secondary border-white border-[10px]'>
         <Image 
@@ -104,13 +104,13 @@ const Login = () => {
             required
           /> 
 
-          <Link href='/forgot-password' className='font-semibold text-primary text-[14px] mt-6 hover:scale-105 transition-all'>
+          <Link href='/forgot-password' className='font-semibold text-secondary text-[14px] mt-6 hover:text-primary transition-all'>
             Ți-ai uitat parola?
           </Link>
           
           <div className='mt-6 h-14 flex flex-col w-full items-center justify-center'>
             { isLoading ?
-              <ReactLoading type="spin" color="#8717F8" width={32} height={32} /> :
+              <ReactLoading type="spin" color="#FF7A00" width={32} height={32} /> :
               <button 
                 type='submit' 
                 className='py-4 bg-primary flex items-center justify-center rounded-full w-full transition-all hover:scale-[1.05]'

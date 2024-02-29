@@ -18,10 +18,10 @@ const HowWorks = ({ items, title, buttonTitle, buttonAction }: Props) => {
       <h2 className="font-bold text-onSecondary lg:text-[24px]" >{ title }</h2>
 
       <div className="relative flex flex-col mt-10 lg:mt-6 w-full px-8">
-        <div className="relative bg-[#4B0096] flex flex-col lg:flex-row w-full p-4 pt-8 rounded-[14px] z-[1]">
+        <div className="relative bg-tertiary flex flex-col lg:flex-row w-full p-4 pt-8 rounded-[14px] z-[1]">
           { items.map((item, index) => (
             <div className="flex flex-row mb-4" key={index}>
-              <div className="bg-secondary rounded-full flex justify-center items-center w-12 h-12 min-w-[48px] mr-4">
+              <div className="bg-primary rounded-full flex justify-center items-center w-12 h-12 min-w-[48px] mr-4">
                 <p className="font-semibold text-onPrimary text-[24px]">{ index+1 }</p>
               </div>
               <div>

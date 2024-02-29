@@ -38,20 +38,20 @@ const FeaturedProducts = ({ products }: Props) => {
         </h2>
         <div className="flex flex-row pr-7 md:pr-[80px] xl:pr-[140px] 2xl:pr-[276px]">
           <span
-            className="bg-secondary w-[43px] h-[43px] flex items-center justify-center rounded-full cursor-pointer mr-2 hover:scale-105 transition-all"
+            className="bg-primary w-[43px] h-[43px] flex items-center justify-center rounded-full cursor-pointer mr-2 hover:scale-105 transition-all"
             onClick={() =>
               backCarousel(setScrollAmount, carouselRef, cardRef[0])
             }
           >
-            <AiOutlineArrowLeft className="text-[#fff]" size={18} />
+            <AiOutlineArrowLeft className="text-onPrimary" size={18} />
           </span>
           <span
-            className="bg-secondary w-[43px] h-[43px] flex items-center justify-center rounded-full cursor-pointer mr-2 hover:scale-105 transition-all"
+            className="bg-primary w-[43px] h-[43px] flex items-center justify-center rounded-full cursor-pointer mr-2 hover:scale-105 transition-all"
             onClick={() =>
               nextCarousel(setScrollAmount, carouselRef, cardRef[0])
             }
           >
-            <AiOutlineArrowRight className="text-[#fff]" size={18} />
+            <AiOutlineArrowRight className="text-onPrimary" size={18} />
           </span>
         </div>
       </div>

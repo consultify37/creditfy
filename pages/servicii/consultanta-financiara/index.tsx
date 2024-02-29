@@ -16,6 +16,8 @@ import { formatDate } from "../../../utils/formatDate";
 import { Article, Product } from "../../../types";
 import FeaturedProducts from "../../../components/Home/Why-Us/FeaturedProducts";
 import News from "../../../components/Home/News/News";
+import Garantii from "../../../components/Garantii";
+import Proces from "../../../components/Proces";
 
 const intrebari: Faq2[] = [
     {
@@ -47,7 +49,7 @@ export default function PaginaProgram({ articles, products }: Props) {
             <title>{`${process.env.SITE} | Implementare Proiect`}</title>
         </Head>
         <PageHeader
-            title="De la concept la realitate: Implementarea proiectelor cu succes"
+            title="Consultanță financiară"
         >
             <Image
                 src="/images/proces/hexagon.svg"
@@ -64,18 +66,18 @@ export default function PaginaProgram({ articles, products }: Props) {
                 alt="Triangle"
             />
         </PageHeader>
-        <article className="relative flex flex-wrap gap-y-10 gap-x-[6rem] md:mb-24 mt-20 md:mt-40 justify-between items-center px-7 md:px-[80px] xl:px-[140px] 2xl:px-[276px]">
+        {/* <article className="relative flex flex-wrap gap-y-10 gap-x-[6rem] md:mb-24 mt-20 md:mt-40 justify-between items-center px-7 md:px-[80px] xl:px-[140px] 2xl:px-[276px]">
             <Image src='/images/servicii/circle.svg' className='absolute right-[-1.25rem] bottom-[-1rem] lg:bottom-[-5rem] rotate-2 w-[225px] lg:w-[225px] 2xl:w-[340px]' width={150} height={150} alt='Polygon img' />
             <div className="flex-1">
-                <h2 className="text-[#260056] font-bold text-xl mb-6 lg:text-2xl xl:text-3xl">
+                <h2 className="text-secondary font-bold text-xl mb-6 lg:text-2xl xl:text-3xl">
                     Cum implementăm proiectele?
                 </h2>
-                <p className="text-[#260056] font-normal text-sm md:text-base">
+                <p className="text-secondary font-normal text-sm md:text-base">
                     Cu o abordare agilă și expertiză în fondurile europene, ne asigurăm că proiectele dvs. sunt implementate cu succes. De la analiza inițială și planificare riguroasă, până la execuția atentă și monitorizarea progresului, vă oferim soluții personalizate pentru a maximiza rezultatele. Iată ce pași urmăm:
                 </p>
                 <ul className='list-none my-6'>
                     <li className='flex gap-5 items-center'>
-                        <span className='text-[#260056] px-[15px] w-8 h-8 rounded-[50%] bg-[#BA63FF] flex items-center justify-center font-semibold'>1</span>
+                        <span className='text-secondary px-[15px] w-8 h-8 rounded-[50%] bg-[#BA63FF] flex items-center justify-center font-semibold'>1</span>
                         <p className=' text-[16.5px] text-sm md:text-base font-semibold'>Achiziții strategice și conforme cu specificațiile proiectului.</p>
                     </li>
                     <li className='flex gap-5 items-center mt-4'>
@@ -96,7 +98,7 @@ export default function PaginaProgram({ articles, products }: Props) {
                     </Link>
                     <Link
                         href="/testimoniale"
-                        className="py-3 bg-transparent font-semibold text-[#260056] flex items-center justify-center rounded-[28.5px] border-2 border-[#8717F8] px-5 sm:px-12 hover:scale-[1.05] transition-all"
+                        className="py-3 bg-transparent font-semibold text-secondary flex items-center justify-center rounded-[28.5px] border-2 border-[#8717F8] px-5 sm:px-12 hover:scale-[1.05] transition-all"
                     >
                         Testimoniale
                     </Link>
@@ -110,8 +112,8 @@ export default function PaginaProgram({ articles, products }: Props) {
                 height={300}
                 unoptimized={true}
             />
-        </article>
-        <Rezultate />
+        </article> */}
+        {/* <Rezultate /> */}
         <section className='relative w-full mt-20 md:mt-40 mx-auto px-7 md:px-[80px] xl:px-[140px] 2xl:px-[276px] flex gap-y-20 gap-0 justify-between flex-col md:flex-row z-[2]'>
             <div className='relative w-full md:w-full'>
                 <Image 
@@ -127,50 +129,48 @@ export default function PaginaProgram({ articles, products }: Props) {
                 <Image src='/images/patrat.svg' className='absolute z-[-1] left-[-1.25rem] lg:left-[-4.25rem] bottom-[-2rem] rotate-2 w-[100px] lg:w-[150px]' width={150} height={150} alt='Polygon img' />
             </div>
             <div className='w-full md:w-full'>
-                <h2 className='text-xl font-bold text-[#260056] z-[2] mb-6 lg:text-2xl xl:text-3xl'>Acest serviciu este pentru tine dacă vrei:</h2>
-                <ul className='list-none mt-4'>
-                    <li className='flex'>
-                        <Image src='/images/servicii/check.svg' className='mr-4 w-[24px] h-[24px] mt-1' width={28} height={28} alt='check' />
-                        <p className='text-[#260056] text-[15px] lg:text-base font-bold'>Accelerarea procesului de implementare cu resursele și know-how-ul nostru.</p>
+                <h2 className='text-xl font-bold text-secondary z-[2] mb-6 lg:text-2xl xl:text-3xl'>Cum te putem ajuta?</h2>
+                <p className="text-secondary font-normal text-sm md:text-base">
+                    Mauris tristique pulvinar massa, ut hendrerit enim pretium nec. Fusce sed dolor est. Praesent non maximus lorem, nec sagittis metus. Nulla libero nisl, scelerisque et imperdiet mattis, suscipit eu elit.
+                </p>
+                <ul className='list-none my-6'>
+                    <li className='flex gap-5 items-center'>
+                        <span className='text-secondary px-[15px] w-8 h-8 rounded-[50%] bg-primary flex items-center justify-center font-semibold'>1</span>
+                        <p className=' text-[16.5px] text-sm md:text-base font-semibold'>Achiziții strategice și conforme cu specificațiile proiectului.</p>
                     </li>
-                    <li className='flex mt-4'>
-                        <Image src='/images/servicii/check.svg' className='mr-4 w-[24px] h-[24px] mt-1' width={28} height={28} alt='check' />
-                        <p className='text-[#260056] text-[15px] lg:text-base font-bold'>Asigurarea conformității cu cerințele și termenele stricte ale fondurilor europene.</p>
+                    <li className='flex gap-5 items-center mt-4'>
+                        <span className='text-onLightBrown px-[15px] w-8 h-8 rounded-[50%] bg-lightBrown flex items-center justify-center font-semibold'>2</span>
+                        <p className='text-[16.5px] text-sm md:text-base font-semibold'>Formulare precisă a cererilor de plată conform reglementărilor programului.</p>
                     </li>
-                    <li className='flex mt-4'>
-                        <Image src='/images/servicii/check.svg' className='mr-4 w-[24px] h-[24px] mt-1' width={28} height={28} alt='check' />
-                        <p className='text-[#260056] text-[15px] lg:text-base font-bold'>Reducerea stresului și a presiunii asupra echipei dumneavoastră.</p>
-                    </li>
-                    <li className='flex mt-4'>
-                        <Image src='/images/servicii/check.svg' className='mr-4 w-[24px] h-[24px] mt-1' width={28} height={28} alt='check' />
-                        <p className='text-[#260056] text-[15px] lg:text-base font-bold'>Acces la rețeaua noastră extinsă de parteneri și contacte relevante.</p>
-                    </li>
-                    <li className='flex mt-4'>
-                        <Image src='/images/servicii/check.svg' className='mr-4 w-[24px] h-[24px] mt-1' width={28} height={28} alt='check' />
-                        <p className='text-[#260056] text-[15px] lg:text-base font-bold'>Suportul dedicat și consultanța pe tot parcursul implementării proiectului tău.</p>
+                    <li className='flex gap-5 items-center mt-4'>
+                        <span className='text-onDarkBrown px-[15px] w-8 h-8 rounded-[50%] bg-darkBrown flex items-center justify-center font-semibold'>3</span>
+                        <p className='text-[16.5px] text-sm md:text-base font-semibold'>Proces rapid și eficient de cereri de rambursare pentru maximizarea resurselor financiare.</p>
                     </li>
                 </ul>
                 <div className='flex flex-row gap-2 md:gap-4 mt-6'>
                 <Link
                     href="/shop" 
-                    className="bg-primary py-3 text-[#fff] flex justify-center items-center font-semibold rounded-[28.5px] px-8 sm:px-12 hover:scale-[1.05] transition-all"
+                    className="bg-primary py-3 text-secondary flex justify-center items-center font-semibold rounded-[28.5px] px-8 sm:px-12 hover:scale-[1.05] transition-all"
                 >
                     Shop
                 </Link>
                 <Link
-                    href="/contact"
-                    className="py-3 bg-transparent font-semibold text-[#260056] flex items-center justify-center rounded-[28.5px] border-2 border-[#8717F8] px-8 sm:px-12 hover:scale-[1.05] transition-all"
+                    href="/testimoniale"
+                    className="py-3 bg-transparent font-semibold text-secondary flex items-center justify-center rounded-[28.5px] border-2 border-primary px-8 sm:px-12 hover:scale-[1.05] transition-all"
                 >
-                    Contactează-ne!
+                    Testimoniale
                 </Link>
                 </div>
             </div>
         </section>
         <div className="h-4 md:h-8"></div>
-        <div className="mt-16 md:mt-32 px-0 md:px-[80px] xl:px-[140px] 2xl:px-[276px]">
+        {/* <div className="mt-16 md:mt-32 px-0 md:px-[80px] xl:px-[140px] 2xl:px-[276px]">
             <OurClients hasTitle={true} />
-        </div>
+        </div> */}
         <DidYouKnow />
+        <Garantii />
+        <Rezultate />
+        <Proces />
         <FAQAbout intrebari={intrebari} />
         <CTA
             title="Aplică acum și transformă-ți <purple>proiectele<purple> în realitate cu Consultify!"

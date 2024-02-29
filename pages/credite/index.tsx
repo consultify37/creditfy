@@ -48,7 +48,7 @@ export default function Programe({categories, programe, articles, products }: Pr
     return (
         <>
             <Head>
-                <title>Consultify | Programe</title>
+                <title>{`${process.env.SITE} | Credite`}</title>
             </Head>
             <PageHeader 
                 title="Alege programul potrivit pentru tine:"
@@ -78,14 +78,14 @@ export default function Programe({categories, programe, articles, products }: Pr
                     }
                 </div>
                 <div className='mt-32 flex items-center justify-center w-full gap-2'>
-                    <RiArrowLeftSLine size={24} onClick={handlePrev} className={`${page === 0 ? 'text-[#CDCDCD]' : 'text-[#260056]'} cursor-pointer`} />
+                    <RiArrowLeftSLine size={24} onClick={handlePrev} className={`${page === 0 ? 'text-[#CDCDCD]' : 'text-secondary'} cursor-pointer`} />
                     {
                         maxPages > 0 &&
                             Array.from({length: maxPages}, (_, i) =>
-                                <p key={i} onClick={() => {window.scrollTo({top: 280, left: 0, behavior: "instant"}); setPage(i)}} className={`${i === page ? 'bg-[#260056] text-white' : 'text-[#260056]'} cursor-pointer h-8 w-8 rounded-full flex items-center justify-center`}>{i+1}</p>
+                                <p key={i} onClick={() => {window.scrollTo({top: 280, left: 0, behavior: "instant"}); setPage(i)}} className={`${i === page ? 'bg-secondary text-white' : 'text-secondary'} cursor-pointer h-8 w-8 rounded-full flex items-center justify-center`}>{i+1}</p>
                             )
                     }
-                    <RiArrowRightSLine size={24} onClick={handleNext} className={`${page === maxPages - 1 ? 'text-[#CDCDCD]' : 'text-[#260056]'} cursor-pointer`} />
+                    <RiArrowRightSLine size={24} onClick={handleNext} className={`${page === maxPages - 1 ? 'text-[#CDCDCD]' : 'text-secondary'} cursor-pointer`} />
                 </div>
             </section>
             <div className="-mt-24">

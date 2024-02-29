@@ -81,7 +81,7 @@ export default function Testimoniale({ articles, categories, products }: Props) 
                             href={`/blog/${item.id}`}
                             key={item.id}
                         >
-                            <article className='max-w-[350px] m-auto relative bg-[#F5F5F5] rounded-[16px] snap-center'>
+                            <article className='max-w-[350px] m-auto relative bg-admin-background rounded-[16px] snap-center'>
                                 <div className="relative overflow-hidden h-64 rounded-[20px_20px_0_0] object-cover">
                                     <Image src={item.mainImage.image} placeholder='blur' blurDataURL={item.mainImage.image} alt={item.title} width={300} height={300} className='w-full object-cover h-full'/>
                                 </div>
@@ -109,14 +109,14 @@ export default function Testimoniale({ articles, categories, products }: Props) 
                 }
             </div>
             <div className='mt-8 md:mt-12 flex items-center justify-center w-full gap-2'>
-                <RiArrowLeftSLine size={24} onClick={() => setPage(0)} className={`${page === 0 ? 'text-[#CDCDCD]' : 'text-[#260056]'} cursor-pointer`} />
+                <RiArrowLeftSLine size={24} onClick={() => setPage(0)} className={`${page === 0 ? 'bg-onSecondary' : 'text-secondary'} cursor-pointer`} />
                 {
                     maxPages > 0 &&
                         Array.from({length: maxPages}, (_, i) =>
-                            <p key={i} onClick={() => setPage(i)} className={`${i === page ? 'bg-[#260056] text-white' : 'text-[#260056]'} cursor-pointer h-8 w-8 rounded-full flex items-center justify-center`}>{i+1}</p>
+                            <p key={i} onClick={() => setPage(i)} className={`${i === page ? 'bg-primary text-secondary' : 'text-secondary'} cursor-pointer h-8 w-8 rounded-full flex items-center justify-center`}>{i+1}</p>
                         )
                 }
-                <RiArrowRightSLine size={24} onClick={() => setPage(maxPages-1)} className={`${page === maxPages - 1 ? 'text-[#CDCDCD]' : 'text-[#260056]'} cursor-pointer`} />
+                <RiArrowRightSLine size={24} onClick={() => setPage(maxPages-1)} className={`${page === maxPages - 1 ? 'bg-onSecondary' : 'text-secondary'} cursor-pointer`} />
             </div>
         </section>
         <FeaturedProducts 

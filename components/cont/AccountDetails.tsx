@@ -136,7 +136,7 @@ const AccountDetails = () => {
 
           <div className='flex items-center justify-center h-[45px] lg:h-[53px] mt-4 lg:mt-0 w-full lg:w-fit'>
             { isLoading ?
-              <ReactLoading type="spin" color="#8717F8" width={24} height={24} className='lg:mx-32'/> :
+              <ReactLoading type="spin" color="#FF7A00" width={24} height={24} className='lg:mx-32'/> :
               <button
                 type='submit'
                 className='px-16 xl:px-20 py-3 lg:py-4 lg:w-fit w-full bg-primary flex items-center justify-center rounded-[10px] lg:rounded-[12px] hover:scale-105 transition-all'
@@ -181,7 +181,7 @@ const AccountDetails = () => {
 
           <div className='flex items-center justify-center h-[45px] lg:h-[53px] w-full'>
             { isLoading2 ?
-              <ReactLoading type="spin" color="#8717F8" width={24} height={24} /> :
+              <ReactLoading type="spin" color="#FF7A00" width={24} height={24} /> :
               <button
                 type='submit'
                 className='py-3 lg:py-4 w-full bg-primary flex items-center justify-center rounded-[10px] lg:rounded-[12px] hover:scale-105 transition-all'

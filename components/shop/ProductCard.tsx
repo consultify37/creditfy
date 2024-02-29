@@ -24,7 +24,7 @@ const ProductCard = ({ cardRef, product, hasMargin, className }: Props) => {
       ref={cardRef ? cardRef : null}
       key={product.id}
       href={`/shop/product/${product.id}`}
-      className={`p-2 pb-4 bg-[#F2F4FF] rounded-[16px] shadow-lg flex flex-col gap-6 snap-center ${ className ? className : ''}`}
+      className={`p-2 pb-4 bg-admin-background rounded-[16px] shadow-lg flex flex-col gap-6 snap-center ${ className ? className : ''}`}
       style={{marginRight: hasMargin ? 24 : 0}}
     >
       <div className="relative h-[250px]">

@@ -22,9 +22,9 @@ const Faq = ({ faqs }: Props) => {
           <h2 className='text-2xl lg:text-[32px] text-secondary font-bold max-w-[80%] md:max-w-[60%] mb-6 md:mb-12'>Întrebări frecvente:</h2>
           {
               faqs.map((faq, index) => (
-                  <article key={index} className='w-full rounded-[8px] bg-[#FAF3FF]'>
+                  <article key={index} className='w-full rounded-[8px] bg-admin-card'>
                       <div className='flex justify-between p-4 px-6 cursor-pointer w-full z-50' onClick={() => handleSelectQuestion(index)}>
-                          <h3 className='text-[14px] md:text-lg text-[#260056] font-bold'>{faq.question}</h3>
+                          <h3 className='text-[14px] md:text-lg text-secondary font-bold'>{faq.question}</h3>
                           <Image
                               className={`md:w-[20px] w-[14px] md:min-w-[20px] min-w-[14px] right-[10px] top-[23px]
                               ${

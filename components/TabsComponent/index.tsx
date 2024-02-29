@@ -28,14 +28,13 @@ const TabsComponent = ({ values, setSelectedValue }: Props) => {
 
   return (
     <div className='-mx-1'>
-      <div className='relative hidden lg:flex flex-row bg-[#F6EFFF] justify-between items-center rounded-full px-16'>
+      <div className='relative hidden lg:flex flex-row bg-admin-background justify-between items-center rounded-full px-16'>
         {
           values.map((value, index) => (
             <p 
               key={value+index}
               ref={(el) => (tabsRef.current[index] = el)}
-              className='py-[28px] px-2 lg:px-6 z-10 cursor-pointer text-center font-semibold'
-              style={{color: index == activeTabIndex ? 'white' : 'black'}}
+              className='py-[28px] px-2 lg:px-6 z-10 cursor-pointer text-center font-semibold text-secondary'
               onClick={() => {
                 setActiveTabIndex(index)
                 setSelectedValue(value)
@@ -46,7 +45,7 @@ const TabsComponent = ({ values, setSelectedValue }: Props) => {
           ))
         }
         <span
-          className="absolute top-[6px] block h-[68px] bg-[#8717F8] transition-all duration-300 z-[0] rounded-full"
+          className="absolute top-[6px] block h-[68px] bg-primary transition-all duration-300 z-[0] rounded-full"
           style={{ left: tabLeft-28, width: tabWidth+56 }}
         />
       </div>
@@ -54,7 +53,7 @@ const TabsComponent = ({ values, setSelectedValue }: Props) => {
       <input aria-hidden="true" type="checkbox" name="toggle_dropdown" id="toggle_dropdown" className="hidden peer z-[11]" checked={toggle} onChange={() => setToggle(toggle => !toggle)}></input>
       <div className='relative'>
         <label role="button" htmlFor="toggle_dropdown" aria-label="dropdown" id="dropdown">
-          <div className='lg:hidden flex flex-row w-full items-center justify-between bg-[#F6EFFF] rounded-full p-5 px-6 mb-4 shadow-lg z-[11]'> 
+          <div className='lg:hidden flex flex-row w-full items-center justify-between bg-admin-background rounded-full p-5 px-6 mb-4 shadow-lg z-[11]'> 
             <p className='font-semibold'>{values[activeTabIndex]}</p>
             <svg width="14" height="6" viewBox="0 0 11 5" fill="none" xmlns="http://www.w3.org/2000/svg" 
               aria-hidden='true' id='chevron-down'
@@ -66,7 +65,7 @@ const TabsComponent = ({ values, setSelectedValue }: Props) => {
         </label>
 
         <div 
-          className='absolute top-11 pt-2 flex-col z-10 w-full bg-[#F6EFFF] rounded-b-3xl shadow-lg pb-1'
+          className='absolute top-11 pt-2 flex-col z-10 w-full bg-admin-background rounded-b-3xl shadow-lg pb-1'
           id='dropdown-container'
           style={{visibility: toggle ? 'visible' : 'hidden'}}
         >
@@ -74,14 +73,14 @@ const TabsComponent = ({ values, setSelectedValue }: Props) => {
             values.map((value, index) => (
               <div key={value+index} className='px-1 z-50'>
                 <div
-                  className='w-full rounded-full bg-[#F6EFFF] hover:bg-[#8717F8] px-5 py-3 cursor-pointer group'
+                  className='w-full rounded-full bg-admin-background hover:bg-primary px-5 py-3 cursor-pointer group'
                   onClick={() => {
                     setToggle(false)
                     setActiveTabIndex(index)
                     setSelectedValue(value)
                   }}
                 >
-                  <p className='group-hover:text-white font-semibold'>{value}</p>
+                  <p className='group-hover:text-secondary font-semibold'>{value}</p>
                 </div>
               </div>
             ))

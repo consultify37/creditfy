@@ -75,7 +75,7 @@ const OurClients = ({hasTitle=false}) => {
     return(
         <section id='our-clients' className='w-full flex items-center justify-center flex-col gap-5 z-10'>
             {  hasTitle && 
-                <p className="text-[#8717F8] text-xl md:text-3xl text-center font-bold px-7 md:px-0 mb-5">
+                <p className="text-primary text-xl md:text-3xl text-center font-bold px-7 md:px-0 mb-5">
                     Gândurile și experiențele clienților noștri - testimoniale de succes
                 </p>
             }
@@ -90,10 +90,10 @@ const OurClients = ({hasTitle=false}) => {
                 >
                 {
                     Testimonials.map((testimonial, index) =>
-                        <div key={testimonial.id + index} className="min-h-[880px] sm:min-h-[840px] md:min-h-[800px] lg:min-h-[500px] xl:min-h-[460px] 2xl:min-h-[440px] bg-[#36007B] rounded-[16px] p-12 px-8 lg:px-12 lg:py-8 mx-4 mb-4 flex flex-col lg:flex-row lg:justify-start items-center justify-between">
+                        <div key={testimonial.id + index} className="min-h-[880px] sm:min-h-[840px] md:min-h-[800px] lg:min-h-[500px] xl:min-h-[460px] 2xl:min-h-[440px] bg-[#000D34] rounded-[16px] p-12 px-8 lg:px-12 lg:py-8 mx-4 mb-4 flex flex-col lg:flex-row lg:justify-start items-center justify-between">
                             <div className="flex flex-col lg:w-full lg:mr-8">
                                 <h1 className="text-[16px] xl:text-[23px] text-onPrimary font-bold">{testimonial.title}</h1>
-                                <p className="text-[14px] xl:text-[15px] text-tertiary font-semibold mt-4">{testimonial.subTitle}</p>
+                                <p className="text-[14px] xl:text-[15px] text-primary font-semibold mt-4">{testimonial.subTitle}</p>
                                 <p className="text-[14px] xl:text-[15px] text-onPrimary mt-4">{testimonial.description}</p>
                                 <p className="text-[14px] xl:text-[15px] text-onPrimary mt-4">{testimonial.descriptionTwo}</p>
                             </div>
@@ -120,7 +120,7 @@ const OurClients = ({hasTitle=false}) => {
                 }
                 </Carousel>
             </div>
-            {hasTitle && <Link href='/testimoniale' className="bg-[#BA63FF] flex items-center font-semibold justify-center w-[max-content] mx-auto justify-self-center px-12 py-3 md:py-4 mb-4 text-white rounded-[28.5px] transition-all hover:scale-[1.05]">
+            {hasTitle && <Link href='/testimoniale' className="bg-primary flex items-center font-semibold justify-center w-[max-content] mx-auto justify-self-center px-12 py-3 md:py-4 mb-4 text-onPrimary rounded-[28.5px] transition-all hover:scale-[1.05]">
                 Vezi toate testimonialele
             </Link>}
         </section>

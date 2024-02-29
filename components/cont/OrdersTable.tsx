@@ -84,7 +84,7 @@ const OrdersTable = () => {
 
       { isLoading &&
         <div className='h-[40vh] w-full flex items-center justify-center'>
-          <ReactLoading type="spin" color="#8717F8" width={32} height={32} /> 
+          <ReactLoading type="spin" color="#FF7A00" width={32} height={32} /> 
         </div>
       }
     </div>

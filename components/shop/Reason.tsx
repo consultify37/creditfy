@@ -14,6 +14,13 @@ const Reason = ({ index, reason }: Props) => {
       </div>
 
       <p className='text-[14px] lg:text-[16px] font-semibold ml-3 lg:pr-2'>{ reason }</p>
+
+      <div className='hidden'>
+        <p className='bg-[#FF7A00] text-[#00071E]'>p</p>
+        <p className='bg-[#00071E] text-[#00071E]'>p</p>
+        <p className='bg-[#AE5400] text-[#00071E]'>p</p>
+        <p className='bg-[#7D3E03] text-[#00071E]'>p</p>
+      </div>
     </div>
   )
 }

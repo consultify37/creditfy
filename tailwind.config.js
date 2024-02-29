@@ -23,7 +23,7 @@ module.exports = {
         "onLightOrange": "#000",
         "admin-background": "#F8F9FA",
         "admin-card": "#EFEFEF",
-        "price": "#04D200"
+        "price": "#00071E"
       },
     },
   },

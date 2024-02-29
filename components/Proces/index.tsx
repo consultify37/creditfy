@@ -51,7 +51,7 @@ export default function Proces(){
 
             <Image src='/images/proces/circle-proces.svg' className="hidden md:block absolute right-[-80px] top-0 w-[300px] h-[300px]" alt='triangle' width={250} height={250}/>
             <Image src='/images/proces/hexagon.svg' className="hidden md:block absolute bottom-[5%] -left-12 w-[200px] h-[200px]" alt='triangle' width={250} height={250}/>
-            <h2 className="text-[#fff] text-xl lg:text-2xl xl:text-3xl text-center font-bold mb-20 md:mb-28">Ghidul nostru pentru accesarea fondurilor: <br /> Pas cu pas cu Consultify</h2>
+            <h2 className="text-primary text-xl lg:text-2xl xl:text-3xl text-center font-bold mb-20 md:mb-28">Care este procesul de accesare alături de Credify?</h2>
             <div className="w-full flex relative flex-col md:flex-row justify-between items-start">
                 <div className="flex items-center w-full flex-col md:mr-8">
                     {Proces.map(proces => (
@@ -60,21 +60,30 @@ export default function Proces(){
                                 onClick={() => handleClick(proces)}
                                 className={`flex w-full max-w-[400px] flex-row items-center mb-6 py-8 px-6 justify-start ${
                                     proces.id == selectedProces.id
-                                        ? "bg-[#D8A6FF] rounded-2xl"
+                                        ? "bg-primary rounded-2xl"
                                         : ""
                                 }`}
                             >
-                                <Image
-                                    src="/images/proces/check.svg"
-                                    className="mr-4"
-                                    width={31}
-                                    height={31}
-                                    alt="check"
-                                />
+                                { proces.id === selectedProces.id ?
+                                    <Image
+                                        src="/images/proces/check copy.svg"
+                                        className="mr-4"
+                                        width={31}
+                                        height={31}
+                                        alt="check"
+                                    /> :
+                                    <Image
+                                        src="/images/proces/check.svg"
+                                        className="mr-4"
+                                        width={31}
+                                        height={31}
+                                        alt="check"
+                                    />
+                                }
                                 <span
                                     className={`text-lg sm:text-xl font-bold text-start ${
                                         proces.id === selectedProces.id
-                                            ? "text-[#260056]"
+                                            ? "text-secondary"
                                             : "text-[#fff]"
                                     }`}
                                 >
@@ -91,7 +100,7 @@ export default function Proces(){
                     <p className="text-base font-light text-[#fff] ">{selectedProces.text}</p>
                 </div>
             </div>
-            <Link href='/contact' className="mt-12 md:mt-0 py-3 md:py-4 font-semibold bg-[#8717F8] text-[#fff] rounded-[28.5px] px-12 flex items-center justify-center w-fit mx-auto transition-all hover:scale-[1.05]">
+            <Link href='/contact' className="mt-12 md:mt-0 py-3 md:py-4 font-semibold bg-primary text-secondary rounded-[28.5px] px-12 flex items-center justify-center w-fit mx-auto transition-all hover:scale-[1.05]">
                 Contactează-ne!
             </Link>
         </section>

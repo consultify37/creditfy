@@ -30,7 +30,7 @@ export default function FonduriComponent({ program, index=0, carousel=false }: P
                         <li key={index} className="text-[#E0E0E0] font-semibold text-[15px] xl:text-base mb-4">{ bulletPoint }</li>
                     ))}
                 </ul>
-                <Link className="py-3 mt-4 bg-primary text-onPrimary flex items-center rounded-[28.5px] font-semibold px-11 text-center sm:px-12 hover:scale-[1.05] transition-all" href={"/campanii/" + program.id}>Aplică acum!</Link>
+                <Link className="py-3 mt-4 bg-primary text-onPrimary flex items-center rounded-[28.5px] font-semibold px-11 text-center sm:px-12 hover:scale-[1.05] transition-all" href={"/credite/" + program.id}>Aplică acum!</Link>
             </div>
             <div className={'flex flex-col justify-center pt-12 z-[1] ' + (index % 2 === 0 ? 'items-end' : 'items-start')}>
                 <div className="lg:max-w-[280px] xl:max-w-[340px] 2xl:max-w-[400px]">

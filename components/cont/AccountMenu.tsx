@@ -47,7 +47,7 @@ const AccountMenu = ({ pathName }: Props) => {
       <div className='hidden lg:flex flex-col w-[285px]'>
         <div className='flex flex-col bg-[#FAFAFA] rounded-[12px]'>
           { menuItems.map((item, index) => (
-            <Link href={item.pathName != 'informatii' ? `/cont/${item.pathName }`: '/cont'} key={item.name+index} className={'z-50 h-fit w-full flex flex-row items-center bg-[#FAFAFA] hover:bg-[#8717F8] transition-all p-4 cursor-pointer group ' + ( index == 0 ? 'rounded-t-[12px]': '' ) + ( index == menuItems.length-1 ? 'rounded-b-[12px]' : '') }>
+            <Link href={item.pathName != 'informatii' ? `/cont/${item.pathName }`: '/cont'} key={item.name+index} className={'z-50 h-fit w-full flex flex-row items-center bg-[#FAFAFA] hover:bg-primary transition-all p-4 cursor-pointer group ' + ( index == 0 ? 'rounded-t-[12px]': '' ) + ( index == menuItems.length-1 ? 'rounded-b-[12px]' : '') }>
               <div className='bg-[#F2F4FF] rounded-[4px] w-8 h-8 flex items-center justify-center mr-6'>
                 <Image 
                   src={item?.svg ? item.svg : ''}

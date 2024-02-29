@@ -37,7 +37,6 @@ export default function Home({ slides, programe, articles, products }: Props) {
       <CarouselPrograme programe={programe} />
       <Rezultate />
       <Garantii />
-      <div id="proces"></div>
       <Proces />
       <div className="mt-16 md:mt-32 px-0 md:px-[80px] xl:px-[140px] 2xl:px-[276px]">
         <OurClients hasTitle={true} />
