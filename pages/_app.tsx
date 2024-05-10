@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 import { AuthContext } from '../context/AuthContext'
 import { CartContext } from '../context/CartContext'
 import { FavoritesContext } from '../context/FavoritesContext'
+import ComingSoon from '../components/ComingSoon'
 
 function useNormalScrollRoutes() {
   const router = useRouter()
@@ -46,27 +47,28 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [router.events])
 
   return (
-    <AuthContext>
-      <CartContext>
-        <FavoritesContext>
-          <div className="flex flex-col">
-            { !pathname?.includes('/admin') ?
-              <>
-                <TopBar />
-                <Header />
-              </> : null
-            }
-            <main className="flex-1 relative">
-              <Component {...pageProps} />
-              <Toaster />
-              <CookiePolicy />
-            </main>
-            { !pathname?.includes('/admin') ?
-              <Footer /> : null
-            }
-          </div>
-        </FavoritesContext>
-      </CartContext>
-    </AuthContext>
+    <ComingSoon />
+    // <AuthContext>
+    //   <CartContext>
+    //     <FavoritesContext>
+    //       <div className="flex flex-col">
+    //         { !pathname?.includes('/admin') ?
+    //           <>
+    //             <TopBar />
+    //             <Header />
+    //           </> : null
+    //         }
+    //         <main className="flex-1 relative">
+    //           <Component {...pageProps} />
+    //           <Toaster />
+    //           <CookiePolicy />
+    //         </main>
+    //         { !pathname?.includes('/admin') ?
+    //           <Footer /> : null
+    //         }
+    //       </div>
+    //     </FavoritesContext>
+    //   </CartContext>
+    // </AuthContext>
   )
 }
