@@ -11,6 +11,7 @@ import Cookies from 'js-cookie'
 import toast from 'react-hot-toast'
 import { validateEmail } from '../../../utils/validateEmail'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 type Props = {
   products: Product[]
@@ -169,13 +170,13 @@ const Products = ({ products }: Props) => {
           }
 
           { !isLoading ?
-            <button
-              onClick={handleCheckout}
-              className='px-16 xl:px-20 py-3 lg:py-4 w-full bg-primary flex items-center justify-center rounded-full hover:scale-105 transition-all mt-6'
+            <Link
+              href='/shop/detali-comanda'
+              className='py-3 lg:py-4 w-full bg-primary flex items-center justify-center rounded-full hover:scale-105 transition-all mt-6'
             >
               <p className='text-onPrimary font-semibold text-[14px]'>Plasează comanda</p>
-            </button> :
-            <ReactLoading type="spin" color="#8717F8" width={32} height={32} className='mt-6' />
+            </Link> :
+            <ReactLoading type="spin" color="#FF7A00" width={32} height={32} className='mt-6' />
           }
         </div>
       </div>
